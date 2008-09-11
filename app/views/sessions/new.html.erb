@@ -1,0 +1,19 @@
+<div id="login">
+  <h1>Welcome to Suite</h1>
+  <h2>Please Login (using your gmail account)</h2>
+  <%- form_tag sessions_path do -%>
+      <table border="0">
+          <tr>
+              <td><label for="username">Google Username</label></td>
+              <td><%= text_field_tag 'username' %></td>
+          </tr>
+          <tr>
+              <td><label for="password">Google Password</label></td>
+              <td><%= password_field_tag 'password' %></td>
+          </tr>
+          <tr>
+              <td colspan="2"><%= submit_tag 'Login' %></td>
+          <td>
+      </ul>
+  <%- end -%>
+</div>

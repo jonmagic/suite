@@ -1,0 +1,14 @@
+<div id="clients">
+  <table>
+    <tr><th class="first">Id</th><th>Name</th><th>Phone</th><th>Email</th><th>Address</th></tr>
+    <% @clients.each do |client|  %>
+      <tr class="client" title="<%= client.fullname %>" alt="<%= client.id %>">
+        <td class="first"><%= client.id %></td>
+        <td><%= client.fullname %></td>
+        <td><%= client.primary_phone %></td>
+        <td><%= client.primary_email %></td>
+        <td><%= client.primary_address %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

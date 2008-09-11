@@ -1,0 +1,20 @@
+body {margin:0;padding:0;color:#000;}
+
+div#login {width:26em;margin:5em auto;padding:1em 3em;text-align:left;border:1px solid #ccc;background-color:#eee;}
+div#login h1 {font-size:2em;margin:.5em 0;color:blue;}
+div#login h2 {font-size:1em;color:#555;}
+div#login table td {border-style:none;border-width:0px;}
+
+div#wrapper {text-align:left;}
+
+div#header {background-color:#363D57;height:4em;}
+div#header ul {position:absolute;top:.6em;left:1em;padding:0;margin:0;font-size:1.6em;list-style:none;}
+div#header li {margin:0;padding:0;list-style:none;display:inline;}
+div#header li a {padding:.4em 1em;background-color:#363D57;color:#292B2A;border:1px solid #292B2A;-moz-border-radius:8px;-webkit-border-radius:8px;}
+div#header li a.selected {background-color:#292B2A;color:#fff;}
+div#header li a:hover.selected {background-color:#292B2A;color:#fff;border:1px solid #292B2A;-moz-border-radius:8px;-webkit-border-radius:8px;}
+div#header li a:hover {background-color:#95BD32;border:1px solid #95BD32;-moz-border-radius:8px;-webkit-border-radius:8px;}
+div#header span {position:absolute;top:1.5em;right:1.4em;font-size:1em;color:#fff;}
+div#header span a {color:#fff;}
+
+.hide {display:none;}

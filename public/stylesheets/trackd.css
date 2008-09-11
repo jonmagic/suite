@@ -1,0 +1,25 @@
+div#search {background-color:#bbb;height:3em;}
+div#search form {margin:0 0 0 1.4em;padding:.6em 0;font-size:1.2em;}
+div#search input.search_box {width:40%;}
+div#search a.new_device {position:absolute;right:1.4em;top:4.7em;padding:.2em 1em;background-color:#ccc;border:1px solid #333;color:#333;text-decoration:none;-moz-border-radius:3px;-webkit-border-radius:3px;}
+
+div#devices {}
+div#devices table {border-style:hidden;margin:0;width:100%;text-align:left;}
+div#devices table th, div#devices table td {border-style:hidden;margin:0;padding:.3em;}
+div#devices table th.first, div#devices table td.first {padding-left:1.7em;}
+div#devices table tr th {text-align:left;background-color:#ddd;}
+div#devices table tr:hover {background-color:#eee;}
+
+div#device {padding-left:1.8em;}
+div#device h2 {font-size:1.5em;margin:1em 0 0 0;}
+div#device h3 {font-size:1.2em;font-weight:normal;margin:.5em 0 1em 0;}
+
+div#device table tr td, div#device table tr th {border-style:hidden;text-align:left;}
+div#device table tr td.name, div#device table tr th.name {width:10em;}
+div#device table tr th.name {font-size:1.3em;}
+div#device a.edit {padding:.2em 1em;background-color:#ccc;border:1px solid #333;color:#333;text-decoration:none;-moz-border-radius:3px;-webkit-border-radius:3px;}
+
+div#device div#parts {position:relative;top:1.5em;left:-.7em}
+div#device table#components {float:left;}
+div#device table#programs {margin-left:50%;}
+div#device form textarea {width: 500px;}

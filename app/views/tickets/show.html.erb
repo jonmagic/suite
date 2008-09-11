@@ -1,0 +1,10 @@
+<div id="ticket">
+  <h2><b>Ticket</b> #<%= @ticket.id %></h2>
+  <h3><b>Client:</b> <%= @ticket.client.fullname %></h3>
+  <h3><b>Technician:</b> <%= @ticket.user.username %></h3>
+  <h3><b>Group:</b> <%= @ticket.group %></h3>
+  <h3><b>Status:</b> <%= @ticket.status %></h3>
+  <h3><b>Description:</b></h3>
+  <p><%= @description.to_html %></p>
+  <%= link_to "Edit", edit_ticket_path, :class => "edit" %>
+</div>

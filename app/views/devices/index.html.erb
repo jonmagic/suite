@@ -1,0 +1,12 @@
+<div id="devices">
+  <table>
+    <tr><th class="first">Device Name</th><th>Owner</th><th>Service Tag</th></tr>
+    <% @devices.each do |device|  %>
+      <tr class="device" title="<%= "#{device.name}" %>" alt="<%= device.id %>">
+        <td class="first"><%= device.name %></td>
+        <td><%= device.client_name %></td>
+        <td><%= device.service_tag %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

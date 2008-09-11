@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	  <title>Know My Clients</title>
+    <!-- css & js framework stuff -->
+	  <link rel="stylesheet" href="/stylesheets/reset-fonts-grids.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	  <link rel="stylesheet" href="/stylesheets/base-min.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript" charset="utf-8" src="/javascripts/prototype.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/jquery-ui.js"></script>
+    <!-- my css & js files -->
+	  <link rel="stylesheet" href="/stylesheets/common.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	  <link rel="stylesheet" href="/stylesheets/trackd.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript" charset="utf-8" src="/javascripts/common.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/trackd.js"></script>
+    <%= yield :head %>
+  </head>
+  <body>
+    <%- if logged_in? -%>
+      <div id="wrapper">
+        <div id="header">
+          <h1 style="display:none">Know My Clients</h1>
+          <ul>
+            <li><a href="/clients">Know My Clients</a></li>
+            <li><a href="/tickets">Opportunity Tickets</a></li>
+            <li><a href="/devices" class="selected">Track Devices</a></li>
+          </ul>
+          <span>
+            Welcome <%=h current_user.username %>, <%= link_to 'Logout?', logout_url %>
+          </span>
+        </div>
+        <div id="search">
+          <form action="/devices" method="POST">Search: <input name="q" value="" class="search_box" /></form>
+          <%= link_to "New Device", new_device_path, :class => "new_device" %>
+        </div>
+        <%= yield %>
+      </div>
+    <%- else -%>
+      <%= yield %>
+    <%- end -%>
+  </body>
+</html>

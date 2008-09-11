@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  client_id: 1
+  group_id: MyString
+  owner_id: 1
+  description: MyText
+
+two:
+  client_id: 1
+  group_id: MyString
+  owner_id: 1
+  description: MyText

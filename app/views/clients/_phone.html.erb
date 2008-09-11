@@ -1,0 +1,10 @@
+<% new_or_existing = phone.new_record? ? 'new' : 'existing' %>
+<% prefix = "client[#{new_or_existing}_phone_attributes][]" %>
+<% fields_for prefix, phone do |f| -%>
+  <tr class="phone_number">
+    <td class="edit"><%= link_to_function image_tag("/images/delete.png"), "$(this).up(index = 1).remove()" %></td>
+    <td class="context"><%= f.select :context, ["Cell","Work","Home","Fax"] %></td>
+    <td class="content"><%= f.text_field :number %></td>
+  </tr>
+<% end -%>
+

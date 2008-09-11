@@ -1,0 +1,48 @@
+<% form_for @client do |f| -%>
+  <div id="client">
+    <div id="picture"></div>
+    <div id="names">
+      <h2 class="person_name"><%= f.text_field :firstname, :title => "First Name" %> <%= f.text_field :lastname, :title => "Last Name" %></h2>
+      <h2 class="company_name"><%= f.text_field :name, :title => "Company Name" %></h2>
+      <h3 class="company_select">Belongs To: <%= f.select :belongs_to, @companies.collect {|c| [c.name, c.id]}, {:include_blank => ''} %></h3>
+      <h3 class="is_a_company">Company? <%= f.check_box :company %></h3>
+    </div>
+    <div id="details">
+      <table>
+        <tbody id="phones">
+          <tr>
+            <td class="edit"><%= add_phone_link "Add a phone number" %></td>
+            <td class="context black">Phone</td>
+            <td class="content gray"><b>Numbers</b></td>
+          </tr>
+          <%= render :partial => 'phone', :collection => @client.phones %>
+        </tbody>
+      </table>
+      <table>
+        <tbody id="emails">
+          <tr>
+            <td class="edit"><%= add_email_link "Add an email address" %></td>
+            <td class="context black">Email</td>
+            <td class="content gray"><b>Addresses</b></td>
+          </tr>
+          <%= render :partial => 'email', :collection => @client.emails %>
+        </tbody>
+      </table>
+      <table>
+        <tbody id="addresses">
+          <tr>
+            <td class="edit"><%= add_address_link "Add a street address" %></td>
+            <td class="context black">Street</td>
+            <td class="content gray"><b>Addresses</b></td>
+          </tr>
+          <%= render :partial => 'address', :collection => @client.addresses %>
+        </tbody>
+      </table>
+      <%= f.submit "Save" %>
+    </div>
+  </div>
+  <div id="client_notes">
+    <h2>Notes</h2>
+    <%= f.text_area :note, :rows => 16 %>
+  </div>
+<% end %>

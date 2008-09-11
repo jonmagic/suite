@@ -1,0 +1,32 @@
+<div id="device">
+  <h2><%= @device.name %></h2>
+  <h3>Service Tag: <%= @device.service_tag %></h3>
+  <h3>Owner: <b><%= @device.client_name %></b></h3>
+  <%= link_to "Edit", edit_device_path, :class => "edit" %>
+  <div id="parts">
+    <table id="components">
+      <tr>
+        <th class="name">Component Name</th>
+        <th>Serial Number</th>
+      </tr>
+      <% @device.components.each do |component| %>
+        <tr>
+          <td class="name"><%= component.name %></td>
+          <td><%= component.serial_number %></td>
+        </tr>
+      <% end %>
+    </table> 
+    <table id="programs">
+      <tr>
+        <th class="name">Program Name</th>
+        <th>Serial Number</th>
+      </tr>
+      <% @device.programs.each do |program| %>
+        <tr>
+          <td class="name"><%= program.name %></td>
+          <td><%= program.serial_number %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<% form_for @device do |f| -%>
+  <h2><%= f.text_field :name, :title => "Device Name" %></h2>
+  <h3><%= f.text_field :service_tag, :title => "Service Tag" %></h3>
+  <h3>Belongs To: <%= f.select :client_id, @clients.collect {|c| [c.fullname, c.id]} %></h3>
+  <h3>Description:</h3>
+  <p><%= f.text_area :description, :rows => 6 %></p>
+  <%= f.submit "Save" %>
+<% end %>

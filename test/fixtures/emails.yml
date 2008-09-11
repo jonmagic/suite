@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  context: MyString
+  address: MyString
+  ordinal: 1
+  client_id: 1
+
+two:
+  context: MyString
+  address: MyString
+  ordinal: 1
+  client_id: 1
