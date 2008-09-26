@@ -1,10 +1,14 @@
 h1. Suite
 
-Suite is software for small service based businesses. The workflow in Suite is fairly simple. There are 3 ways one can approach a problem in Suite.
+Suite is software for small service based businesses. The workflow in Suite is fairly simple. There are 3 ways one can approach a problem in Suite. From the client, from a ticket, or from a device. Tickets and devices are tied to clients. Clients can belong to other clients (i.e. people inside a company). The clients section is modeled after Apple Address Book. Most of my UI is modeled after the applications that ship with OSX (Address Book, Mail, iTunes).
 
 h3. To-Do
 
-- when you go to clients it should give something other than just a blank white page
-- when editing a client, add new email/phone/address buttons don't work
-- when editing a client, remove existing email/phone/address buttons don't work
-- when editing a client, 
+* when you go to clients it should give something other than just a blank white page
+* when editing a client, add new email/phone/address buttons don't work
+* when editing a client, remove existing email/phone/address buttons don't work
+* extract the ui css & js so that it can be used elsewhere
+* build a ui for clients to login and check on the status of their tickets/devices/history
+* build out the devices section, nothing has really been done there yet
+* add device listing to ticket view
+* add ticket listing to client view
