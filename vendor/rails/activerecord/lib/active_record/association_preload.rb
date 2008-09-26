@@ -34,7 +34,7 @@ module ActiveRecord
         class_to_reflection = {}
         # Not all records have the same class, so group then preload
         # group on the reflection itself so that if various subclass share the same association then we do not split them
-        # unnecessarily
+        # unncessarily
         records.group_by {|record| class_to_reflection[record.class] ||= record.class.reflections[association]}.each do |reflection, records|
           raise ConfigurationError, "Association named '#{ association }' was not found; perhaps you misspelled it?" unless reflection
           send("preload_#{reflection.macro}_association", records, reflection, preload_options)
@@ -95,7 +95,7 @@ module ActiveRecord
         records.each {|record| record.send(reflection.name).loaded}
         options = reflection.options
 
-        conditions = "t0.#{reflection.primary_key_name} #{in_or_equals_for_ids(ids)}"
+        conditions = "t0.#{reflection.primary_key_name}  IN (?)"
         conditions << append_conditions(options, preload_options)
 
         associated_records = reflection.klass.find(:all, :conditions => [conditions, ids],
@@ -222,6 +222,8 @@ module ActiveRecord
 
           table_name = klass.quoted_table_name
           primary_key = klass.primary_key
+          conditions = "#{table_name}.#{connection.quote_column_name(primary_key)} IN (?)"
+          conditions << append_conditions(options, preload_options)
           column_type = klass.columns.detect{|c| c.name == primary_key}.type
           ids = id_map.keys.uniq.map do |id|
             if column_type == :integer
@@ -232,8 +234,6 @@ module ActiveRecord
               id
             end
           end
-          conditions = "#{table_name}.#{connection.quote_column_name(primary_key)} #{in_or_equals_for_ids(ids)}"
-          conditions << append_conditions(options, preload_options)
           associated_records = klass.find(:all, :conditions => [conditions, ids],
                                           :include => options[:include],
                                           :select => options[:select],
@@ -248,10 +248,10 @@ module ActiveRecord
         table_name = reflection.klass.quoted_table_name
 
         if interface = reflection.options[:as]
-          conditions = "#{reflection.klass.quoted_table_name}.#{connection.quote_column_name "#{interface}_id"} #{in_or_equals_for_ids(ids)} and #{reflection.klass.quoted_table_name}.#{connection.quote_column_name "#{interface}_type"} = '#{self.base_class.sti_name}'"
+          conditions = "#{reflection.klass.quoted_table_name}.#{connection.quote_column_name "#{interface}_id"} IN (?) and #{reflection.klass.quoted_table_name}.#{connection.quote_column_name "#{interface}_type"} = '#{self.base_class.sti_name}'"
         else
           foreign_key = reflection.primary_key_name
-          conditions = "#{reflection.klass.quoted_table_name}.#{foreign_key} #{in_or_equals_for_ids(ids)}"
+          conditions = "#{reflection.klass.quoted_table_name}.#{foreign_key} IN (?)"
         end
 
         conditions << append_conditions(options, preload_options)
@@ -277,9 +277,6 @@ module ActiveRecord
         sql
       end
 
-      def in_or_equals_for_ids(ids)
-        ids.size > 1 ? "IN (?)" : "= ?"
-      end
     end
   end
 end

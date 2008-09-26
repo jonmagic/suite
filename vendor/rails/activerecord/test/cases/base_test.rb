@@ -76,7 +76,7 @@ class TopicWithProtectedContentAndAccessibleAuthorName < ActiveRecord::Base
 end
 
 class BasicsTest < ActiveRecord::TestCase
-  fixtures :topics, :companies, :developers, :projects, :computers, :accounts, :minimalistics, 'warehouse-things', :authors, :categorizations, :categories, :posts
+  fixtures :topics, :companies, :developers, :projects, :computers, :accounts, :minimalistics, 'warehouse-things', :authors, :categorizations, :categories
 
   def test_table_exists
     assert !NonExistentTable.table_exists?
@@ -138,7 +138,7 @@ class BasicsTest < ActiveRecord::TestCase
   if current_adapter?(:MysqlAdapter)
     def test_read_attributes_before_type_cast_on_boolean
       bool = Booleantest.create({ "value" => false })
-      assert_equal "0", bool.reload.attributes_before_type_cast["value"]
+      assert_equal 0, bool.attributes_before_type_cast["value"]
     end
   end
 
@@ -664,21 +664,10 @@ class BasicsTest < ActiveRecord::TestCase
     end
   end
 
-  def test_update_all_ignores_order_without_limit_from_association
-    author = authors(:david)
+  def test_update_all_ignores_order_limit_from_association
+    author = Author.find(1)
     assert_nothing_raised do
-      assert_equal author.posts_with_comments_and_categories.length, author.posts_with_comments_and_categories.update_all([ "body = ?", "bulk update!" ])
-    end
-  end
-
-  def test_update_all_with_order_and_limit_updates_subset_only
-    author = authors(:david)
-    assert_nothing_raised do
-      assert_equal 1, author.posts_sorted_by_id_limited.size
-      assert_equal 2, author.posts_sorted_by_id_limited.find(:all, :limit => 2).size
-      assert_equal 1, author.posts_sorted_by_id_limited.update_all([ "body = ?", "bulk update!" ])
-      assert_equal "bulk update!", posts(:welcome).body
-      assert_not_equal "bulk update!", posts(:thinking).body
+      assert_equal author.posts_with_comments_and_categories.length, author.posts_with_comments_and_categories.update_all("body = 'bulk update!'")
     end
   end
 
@@ -891,7 +880,7 @@ class BasicsTest < ActiveRecord::TestCase
 
   def test_mass_assignment_protection_against_class_attribute_writers
     [:logger, :configurations, :primary_key_prefix_type, :table_name_prefix, :table_name_suffix, :pluralize_table_names, :colorize_logging,
-      :default_timezone, :schema_format, :lock_optimistically, :record_timestamps].each do |method|
+      :default_timezone, :allow_concurrency, :schema_format, :verification_timeout, :lock_optimistically, :record_timestamps].each do |method|
       assert  Task.respond_to?(method)
       assert  Task.respond_to?("#{method}=")
       assert  Task.new.respond_to?(method)
@@ -913,14 +902,6 @@ class BasicsTest < ActiveRecord::TestCase
 
     keyboard = Keyboard.new(:id => 9, :name => 'nice try')
     assert_nil keyboard.id
-  end
-
-  def test_mass_assigning_invalid_attribute
-    firm = Firm.new
-
-    assert_raises(ActiveRecord::UnknownAttributeError) do
-      firm.attributes = { "id" => 5, "type" => "Client", "i_dont_even_exist" => 20 }
-    end
   end
 
   def test_mass_assignment_protection_on_defaults
@@ -1125,15 +1106,11 @@ class BasicsTest < ActiveRecord::TestCase
   end
 
   def test_boolean
-    b_nil = Booleantest.create({ "value" => nil })
-    nil_id = b_nil.id
     b_false = Booleantest.create({ "value" => false })
     false_id = b_false.id
     b_true = Booleantest.create({ "value" => true })
     true_id = b_true.id
 
-    b_nil = Booleantest.find(nil_id)
-    assert_nil b_nil.value
     b_false = Booleantest.find(false_id)
     assert !b_false.value?
     b_true = Booleantest.find(true_id)
@@ -1141,15 +1118,11 @@ class BasicsTest < ActiveRecord::TestCase
   end
 
   def test_boolean_cast_from_string
-    b_blank = Booleantest.create({ "value" => "" })
-    blank_id = b_blank.id
     b_false = Booleantest.create({ "value" => "0" })
     false_id = b_false.id
     b_true = Booleantest.create({ "value" => "1" })
     true_id = b_true.id
 
-    b_blank = Booleantest.find(blank_id)
-    assert_nil b_blank.value
     b_false = Booleantest.find(false_id)
     assert !b_false.value?
     b_true = Booleantest.find(true_id)

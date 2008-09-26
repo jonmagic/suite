@@ -1,0 +1,10 @@
+<div class="toolbar"><a href="#" class="new_entry_link">New Entry</a></div>
+<div id="new_ticket_entry" class="hide"></div>
+<% @ticket_entries.reverse.each do |entry| %>
+  <div class="ticket_entry">
+    <div class="ticket_entry_mugshot"></div>
+    <p class="ticket_entry_byline">Entry by <%= entry.creator.name %> on <%= entry.updated_at.strftime("%H:%M %m/%d/%Y") %></p>
+    <p class="ticket_entry_details">Billable? <%= billable(entry) %> - Time Spent: <%= entry.time %> minutes</p>
+    <div class="ticket_entry_note"><%= note_to_html(entry) %></div>
+  </div>
+<% end %>

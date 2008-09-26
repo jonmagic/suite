@@ -1,0 +1,33 @@
+/* sidebar */
+
+/* tickets */
+#tickets {}
+#tickets table a {display:block;}
+#tickets table tr:hover {background-color:#eee;}
+.first {padding-left:10px;width:2em;text-align:center;}
+
+
+/* ticket */
+#ticket {margin:0 1em;}
+#ticket div.description {position:absolute;top:0;left:0;margin:.5em 1em 0 35%;}
+#ticket div.description b {color:#bbb;}
+.toolbar {display:block;height:30px;padding-left:5px;background:url("/images/button_bg.png") repeat-x -5px;border:1px solid #dddddd;-moz-border-radius:5px;-webkit-border-radius:5px;margin-bottom:5px;}
+.toolbar a {color:#444;display:block;height:18px;width:8em;text-align:center;padding:6px;}
+.toolbar a:hover {color:#000;background:url("/images/button_bg_active.png") repeat-x -5px;}
+.ticket_entry {border-top:1px solid #ddd;padding:5px;}
+.ticket_entry:hover {background-color:#d4dde6;}
+.ticket_entry_details {font-size:8pt;margin-left:55px;line-height:8pt;}
+.ticket_entry_byline {font-size:8pt;margin-left:55px;line-height:8pt;}
+.ticket_entry_mugshot {float:left;display:block;width:50px;height:50px;background-color:#eee;}
+.ticket_entry_note {margin-left:1em;}
+
+.new_ticket_entry {padding:10px 10px 1px;margin-bottom:1em;border:1px solid #ddd;-moz-border-radius:5px;-webkit-border-radius:5px;}
+.new_ticket_entry_details {float:left;width:50%;}
+.new_ticket_entry_details tr td.first {color:#bbb;width:8em;text-align:right;}
+.new_ticket_entry_details input {width:90px;}
+.new_ticket_entry_note {margin-left:50%;}
+.new_ticket_entry_note textarea {width:80%;height:6em;}
+
+/* new ticket form */
+table.table-style1 tr td.first {width:8em;}
+input#ticket_active_on {width:8em;}

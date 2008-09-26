@@ -1,9 +1,11 @@
 <% form_for @ticket do |f| -%>
-  <h3>Belongs To: <%= f.select :client_id, @clients.collect {|c| [c.fullname, c.id]} %></h3>
-  <h3>Assigned To: <%= f.select :user_id, @users.collect {|c| [c.username, c.id]} %></h3>
-  <h3>Group: <%= f.select :group, ["Sales", "Service", "Billing"] %></h3>
-  <h3>Status: <%= f.select :status, ["Open", "Scheduled", "Completed", "Archived"] %></h3>
+  <table class="table-style1">
+    <tr><td class="first">Client:</td><td><%= f.select :client_id, @clients.collect {|c| [c.fullname, c.id]} %></td><tr>
+    <tr><td class="first">Technician:</td><td><%= f.select :user_id, @users.collect {|c| [c.name, c.id]} %></td></tr>
+    <tr><td class="first">Scheduled For:</td><td><%= f.text_field :active_on, :value => if @ticket.active_on != nil then @ticket.active_on.strftime("%m/%d/%Y") else Date.today.strftime("%m/%d/%Y") end %></td></tr>
+  </table>
+  <div class="line"></div>
   <h3>Description:</h3>
-  <p><%= f.text_area :description, :rows => 6 %></p>
-  <%= f.submit "Save" %>
+  <p><%= f.text_area :description %></p>
+  <%= f.submit "Save", :class => "hide" %>
 <% end %>

@@ -1,5 +1,4 @@
 require 'date'
-require 'set'
 require 'bigdecimal'
 require 'bigdecimal/util'
 
@@ -7,8 +6,6 @@ module ActiveRecord
   module ConnectionAdapters #:nodoc:
     # An abstract definition of a column in a table.
     class Column
-      TRUE_VALUES = [true, 1, '1', 't', 'T', 'true', 'TRUE'].to_set
-
       module Format
         ISO_DATE = /\A(\d{4})-(\d\d)-(\d\d)\z/
         ISO_DATETIME = /\A(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)(\.\d+)?\z/
@@ -33,11 +30,11 @@ module ActiveRecord
       end
 
       def text?
-        type == :string || type == :text
+        [:string, :text].include? type
       end
 
       def number?
-        type == :integer || type == :float || type == :decimal
+        [:float, :integer, :decimal].include? type
       end
 
       # Returns the Ruby class that corresponds to the abstract data type.
@@ -138,10 +135,10 @@ module ActiveRecord
 
         # convert something to a boolean
         def value_to_boolean(value)
-          if value.is_a?(String) && value.blank?
-            nil
+          if value == true || value == false
+            value
           else
-            TRUE_VALUES.include?(value)
+            %w(true t 1).include?(value.to_s.downcase)
           end
         end
 

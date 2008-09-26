@@ -934,21 +934,6 @@ if ActiveRecord::Base.connection.supports_migrations?
       assert_equal(0, ActiveRecord::Migrator.current_version)
     end
 
-    if current_adapter?(:PostgreSQLAdapter)
-      def test_migrator_one_up_with_exception_and_rollback
-        assert !Person.column_methods_hash.include?(:last_name)
-
-        e = assert_raises(StandardError) do
-          ActiveRecord::Migrator.up(MIGRATIONS_ROOT + "/broken", 100)
-        end
-
-        assert_equal "An error has occurred, this and all later migrations canceled:\n\nSomething broke", e.message
-
-        Person.reset_column_information
-        assert !Person.column_methods_hash.include?(:last_name)
-      end
-    end
-
     def test_finds_migrations
       migrations = ActiveRecord::Migrator.new(:up, MIGRATIONS_ROOT + "/valid").migrations
       [['1', 'people_have_last_names'],
@@ -965,26 +950,6 @@ if ActiveRecord::Base.connection.supports_migrations?
       assert_equal 1, migrations.size
       migrations[0].version == '3'
       migrations[0].name    == 'innocent_jointable'
-    end
-
-    def test_only_loads_pending_migrations
-      # migrate up to 1
-      ActiveRecord::Migrator.up(MIGRATIONS_ROOT + "/valid", 1)
-
-      # now unload the migrations that have been defined
-      PeopleHaveLastNames.unloadable
-      ActiveSupport::Dependencies.remove_unloadable_constants!
-
-      ActiveRecord::Migrator.migrate(MIGRATIONS_ROOT + "/valid", nil)
-
-      assert !defined? PeopleHaveLastNames
-
-      %w(WeNeedReminders, InnocentJointable).each do |migration|
-        assert defined? migration
-      end
-
-    ensure
-      load(MIGRATIONS_ROOT + "/valid/1_people_have_last_names.rb")
     end
 
     def test_migrator_interleaved_migrations

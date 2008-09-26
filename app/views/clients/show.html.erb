@@ -1,61 +1,45 @@
-<div id="client">
-  <div id="picture"></div>
-  <%- if @client.company == true %>
-    <h2><%= @client.name %></h2>
-  <%- elsif @client.company == false %>
-    <h2><%= @client.fullname %></h2>
-    <h3><%= @client.company_name %></h3>
-  <%- end %>
+<div class="mugshot"></div>
+<h2 class="fullname" title="<%= @client.fullname %>" alt="<%= @client.id %>"><%= @client.fullname %></h2>
+<h3 class="company_name"><%= @client.company_name %></h3>
+
+<div id="client_content">
+  <ul>
+    <li class="ui-tabs-nav-item"><a href="#details" title="details">Details</a></li>
+    <li class="ui-tabs-nav-item"><a href="#tickets" title="tickets">Tickets</a></li>
+    <li class="ui-tabs-nav-item"><a href="#devices" title="devices">Devices</a></li>
+  </ul>
   <div id="details">
-    <table id="phones">
+    <table>
       <tr>
-        <td class="edit"></td>
-        <td class="context">Phone</td>
-        <td class="content"><b>Numbers</b></td>
+        <th class="context">Phone</th><th>Number</th>
       </tr>
-      <%- @client.phones.each do |phone| %>
+      <% @client.phones.each do |phone| %>
         <tr>
-          <td class="edit">
-          </td>
-          <td class="context"><%= phone.context%></td>
-          <td class="content"><%= phone.number %></td>
+          <td class="context"><%= phone.context %></td><td><%= phone.number %></td>
         </tr>
-      <%- end %>
+      <% end %>
     </table>
-    <table id="emails">
+    <table>
       <tr>
-        <td class="edit"></td>
-        <td class="context">Email</td>
-        <td class="content"><b>Addresses</b></td>
+        <th class="context">Email</th><th>Address</th>
       </tr>
-      <%- @client.emails.each do |email| %>
+      <% @client.emails.each do |email| %>
         <tr>
-          <td class="edit">
-          </td>
-          <td class="context"><%= email.context%></td>
-          <td class="content"><%= email.address %></td>
+          <td class="context"><%= email.context %></td><td><%= email.address %></td>
         </tr>
-      <%- end %>
+      <% end %>
     </table>
-    <table id="addresses">
+    <table>
       <tr>
-        <td class="edit"></td>
-        <td class="context">Street</td>
-        <td class="content"><b>Addresses</b></td>
+        <th class="context">Street</th><th>Address</th>
       </tr>
-      <%- @client.addresses.each do |address| %>
+      <% @client.addresses.each do |address| %>
         <tr>
-          <td class="edit">
-          </td>
-          <td class="context"><%= address.context%></td>
-          <td class="content"><%= address.full_address %></td>
+          <td class="context"><%= address.context %></td><td><%= address.full_address %></td>
         </tr>
-      <%- end %>
+      <% end %>
     </table>
-    <%= link_to "Edit", edit_client_path, :class => "edit" %>
   </div>
-</div>
-<div id="client_notes">
-  <h2 class="note">Notes</h2>
-  <%= @client_notes.to_html %>
+  <div id="tickets">stuff 2</div>
+  <div id="devices">stuff 3</div>
 </div>

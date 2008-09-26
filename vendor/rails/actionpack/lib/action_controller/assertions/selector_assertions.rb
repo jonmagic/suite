@@ -21,8 +21,10 @@ module ActionController
     # from the response HTML or elements selected by the enclosing assertion.
     # 
     # In addition to HTML responses, you can make the following assertions:
-    # * +assert_select_rjs+ - Assertions on HTML content of RJS update and insertion operations.
-    # * +assert_select_encoded+ - Assertions on HTML encoded inside XML, for example for dealing with feed item descriptions.
+    # * +assert_select_rjs+ - Assertions on HTML content of RJS update and
+    #     insertion operations.
+    # * +assert_select_encoded+ - Assertions on HTML encoded inside XML,
+    #     for example for dealing with feed item descriptions.
     # * +assert_select_email+ - Assertions on the HTML body of an e-mail.
     #
     # Also see HTML::Selector to learn how to use selectors.
@@ -449,13 +451,7 @@ module ActionController
           matches
         else
           # RJS statement not found.
-          case rjs_type
-            when :remove, :show, :hide, :toggle
-              flunk_message = "No RJS statement that #{rjs_type.to_s}s '#{id}' was rendered."
-            else
-              flunk_message = "No RJS statement that replaces or inserts HTML content."
-          end
-          flunk args.shift || flunk_message
+          flunk args.shift || "No RJS statement that replaces or inserts HTML content."
         end
       end
 

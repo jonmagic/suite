@@ -1,29 +1,28 @@
 class ClientsController < ApplicationController
   before_filter :login_required
+  layout 'clients', :except => :list
   
   def index
-    options = {
-      # :order => 'name DESC'
-      # :page => params[:page]
-    }
-    if params[:term]
-      options[:conditions] = [
-        "name LIKE :term OR lastname LIKE :term OR firstname LIKE :term",
-        {:term => "%#{params[:term]}%"}
-        ]
-    end
-    @clients = Client.find(:all, options)
+  end
+  
+  def list
+    @clients = Client.find(:all)
     
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @clients }
+      format.json  { render :json => @clients }
     end
   end
   
   def show
     @phone_count, @email_count, @address_count = 0
     @client = Client.find(params[:id])
-    @client_notes = RedCloth.new(@client.note)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @client }
+      format.json  { render :json => @client }
+    end
   end
   
   def new
@@ -37,6 +36,11 @@ class ClientsController < ApplicationController
   def edit
     @client = Client.find(params[:id])
     @companies = Client.find(:all, :conditions => {:company => true})
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @client }
+      format.json  { render :json => @client }
+    end
   end
   
   def create

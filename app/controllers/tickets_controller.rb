@@ -1,13 +1,26 @@
 class TicketsController < ApplicationController
   before_filter :login_required
+  before_filter :load_totals, :except => [:create, :update]
   
   def index
-    @tickets = Ticket.find(:all)
+    @tickets = Ticket.limit(params[:status], params[:scope], current_user)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @tickets }
+      format.json  { render :json => @tickets }
+    end
   end
 
   def show
     @ticket = Ticket.find(params[:id])
+    @ticket_entry = TicketEntry.new
     @description = RedCloth.new(@ticket.description)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @ticket }
+      format.json  { render :json => @ticket }
+    end
   end
   
   def new
@@ -54,4 +67,10 @@ class TicketsController < ApplicationController
     end
   end
   
+  protected
+  
+    def load_totals
+      @totals = Ticket.totals(current_user)
+    end
+
 end

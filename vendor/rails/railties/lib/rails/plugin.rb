@@ -74,16 +74,8 @@ module Rails
         File.join(directory, 'lib')
       end
 
-      def classic_init_path
-        File.join(directory, 'init.rb')
-      end
-
-      def gem_init_path
-        File.join(directory, 'rails', 'init.rb')
-      end
-
       def init_path
-        File.file?(gem_init_path) ? gem_init_path : classic_init_path
+        File.join(directory, 'init.rb')
       end
 
       def has_lib_directory?

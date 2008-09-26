@@ -210,6 +210,13 @@ unless current_adapter?(:SQLServerAdapter, :SybaseAdapter, :OpenBaseAdapter)
     def setup
       # Avoid introspection queries during tests.
       Person.columns; Reader.columns
+
+      @allow_concurrency = ActiveRecord::Base.allow_concurrency
+      ActiveRecord::Base.allow_concurrency = true
+    end
+
+    def teardown
+      ActiveRecord::Base.allow_concurrency = @allow_concurrency
     end
 
     # Test typical find.
@@ -257,8 +264,6 @@ unless current_adapter?(:SQLServerAdapter, :SybaseAdapter, :OpenBaseAdapter)
     end
 
     if current_adapter?(:PostgreSQLAdapter, :OracleAdapter)
-      use_concurrent_connections
-
       def test_no_locks_no_wait
         first, second = duel { Person.find 1 }
         assert first.end > second.end

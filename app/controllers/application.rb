@@ -1,11 +1,10 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
-  helper :all
-  protect_from_forgery
-  filter_parameter_logging :password
+  include ExceptionNotifiable
+  include AuthenticatedSystem
+  include RoleRequirementSystem
 
-  include Google::Rails::Helpers
-  
+  helper :all # include all helpers, all the time
+  protect_from_forgery :secret => 'b0a876313f3f9195e9bd01473bc5cd06'
+  filter_parameter_logging :password, :password_confirmation
 end
+

@@ -1,7 +1,7 @@
-* Add layout functionality to mailers [Pratik]
+*2.1.1 (September 4th, 2008)*
 
-  Mailer layouts behaves just like controller layouts, except layout names need to
-  have '_mailer' postfix for them to be automatically picked up.
+* Included in Rails 2.1.1
+
 
 *2.1.0 (May 31st, 2008)*
 

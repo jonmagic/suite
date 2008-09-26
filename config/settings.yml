@@ -1,0 +1,12 @@
+development: &non_production_settings
+  site_url: http://localhost:3000
+  site_name: Suite
+  admin_email: jonmagic@gmail.com
+  
+test:
+  <<: *non_production_settings
+  
+production:
+  site_url: http://suite.sabretechllc.com
+  site_name: SabreTech Suite
+  admin_email: jonmagic@gmail.com

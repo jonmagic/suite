@@ -1,0 +1,11 @@
+<table>
+  <tr><th class="first">Id</th><th>Description</th><th>Client</th><th>Technician</th></tr>
+  <% @tickets.each do |ticket|  %>
+    <tr class="ticket" title="<%= "#{ticket.description}" %>" alt="<%= ticket.id %>">
+      <td class="first"><%= ticket.id %></td>
+      <td><%= ticket.description[0...80] + "..." %></td>
+      <td><%= ticket.client.fullname %></td>
+      <td><%= ticket.user.name %></td>
+    </tr>
+  <% end %>
+</table>

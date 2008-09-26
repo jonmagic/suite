@@ -28,24 +28,8 @@ namespace :db do
 
   def create_database(config)
     begin
-      if config['adapter'] =~ /sqlite/
-        if File.exist?(config['database'])
-          $stderr.puts "#{config['database']} already exists"
-        else
-          begin
-            # Create the SQLite database
-            ActiveRecord::Base.establish_connection(config)
-            ActiveRecord::Base.connection
-          rescue
-            $stderr.puts $!, *($!.backtrace)
-            $stderr.puts "Couldn't create database for #{config.inspect}"
-          end
-        end
-        return # Skip the else clause of begin/rescue    
-      else
-        ActiveRecord::Base.establish_connection(config)
-        ActiveRecord::Base.connection
-      end
+      ActiveRecord::Base.establish_connection(config)
+      ActiveRecord::Base.connection
     rescue
       case config['adapter']
       when 'mysql'
@@ -68,6 +52,10 @@ namespace :db do
           $stderr.puts $!, *($!.backtrace)
           $stderr.puts "Couldn't create database for #{config.inspect}"
         end
+      when 'sqlite'
+        `sqlite "#{config['database']}"`
+      when 'sqlite3'
+        `sqlite3 "#{config['database']}"`
       end
     else
       $stderr.puts "#{config['database']} already exists"
@@ -153,9 +141,6 @@ namespace :db do
     when 'mysql'
       ActiveRecord::Base.establish_connection(config)
       puts ActiveRecord::Base.connection.charset
-    when 'postgresql'
-      ActiveRecord::Base.establish_connection(config)
-      puts ActiveRecord::Base.connection.encoding
     else
       puts 'sorry, your database adapter is not supported yet, feel free to submit a patch'
     end
@@ -194,19 +179,16 @@ namespace :db do
   end
 
   namespace :fixtures do
-    desc "Load fixtures into the current environment's database.  Load specific fixtures using FIXTURES=x,y. Load from subdirectory in test/fixtures using FIXTURES_DIR=z. Specify an alternative path (eg. spec/fixtures) using FIXTURES_PATH=spec/fixtures."
+    desc "Load fixtures into the current environment's database.  Load specific fixtures using FIXTURES=x,y"
     task :load => :environment do
       require 'active_record/fixtures'
-      ActiveRecord::Base.establish_connection(Rails.env)
-      base_dir = ENV['FIXTURES_PATH'] ? File.join(Rails.root, ENV['FIXTURES_PATH']) : File.join(Rails.root, 'test', 'fixtures')
-      fixtures_dir = ENV['FIXTURES_DIR'] ? File.join(base_dir, ENV['FIXTURES_DIR']) : base_dir
-
-      (ENV['FIXTURES'] ? ENV['FIXTURES'].split(/,/).map {|f| File.join(fixtures_dir, f) } : Dir.glob(File.join(fixtures_dir, '*.{yml,csv}'))).each do |fixture_file|
-        Fixtures.create_fixtures(File.dirname(fixture_file), File.basename(fixture_file, '.*'))
+      ActiveRecord::Base.establish_connection(RAILS_ENV.to_sym)
+      (ENV['FIXTURES'] ? ENV['FIXTURES'].split(/,/) : Dir.glob(File.join(RAILS_ROOT, 'test', 'fixtures', '*.{yml,csv}'))).each do |fixture_file|
+        Fixtures.create_fixtures('test/fixtures', File.basename(fixture_file, '.*'))
       end
     end
 
-    desc "Search for a fixture given a LABEL or ID. Specify an alternative path (eg. spec/fixtures) using FIXTURES_PATH=spec/fixtures."
+    desc "Search for a fixture given a LABEL or ID."
     task :identify => :environment do
       require "active_record/fixtures"
 
@@ -215,8 +197,7 @@ namespace :db do
 
       puts %Q(The fixture ID for "#{label}" is #{Fixtures.identify(label)}.) if label
 
-      base_dir = ENV['FIXTURES_PATH'] ? File.join(Rails.root, ENV['FIXTURES_PATH']) : File.join(Rails.root, 'test', 'fixtures')
-      Dir["#{base_dir}/**/*.yml"].each do |file|
+      Dir["#{RAILS_ROOT}/test/fixtures/**/*.yml"].each do |file|
         if data = YAML::load(ERB.new(IO.read(file)).result)
           data.keys.each do |key|
             key_id = Fixtures.identify(key)

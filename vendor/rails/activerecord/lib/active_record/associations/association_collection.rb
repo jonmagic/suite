@@ -2,19 +2,6 @@ require 'set'
 
 module ActiveRecord
   module Associations
-    # AssociationCollection is an abstract class that provides common stuff to
-    # ease the implementation of association proxies that represent
-    # collections. See the class hierarchy in AssociationProxy.
-    #
-    # You need to be careful with assumptions regarding the target: The proxy
-    # does not fetch records from the database until it needs them, but new
-    # ones created with +build+ are added to the target. So, the target may be
-    # non-empty and still lack children waiting to be read from the database.
-    # If you look directly to the database you cannot assume that's the entire
-    # collection because new records may have beed added to the target, etc.
-    #
-    # If you need to work on all current children, new and existing records,
-    # +load_target+ and the +loaded+ flag are your friends.
     class AssociationCollection < AssociationProxy #:nodoc:
       def initialize(owner, reflection)
         super
@@ -27,7 +14,7 @@ module ActiveRecord
         # If using a custom finder_sql, scan the entire collection.
         if @reflection.options[:finder_sql]
           expects_array = args.first.kind_of?(Array)
-          ids           = args.flatten.compact.uniq.map { |arg| arg.to_i }
+          ids           = args.flatten.compact.uniq.map(&:to_i)
 
           if ids.size == 1
             id = ids.first
@@ -139,35 +126,6 @@ module ActiveRecord
         end
       end
 
-      # Count all records using SQL. If the +:counter_sql+ option is set for the association, it will
-      # be used for the query. If no +:counter_sql+ was supplied, but +:finder_sql+ was set, the
-      # descendant's +construct_sql+ method will have set :counter_sql automatically.
-      # Otherwise, construct options and pass them with scope to the target class's +count+.
-      def count(*args)
-        if @reflection.options[:counter_sql]
-          @reflection.klass.count_by_sql(@counter_sql)
-        else
-          column_name, options = @reflection.klass.send(:construct_count_options_from_args, *args)
-          if @reflection.options[:uniq]
-            # This is needed because 'SELECT count(DISTINCT *)..' is not valid SQL.
-            column_name = "#{@reflection.quoted_table_name}.#{@reflection.klass.primary_key}" if column_name == :all
-            options.merge!(:distinct => true)
-          end
-
-          value = @reflection.klass.send(:with_scope, construct_scope) { @reflection.klass.count(column_name, options) }
-
-          limit  = @reflection.options[:limit]
-          offset = @reflection.options[:offset]
-
-          if limit || offset
-            [ [value - offset.to_i, 0].max, limit.to_i ].min
-          else
-            value
-          end
-        end
-      end
-
-
       # Remove +records+ from this association.  Does not destroy +records+.
       def delete(*records)
         records = flatten_deeper(records)
@@ -225,16 +183,9 @@ module ActiveRecord
         end
       end
 
-      # Returns the size of the collection by executing a SELECT COUNT(*)
-      # query if the collection hasn't been loaded, and calling
-      # <tt>collection.size</tt> if it has.
-      #
-      # If the collection has been already loaded +size+ and +length+ are
-      # equivalent. If not and you are going to need the records anyway
-      # +length+ will take one less query. Otherwise +size+ is more efficient.
-      #
-      # This method is abstract in the sense that it relies on
-      # +count_records+, which is a method descendants have to provide.
+      # Returns the size of the collection by executing a SELECT COUNT(*) query if the collection hasn't been loaded and
+      # calling collection.size if it has. If it's more likely than not that the collection does have a size larger than zero
+      # and you need to fetch that collection afterwards, it'll take one less SELECT query if you use length.
       def size
         if @owner.new_record? || (loaded? && !@reflection.options[:uniq])
           @target.size
@@ -246,18 +197,12 @@ module ActiveRecord
         end
       end
 
-      # Returns the size of the collection calling +size+ on the target.
-      #
-      # If the collection has been already loaded +length+ and +size+ are
-      # equivalent. If not and you are going to need the records anyway this
-      # method will take one less query. Otherwise +size+ is more efficient.
+      # Returns the size of the collection by loading it and calling size on the array. If you want to use this method to check
+      # whether the collection is empty, use collection.length.zero? instead of collection.empty?
       def length
         load_target.size
       end
 
-      # Equivalent to <tt>collection.size.zero?</tt>. If the collection has
-      # not been already loaded and you are going to fetch the records anyway
-      # it is better to check <tt>collection.length.zero?</tt>.
       def empty?
         size.zero?
       end
@@ -371,9 +316,7 @@ module ActiveRecord
         def create_record(attrs)
           attrs.update(@reflection.options[:conditions]) if @reflection.options[:conditions].is_a?(Hash)
           ensure_owner_is_not_new
-          record = @reflection.klass.send(:with_scope, :create => construct_scope[:create]) do
-            @reflection.build_association(attrs)
-          end
+          record = @reflection.klass.send(:with_scope, :create => construct_scope[:create]) { @reflection.klass.new(attrs) }
           if block_given?
             add_record_to_target_with_callbacks(record) { |*block_args| yield(*block_args) }
           else
@@ -383,7 +326,7 @@ module ActiveRecord
 
         def build_record(attrs)
           attrs.update(@reflection.options[:conditions]) if @reflection.options[:conditions].is_a?(Hash)
-          record = @reflection.build_association(attrs)
+          record = @reflection.klass.new(attrs)
           if block_given?
             add_record_to_target_with_callbacks(record) { |*block_args| yield(*block_args) }
           else

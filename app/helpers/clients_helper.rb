@@ -1,4 +1,12 @@
 module ClientsHelper
+  
+  def person_or_company(client)
+    if client.company == true
+      return "company"
+    else
+      return "person"
+    end
+  end
 
   def add_phone_link(name) 
     link_to_function image_tag("/images/add.png") do |page| 

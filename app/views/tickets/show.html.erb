@@ -1,10 +1,39 @@
-<div id="ticket">
-  <h2><b>Ticket</b> #<%= @ticket.id %></h2>
-  <h3><b>Client:</b> <%= @ticket.client.fullname %></h3>
-  <h3><b>Technician:</b> <%= @ticket.user.username %></h3>
-  <h3><b>Group:</b> <%= @ticket.group %></h3>
-  <h3><b>Status:</b> <%= @ticket.status %></h3>
-  <h3><b>Description:</b></h3>
-  <p><%= @description.to_html %></p>
-  <%= link_to "Edit", edit_ticket_path, :class => "edit" %>
+<div id="ticket" alt="<%= @ticket.id %>" completed="<%= @ticket.completed_on %>" archived="<%= @ticket.archived_on %>" ticket_id="<%= @ticket.id %>" current_user="<%= current_user.id %>">
+  <table class="table-style1">
+    <tr><td class="first">Ticket:</td><td><%= @ticket.id %></td></tr>
+    <tr><td class="first">Client:</td><td><%= link_to @ticket.client.fullname, "/clients/"+@ticket.client.id.to_s %></td><tr>
+    <tr><td class="first">Technician:</td><td><%= link_to @ticket.technician.name, "/clients/"+@ticket.technician.client_id.to_s %></td></tr>
+    <tr><td class="first">Status:</td><td><%= @ticket.status %></td></tr>
+  </table>
+  <div class="description">
+    <p><b>Description:</b> <%= @ticket.description %></p>
+  </div>
+
+  <div id="ticket_content">
+    <ul>
+      <li class="ui-tabs-nav-item"><a href="#entries" title="entries">Entries</a></li>
+      <li class="ui-tabs-nav-item"><a href="#devices" title="entries">Devices</a></li>
+      <li class="ui-tabs-nav-item"><a href="#files" title="entries">Files</a></li>
+    </ul>
+    
+    <div id="entries"></div>
+    <div id="devices"></div>
+    <div id="files"></div>
+    
+  </div>
+  
+  <div id="complete" class="hide">
+    <% form_for @ticket do |f| -%>
+      <%= f.text_field :completed_on, :value => Date.today.strftime("%m/%d/%Y") %>
+      <%= f.submit "Save" %>
+    <% end %>
+  </div>
+  <div id="archive" class="hide">
+    <% form_for @ticket do |f| -%>
+      <%= f.text_field :archived_on, :value => Date.today.strftime("%m/%d/%Y") %>
+      <%= f.submit "Save" %>
+    <% end %>
+  </div>
 </div>
+<br />
+<br />

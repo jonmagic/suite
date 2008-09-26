@@ -1,19 +1,20 @@
-<div id="login">
-  <h1>Welcome to Suite</h1>
-  <h2>Please Login (using your gmail account)</h2>
-  <%- form_tag sessions_path do -%>
-      <table border="0">
-          <tr>
-              <td><label for="username">Google Username</label></td>
-              <td><%= text_field_tag 'username' %></td>
-          </tr>
-          <tr>
-              <td><label for="password">Google Password</label></td>
-              <td><%= password_field_tag 'password' %></td>
-          </tr>
-          <tr>
-              <td colspan="2"><%= submit_tag 'Login' %></td>
-          <td>
-      </ul>
-  <%- end -%>
-</div>
+<% form_tag session_path do %>
+	<fieldset>
+		<legend>Your Details</legend>
+		<ol>
+			<li>
+				<%= label_tag 'email', 'Email' %>
+				<%= text_field_tag 'email', @email %>
+			</li>
+			<li>
+				<%= label_tag 'password' %>
+				<%= password_field_tag 'password', nil %>
+			</li>
+			<li>
+				<%= label_tag 'remember_me', 'Remember me' %>
+				<%= check_box_tag 'remember_me', '1', @remember_me %>
+			</li>
+		</ol>
+	</fieldset>
+	<%= submit_tag 'Login' %>
+<% end -%>
