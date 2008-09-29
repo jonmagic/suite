@@ -4,11 +4,16 @@ Suite is software for small service based businesses. The workflow in Suite is f
 
 h3. To-Do
 
-* when you go to clients it should give something other than just a blank white page
-* when editing a client, add new email/phone/address buttons don't work
-* when editing a client, remove existing email/phone/address buttons don't work
-* extract the ui css & js so that it can be used elsewhere
-* build a ui for clients to login and check on the status of their tickets/devices/history
+* add file upload functionality to tickets, clients, and devices
 * build out the devices section, nothing has really been done there yet
 * add device listing to ticket view
-* add ticket listing to client view
+
+* make it so you can open a client and send a user invite, to create technicians initially...
+* extract the ui css & js so that it can be used elsewhere
+* build a ui for clients to login and check on the status of their tickets/devices/history
+
+x add ticket listing to client view
+x when editing a client, add new email/phone/address buttons don't work
+x when editing a client, remove existing email/phone/address buttons don't work
+x create a "My Account" page where user can upload an image, change password, etc
+x when you go to clients it should give something other than just a blank white page

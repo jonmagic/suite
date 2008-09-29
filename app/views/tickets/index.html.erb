@@ -1,5 +1,5 @@
 <div id="tickets">
-  <table total="<%= @tickets.length %>">
+  <table total="<%= @tickets.length %>" class="hover">
     <tr><th class="first">Id</th><th>Description</th><th>Client</th><th>Technician</th><th>Status</th></tr>
     <% @tickets.each do |ticket|  %>
       <tr class="ticket" title="<%= "#{ticket.description}" %>" alt="<%= ticket.id %>">

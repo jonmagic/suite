@@ -51,6 +51,8 @@ table.table-style1 tr {margin:0;padding:0;}
 table.table-style1 tr td {margin:0;padding:0;text-align:left;}
 table.table-style1 tr td.first {width:5em;text-align:right;font-weight:bold;color:#bbb;padding-right:1em;}
 table.table-style1 tr td a:hover {padding:2px 6px;margin-left:-6px;background:url("/images/sidebar_active.png") repeat-x -1px;color:#fff;-moz-border-radius:6px;-webkit-border-radius:6px}
+table.hover tr:hover {background-color:#eee;}
+table.hover tr td a {display:block;}
 
 .hide {display:none;}
 .blur {color:#ccc;}

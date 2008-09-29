@@ -1,6 +1,6 @@
+// load my sidebar, select the client we're showing, add an edit button
 $(document).ready(function() {
 
-  // load my sidebar, select the client we're showing, add an edit button
   $("#clients").load("/clients/list", {}, function(){ 
     var client_id = $("#client h2").attr("alt");
     if ($("#client_content").length > 0) {
@@ -9,6 +9,13 @@ $(document).ready(function() {
       }else{
         $("#footer div.col2").append("<a href='#' class='edit_client active col2_button1'>Save</a>");
         $("#footer a.edit_client").bind("click", function(){
+          // fix form saves so that empty boxes don't get saved :-)
+          $("#details input").each(function(){
+            if ($(this).attr("value") == '') {
+              $(this).parent().parent().remove();
+            };
+          });
+          // save form
           $("#client input[type=submit]").click();
         });
       };
@@ -21,9 +28,13 @@ $(document).ready(function() {
     }); 
   });
   
-  // setup tabs
+});
+
+// setup tabs
+$(document).ready(function() {
+
   $("#client_content > ul").tabs();
-  
+
   // client edit page, show or hide form elements based on whether its a company
   if ($("#client h3.is_a_company input").attr("checked")) { 
     $("#client h2.person_name").addClass("hide")
@@ -42,8 +53,12 @@ $(document).ready(function() {
      $("#client h3.company_select").removeClass("hide")
     }
   });
+
+});
+
+// client edit page, place titles in form elements if they are empty, and on click select all
+$(document).ready(function() {
   
-  // client edit page, place titles in form elements if they are empty, and on click select all
   $("#names input[@type=text]").each( function() {
     if ($(this).val() == "") {
       $(this).addClass("blur");      
@@ -51,5 +66,9 @@ $(document).ready(function() {
     $(this).hint();
   });
 
+});
 
+
+$(document).ready(function() {
+  
 });

@@ -23,18 +23,20 @@ malibu_workstation = Device.create(:client => malibutan, :name => "hillsdale-mas
 
 # Setup some users and roles
 technician_role = Role.create(:name => 'technician')
-jonmagic = User.find_by_email(APP_CONFIG[:admin_email])
-jonmagic.update_attributes(:client_id => 4, :name => jon.fullname)
+jonmagic = User.find(1)
+jonmagic.client_id = 4
+jonmagic.name = jon.fullname
+jonmagic.save
 jonmagic.roles << technician_role
-samtheslacker = User.create do |u|
-  u.email = "samsallows@gmail.com"
-  u.password = u.password_confirmation = "1214bj06"
-  u.client_id = 5
-end
-samtheslacker.register!
-samtheslacker.activate!
-samtheslacker.roles << technician_role
-samtheslacker.update_attributes(:name => sam.fullname)
+# samtheslacker = User.create do |u|
+#   u.email = "samsallows@gmail.com"
+#   u.password = u.password_confirmation = "1214bj06"
+#   u.client_id = 5
+# end
+# samtheslacker.register!
+# samtheslacker.activate!
+# samtheslacker.roles << technician_role
+# samtheslacker.update_attributes(:name => sam.fullname)
 
 # Setup some tickets
 ticket1 = Ticket.create(:description => "The first ticket in the system", :client => malibutan, :user_id => 1, :active_on => Date.yesterday)

@@ -28,9 +28,12 @@ ActiveRecord::Schema.define(:version => 20080915192339) do
     t.string   "name"
     t.string   "firstname"
     t.string   "lastname"
-    t.boolean  "company",    :default => false, :null => false
+    t.boolean  "company",              :default => false, :null => false
     t.integer  "belongs_to"
     t.text     "note"
+    t.string   "mugshot_file_name"
+    t.string   "mugshot_content_type"
+    t.integer  "mugshot_file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -135,6 +138,9 @@ ActiveRecord::Schema.define(:version => 20080915192339) do
     t.datetime "activated_at"
     t.datetime "deleted_at"
     t.integer  "client_id"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -3,7 +3,6 @@
 /* tickets */
 #tickets {}
 #tickets table a {display:block;}
-#tickets table tr:hover {background-color:#eee;}
 .first {padding-left:10px;width:2em;text-align:center;}
 
 

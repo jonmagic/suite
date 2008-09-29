@@ -66,7 +66,8 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   config.active_record.observers = :user_observer
   
-  config.gem "googlebase", :lib => 'google/base', :version => '0.2'
+  config.gem 'googlebase', :lib => 'google/base', :version => '0.2'
   config.gem 'json'
+  config.gem 'paperclip'
   
 end

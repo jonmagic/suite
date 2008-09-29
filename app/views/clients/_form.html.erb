@@ -1,15 +1,15 @@
-<% form_for @client do |f| -%>
-    <div id="picture"></div>
+<% form_for @client, :html => { :multipart => true } do |f| -%>
     <div id="names" class="edit">
       <h2 class="person_name"><%= f.text_field :firstname, :title => "First Name" %> <%= f.text_field :lastname, :title => "Last Name" %></h2>
       <h2 class="company_name"><%= f.text_field :name, :title => "Company Name" %></h2>
       <h3 class="company_select">Belongs To: <%= f.select :belongs_to, @companies.collect {|c| [c.name, c.id]}, {:include_blank => ''} %></h3>
       <h3 class="is_a_company">Company? <%= f.check_box :company %></h3>
     </div>
+    <div id="picture"><p>Avatar: <%= f.file_field :mugshot %></p></div>
     <div id="details" class="edit">
       <table id="phones">
         <tr>
-          <th class="add"><%= link_to image_tag("/images/add.png"), "#", :class => "add_phone_number" %></th>
+          <th class="add"><%= add_phone_link(@client) %></th>
           <th class="context">Phone</th>
           <th>Numbers</th>
         </tr>
@@ -17,7 +17,7 @@
       </table>
       <table id="emails">
         <tr>
-          <th class="add"><%= link_to image_tag("/images/add.png"), "#", :class => "add_email_address" %></th>
+          <th class="add"><%= add_email_link(@client) %></th>
           <th class="context">Email</th>
           <th>Addresses</th>
         </tr>
@@ -25,7 +25,7 @@
       </table>
       <table id="addresses">
         <tr>
-          <th class="add"><%= link_to image_tag("/images/add.png"), "#", :class => "add_street_address" %></th>
+          <th class="add"><%= add_address_link(@client) %></th>
           <th class="context">Street</th>
           <th>Addresses</th>
         </tr>

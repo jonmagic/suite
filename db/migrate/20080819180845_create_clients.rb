@@ -7,7 +7,9 @@ class CreateClients < ActiveRecord::Migration
       t.boolean :company, :default => 0, :null => false
       t.integer :belongs_to
       t.text    :note
-
+      t.string  :mugshot_file_name
+      t.string  :mugshot_content_type
+      t.integer :mugshot_file_size
       t.timestamps
     end
   end

@@ -1,4 +1,22 @@
 class UsersController < ApplicationController
+  before_filter :login_required, :except => [:new, :create, :activate]
+
+  def show
+    @user = User.find(current_user.id)
+    @password = Password.new
+  end
+  
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
+      redirect_to "/users/1"
+      flash[:notice] = "Your avatar has been updated"
+    else
+      flash[:error] = "Your avatar has not been updated"
+      redirect_to "/users/1"
+    end
+  end
+
   def new
     @user = User.new
   end

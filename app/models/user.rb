@@ -16,11 +16,14 @@ class User < ActiveRecord::Base
   # Relationships
   has_and_belongs_to_many :roles
   has_one :client
+  
+  has_attached_file :avatar, 
+                    :styles => { :avatar => "50x50#" }
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :email, :name, :password, :password_confirmation
+  attr_accessible :email, :name, :password, :password_confirmation, :avatar
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #

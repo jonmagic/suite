@@ -2,6 +2,10 @@ class Client < ActiveRecord::Base
   
   belongs_to :user
   
+  has_attached_file :mugshot, 
+                    :styles => { :medium => "400x300>",
+                    :avatar => "55x60#" }
+  
   has_many :devices, :dependent => :destroy
   has_many :tickets
   
@@ -103,6 +107,10 @@ class Client < ActiveRecord::Base
   end
   def primary_address
     if address = Address.find(:first, :conditions => {:client_id => self.id, :ordinal => 0}) then address.full_address else "" end
+  end
+  
+  def open_tickets
+    Ticket.find(:all, :conditions => {:archived_on => nil, :client_id => self.id})
   end
 
 end

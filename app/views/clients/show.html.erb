@@ -1,4 +1,4 @@
-<div class="mugshot"></div>
+<div class="mugshot"><%= image_tag @client.mugshot.url(:avatar) %></div>
 <h2 class="fullname" title="<%= @client.fullname %>" alt="<%= @client.id %>"><%= @client.fullname %></h2>
 <h3 class="company_name"><%= @client.company_name %></h3>
 
@@ -7,6 +7,7 @@
     <li class="ui-tabs-nav-item"><a href="#details" title="details">Details</a></li>
     <li class="ui-tabs-nav-item"><a href="#tickets" title="tickets">Tickets</a></li>
     <li class="ui-tabs-nav-item"><a href="#devices" title="devices">Devices</a></li>
+    <% if my_account(@client) %><li class="ui-tabs-nav-item"><a href="/users/<%= current_user.id %>" title="#myaccount">My Account</a></li><% end %>
   </ul>
   <div id="details">
     <table>
@@ -40,6 +41,17 @@
       <% end %>
     </table>
   </div>
-  <div id="tickets">stuff 2</div>
+  <div id="tickets">
+    <table class="hover">
+      <tr><th>Description</th><th>Technician</th><th>Status</th></tr>
+      <% @client.open_tickets.each do |ticket| %>
+        <tr>
+          <td><%= link_to ticket.description[0...60], "/tickets/#{ticket.id}" %></td>
+          <td><%= link_to ticket.technician.name, "/tickets/#{ticket.id}" %></td>
+          <td><%= link_to ticket.status, "/tickets/#{ticket.id}" %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
   <div id="devices">stuff 3</div>
 </div>

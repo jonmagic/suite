@@ -1,7 +1,7 @@
 #client {padding:1em 2em;}
 
 /* name and face */
-#client div.mugshot {display:block;height:60px;width:55px;background-color:#bbb;}
+#client div.mugshot {display:block;height:60px;width:55px;}
 #client h2.fullname {position:absolute;top:5px;left:90px;margin:0;padding:0;}
 #client h3.company_name {position:absolute;top:2.5em;left:90px;margin:0;padding:0;}
 
