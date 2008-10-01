@@ -1,5 +1,5 @@
 development: &non_production_settings
-  site_url: http://localhost:3000
+  site_url: http://suite.bounceme.net
   site_name: Suite
   admin_email: jonmagic@gmail.com
   

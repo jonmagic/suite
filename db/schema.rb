@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080915192339) do
+ActiveRecord::Schema.define(:version => 20080929222304) do
 
   create_table "addresses", :force => true do |t|
     t.string   "context",      :default => "Work", :null => false
@@ -20,6 +20,19 @@ ActiveRecord::Schema.define(:version => 20080915192339) do
     t.integer  "zip"
     t.integer  "ordinal",      :default => 0,      :null => false
     t.integer  "client_id",                        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "attachments", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.integer  "user_id"
+    t.integer  "files_id"
+    t.string   "files_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

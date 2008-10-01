@@ -8,12 +8,13 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
+    @client = Client.find(@user.client_id)
     if @user.update_attributes(params[:user])
-      redirect_to "/users/1"
+      redirect_to client_url(@client)
       flash[:notice] = "Your avatar has been updated"
     else
       flash[:error] = "Your avatar has not been updated"
-      redirect_to "/users/1"
+      redirect_to client_url(@client)
     end
   end
 

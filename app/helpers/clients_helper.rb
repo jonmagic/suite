@@ -45,7 +45,10 @@ module ClientsHelper
   end
   
   def total_archived_tickets
-    @archived_tickets = Ticket.find(:all, :conditions => {:archived_on => !nil})
+    future = Date.today + 100.years
+    past = Date.today - 100.years
+    @archived_tickets = Ticket.find(:all, :conditions => {:archived_on => past..future})
+    @archived_tickets.length
   end
   
   def hours_billed_this_week
