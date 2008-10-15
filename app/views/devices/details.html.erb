@@ -1,0 +1,16 @@
+<div id="details">
+<table id="device_details" alt="<%= @device.id %>" class="table-style1">
+  <tr>
+    <td class="first">Device Name:</td><td><%= @device.name %></td>
+  </tr>
+  <tr>
+    <td class="first">Service Tag:</td><td><%= @device.service_tag %></td>
+  </tr>
+  <tr>
+    <td class="first">Owner:</td><td><%= link_to @device.client.fullname, "/clients/"+@device.client.id.to_s %></td>
+  </tr>
+</table>
+
+<p><%= link_to "Add to ticket", "/tickets/#{@ticket.id}/devices/#{@device.id}/add_to_ticket", :class => "add" %></p>
+<p><%= link_to "Remove from ticket", "/tickets/#{@ticket.id}/devices/#{@device.id}/remove_from_ticket", :class => "remove" %></p>
+</div>
