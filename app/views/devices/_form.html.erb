@@ -1,8 +1,16 @@
 <% form_for @device do |f| -%>
-  <h2><%= f.text_field :name, :title => "Device Name" %></h2>
-  <h3><%= f.text_field :service_tag, :title => "Service Tag" %></h3>
-  <h3>Belongs To: <%= f.select :client_id, @clients.collect {|c| [c.fullname, c.id]} %></h3>
-  <h3>Description:</h3>
-  <p><%= f.text_area :description, :rows => 6 %></p>
-  <%= f.submit "Save" %>
+  <table id="device_details" alt="<%= @device.id %>" class="table-style1" edit="edit">
+    <tr>
+      <td class="first">Device Name:</td><td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td class="first">Service Tag:</td><td><%= f.text_field :service_tag %></td>
+    </tr>
+    <tr>
+      <td class="first">Owner:</td><td><%= f.select :client_id, @clients.collect {|c| [c.fullname, c.id]} %></td>
+    </tr>
+    <tr>
+      <td class="first">Description:</td><td><%= f.text_area :description, :rows => 6 %></td>
+    </tr>
+  <%= f.submit "Save", :class => "hide" %>
 <% end %>

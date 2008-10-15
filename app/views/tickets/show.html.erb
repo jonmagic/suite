@@ -6,18 +6,41 @@
     <tr><td class="first">Status:</td><td><%= @ticket.status %></td></tr>
   </table>
   <div class="description">
-    <p><b>Description:</b> <%= @ticket.description %></p>
+    <b>Description:</b> <%= textile_to_html(@ticket.description) %>
   </div>
 
   <div id="ticket_content">
     <ul>
       <li class="ui-tabs-nav-item"><a href="#entries" title="entries">Entries</a></li>
-      <li class="ui-tabs-nav-item"><a href="#devices" title="entries">Devices</a></li>
-      <li class="ui-tabs-nav-item"><a href="#files" title="entries">Files</a></li>
+      <li class="ui-tabs-nav-item"><a href="#devices" title="devices">Devices</a></li>
+      <li class="ui-tabs-nav-item"><a href="#files" title="files">Files</a></li>
     </ul>
     
     <div id="entries"></div>
-    <div id="devices"></div>
+    <div id="devices">
+      <h4>On this ticket</h4>
+      <table class="hover">
+        <tr><th>Name</th><th>Service Tag</th><th>Action</th></tr>
+        <% @ticket.devices.each do |device| %>
+          <tr>
+            <td><%= device.name %></td>
+            <td><%= device.service_tag %></td>
+            <td><%= link_to "Remove", "/tickets/#{@ticket.id}/devices/#{device.id}/remove_from_ticket" %></td>
+          </tr>
+        <% end %>
+      </table>
+      <h4>Available</h4>
+      <table class="hover">
+        <tr><th>Name</th><th>Service Tag</th><th>Action</th></tr>
+        <% @devices.each do |device| %>
+          <tr>
+            <td><%= device.name %></td>
+            <td><%= device.service_tag %></td>
+            <td><%= link_to "Add", "/tickets/#{@ticket.id}/devices/#{device.id}/add_to_ticket" %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
     <div id="files"></div>
     
   </div>

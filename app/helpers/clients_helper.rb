@@ -34,6 +34,14 @@ module ClientsHelper
     end
   end
   
+  def not_a_user(client)
+    if User.find_by_client_id(client.id)
+      return false
+    else
+      return true
+    end
+  end
+  
   def total_clients
     @clients = Client.find(:all)
     return @clients.length

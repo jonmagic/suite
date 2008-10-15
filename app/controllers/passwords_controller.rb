@@ -1,4 +1,5 @@
 class PasswordsController < ApplicationController
+  before_filter :login_required, :except => [:reset, :create_password, :update_after_forgetting]
   def new
     @password = Password.new
   end
@@ -10,13 +11,22 @@ class PasswordsController < ApplicationController
     if @password.save
       PasswordMailer.deliver_forgot_password(@password)
       flash[:notice] = "A link to change your password has been sent to #{@password.email}."
-      redirect_to :action => :new
+      redirect_to "/clients"
     else
-      render :action => :new
+      redirect_to "/clients"
     end
   end
 
   def reset
+    begin
+      @user = Password.find(:first, :conditions => ['reset_code = ? and expiration_date > ?', params[:reset_code], Time.now]).user
+    rescue
+      flash[:notice] = 'The change password URL you visited is either invalid or expired.'
+      redirect_to new_password_path
+    end    
+  end
+  
+  def create_password
     begin
       @user = Password.find(:first, :conditions => ['reset_code = ? and expiration_date > ?', params[:reset_code], Time.now]).user
     rescue

@@ -1,13 +1,43 @@
 class DevicesController < ApplicationController
   before_filter :login_required
-  layout 'devices'
+  layout 'devices', :except => [:details]
 
   def index
     @devices = Device.find(:all)
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @devices }
+      format.json  { render :json => @devices }
+    end
   end
   
   def show
     @device = Device.find(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @device }
+      format.json  { render :json => @device }
+    end
+  end
+  
+  def details
+    @device = Device.find(params[:id])
+    @ticket = Ticket.find(params[:ticket_id])
+  end
+  
+  def add_to_ticket
+    @ticket = Ticket.find(params[:ticket_id])
+    @device = Device.find(params[:id])
+    @ticket.devices << @device
+    redirect_to ticket_path(@ticket)
+  end
+  
+  def remove_from_ticket
+    @ticket = Ticket.find(params[:ticket_id])
+    @device = Device.find(params[:id])
+    @ticket.devices.delete(@device)
+    redirect_to ticket_path(@ticket)
   end
   
   def new

@@ -1,11 +1,8 @@
 class ClientsController < ApplicationController
-  before_filter :login_required
+  # before_filter :login_required
   layout 'clients', :except => :list
   
   def index
-  end
-  
-  def list
     @clients = Client.find(:all)
     
     respond_to do |format|

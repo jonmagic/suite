@@ -7,9 +7,5 @@ module TicketEntriesHelper
       return "No"
     end
   end
-  
-  def note_to_html(entry)
-    RedCloth.new(entry.note).to_html
-  end
 
 end

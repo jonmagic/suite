@@ -5,6 +5,6 @@
     <div class="ticket_entry_mugshot"><%= image_tag entry.creator.avatar.url(:avatar) %></div>
     <p class="ticket_entry_byline">Entry by <%= entry.creator.name %> on <%= entry.updated_at.strftime("%H:%M %m/%d/%Y") %></p>
     <p class="ticket_entry_details">Billable? <%= billable(entry) %> - Time Spent: <%= entry.time %> minutes</p>
-    <div class="ticket_entry_note"><%= note_to_html(entry) %></div>
+    <div class="ticket_entry_note"><%= textile_to_html(entry.note) %></div>
   </div>
 <% end %>

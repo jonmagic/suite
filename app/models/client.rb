@@ -17,6 +17,10 @@ class Client < ActiveRecord::Base
   
   after_update :save_phones, :save_emails, :save_addresses
   
+  def to_json(options={})
+    super(options.merge(:methods => :fullname))
+  end
+  
   def new_phone_attributes=(phone_attributes)
     phone_attributes.each do |attributes|
       phones.build(attributes)

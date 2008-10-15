@@ -71,7 +71,9 @@ $(document).ready(function() {
   });
 
   // setup tabs
-  var $tabs = $("#ticket_content > ul").tabs();
+  var $tabs = $("#ticket_content > ul").tabs(function(){
+  });
+  
     
   // nice calendar widget
   $("#ticket_active_on").datepicker({

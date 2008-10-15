@@ -1,8 +1,20 @@
 // load my sidebar, select the client we're showing, add an edit button
 $(document).ready(function() {
 
-  $("#clients").load("/clients/list", {}, function(){ 
+  $.getJSON("/clients", function(data){
+    $.each(data, function(i, object){
+      // Setup my class so we can add an icon later
+      if(object.client.company == true){
+        var type = "company"
+      }else{
+        var type = "person"
+      };
+      // Create and then insert new list item, including values and classes
+      $("<a></a>").addClass(type).attr("href", "/clients/"+object.client.id).text(object.client.fullname).appendTo($("<li></li>").attr("alt", object.client.id).appendTo("#clients"));
+    });
+    // Grab the client id for later use
     var client_id = $("#client h2").attr("alt");
+    // Add in my Edit and Save buttons
     if ($("#client_content").length > 0) {
       if ($("#client h2").attr("edit") != "edit") {
         $("#footer div.col2").append("<a href='/clients/"+client_id+"/edit' class='edit_client col2_button1'>Edit</a>");
@@ -20,22 +32,24 @@ $(document).ready(function() {
         });
       };
     };
+    // Setup my scrollto functionality
     $("#sidebar li").each(function(){
       if ($(this).attr("alt") == client_id) {
         $(this).addClass("selected");
         $("#sidebar").scrollTo(this);
       };
-    }); 
+    });
   });
   
 });
 
 // setup tabs
 $(document).ready(function() {
-
   $("#client_content > ul").tabs();
+});
 
-  // client edit page, show or hide form elements based on whether its a company
+// client edit page, show or hide form elements based on whether its a company
+$(document).ready(function() {
   if ($("#client h3.is_a_company input").attr("checked")) { 
     $("#client h2.person_name").addClass("hide")
     $("#client h3.company_select").addClass("hide")
@@ -70,5 +84,5 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-  
+
 });

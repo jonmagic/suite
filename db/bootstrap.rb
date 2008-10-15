@@ -46,3 +46,9 @@ ticket4 = Ticket.create(:description => "Cooties are for girls", :client => sam,
 ticket5 = Ticket.create(:description => "Make me a sandwich please", :client => malibutan, :user_id => 1, :archived_on => Time.now - 24.hours)
 
 note1 = TicketEntry.create(:ticket => ticket1, :creator_id => jonmagic.id, :entry_type => "Work Done", :time => 60, :billable => true, :note => "this is a note")
+
+# Create some links between tickets and devices
+ticket1.devices << jons_computer
+ticket1.devices << sams_laptop
+ticket2.devices << jons_computer
+ticket3.devices << malibu_workstation

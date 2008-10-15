@@ -3,42 +3,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
 	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	  <title>Know My Clients</title>
-    <!-- css & js framework stuff -->
-	  <link rel="stylesheet" href="/stylesheets/reset-fonts-grids.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	  <link rel="stylesheet" href="/stylesheets/base-min.css" type="text/css" media="screen" title="no title" charset="utf-8">
-    <script type="text/javascript" charset="utf-8" src="/javascripts/prototype.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.js"></script>
+	  <title>Suite</title>
+	  <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.js"></script>
     <script type="text/javascript" charset="utf-8" src="/javascripts/jquery-ui.js"></script>
-    <!-- my css & js files -->
-	  <link rel="stylesheet" href="/stylesheets/common.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	  <link rel="stylesheet" href="/stylesheets/trackd.css" type="text/css" media="screen" title="no title" charset="utf-8">
-    <script type="text/javascript" charset="utf-8" src="/javascripts/common.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/trackd.js"></script>
-    <%= yield :head %>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/jrails.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.scrollTo.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/application.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/devices.js"></script>
+	  <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">    
+    <!--[if IE]><link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	  <link rel="stylesheet" href="/stylesheets/jquery-ui-themeroller.css" type="text/css" media="screen, projection">
+	  <link rel="stylesheet" href="/stylesheets/common.css" type="text/css" media="screen, projection">
+	  <link rel="stylesheet" href="/stylesheets/devices.css" type="text/css" media="screen, projection">
   </head>
   <body>
-    <%- if logged_in? -%>
-      <div id="wrapper">
-        <div id="header">
-          <h1 style="display:none">Know My Clients</h1>
-          <ul>
-            <li><a href="/clients">Know My Clients</a></li>
-            <li><a href="/tickets">Opportunity Tickets</a></li>
-            <li><a href="/devices" class="selected">Track Devices</a></li>
-          </ul>
-          <span>
-            Welcome <%=h current_user.username %>, <%= link_to 'Logout?', logout_url %>
-          </span>
-        </div>
-        <div id="search">
-          <form action="/devices" method="POST">Search: <input name="q" value="" class="search_box" /></form>
-          <%= link_to "New Device", new_device_path, :class => "new_device" %>
-        </div>
+    <div id="header">
+      <h1 class="hide">Opportunity Tickets</h1>
+      <ul>
+        <li><a href="/clients">Know My Clients</a></li>
+        <li><a href="/tickets">Opportunity Tickets</a></li>
+        <li><a href="/devices">Track Devices</a></li>
+      </ul>
+    </div>
+    
+    
+    <div id="sidebar" class="sidebar-list">
+      <h2>Devices</h2>
+      <div class="search">Search: <input /></div>
+      <ul id="devices"></ul>
+    </div>
+    <div id="center" class="container">
+      <div id="device">
         <%= yield %>
       </div>
-    <%- else -%>
-      <%= yield %>
-    <%- end -%>
+    </div>
+    
+    <div id="footer">
+      <div class="col1">
+        <%= link_to "New", "/devices/new" %>
+      </div>
+      <div class="col2"></div>
+      <div class="col3">
+        <%= link_to "Logout?", "/logout" %>
+      </div>
+    </div>
   </body>
 </html>

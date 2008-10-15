@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
   before_filter :load_totals, :except => [:create, :update]
   
   def index
-    @tickets = Ticket.limit(params[:status], params[:scope], current_user)
+    @tickets = Ticket.limit(params[:status], params[:scope], current_user, params[:device])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,8 +14,8 @@ class TicketsController < ApplicationController
 
   def show
     @ticket = Ticket.find(params[:id])
+    @devices = Device.find(:all, :conditions => {:client_id => @ticket.client_id})
     @ticket_entry = TicketEntry.new
-    @description = RedCloth.new(@ticket.description)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @ticket }

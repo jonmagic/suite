@@ -2,6 +2,7 @@ class Ticket < ActiveRecord::Base
   belongs_to :client
   belongs_to :user
   has_many :ticket_entries
+  has_and_belongs_to_many :devices
   
   def status
     if self.archived_on != nil
@@ -19,7 +20,11 @@ class Ticket < ActiveRecord::Base
     User.find(self.user_id)
   end
   
-  def self.limit(status, scope, user)
+  def owner
+    Client.find(self.client_id)
+  end
+  
+  def self.limit(status, scope, user, device)
     future = Date.today + 100.years
     past = Date.today - 100.years
     if status == nil || status == "open"

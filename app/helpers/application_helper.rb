@@ -17,4 +17,13 @@ module ApplicationHelper
     messages
   end
   
+  # Turn textile into html
+  def textile_to_html(text)
+    if text != nil
+      return RedCloth.new(text).to_html
+    else
+      return ""
+    end
+  end
+  
 end

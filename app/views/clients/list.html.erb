@@ -1,5 +1,0 @@
-<ul>
-  <% @clients.each do |client|  %>
-    <li alt="<%= client.id %>"><%= link_to client.fullname, '/clients/'+client.id.to_s, :class => person_or_company(client) %></li>
-  <% end %>
-</ul>

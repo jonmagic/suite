@@ -7,6 +7,7 @@
     <li class="ui-tabs-nav-item"><a href="#details" title="details">Details</a></li>
     <li class="ui-tabs-nav-item"><a href="#tickets" title="tickets">Tickets</a></li>
     <li class="ui-tabs-nav-item"><a href="#devices" title="devices">Devices</a></li>
+    <% if not_a_user(@client) %><li class="ui-tabs-nav-item"><a href="/clients/<%= @client.id %>/users/new" title="#newaccount">Invite</a></li><% end %>
     <% if my_account(@client) %><li class="ui-tabs-nav-item"><a href="/users/<%= current_user.id %>" title="#myaccount">My Account</a></li><% end %>
   </ul>
   <div id="details">
@@ -53,5 +54,16 @@
       <% end %>
     </table>
   </div>
-  <div id="devices">stuff 3</div>
+  <div id="devices">
+    <table class="hover">
+      <tr><th>Name</th><th>Service Tag</th><th>Last Updated</th></tr>
+      <% @client.devices.each do |device| %>
+        <tr>
+          <td><%= link_to device.name, "/devices/#{device.id}" %></td>
+          <td><%= link_to device.service_tag, "/devices/#{device.id}" %></td>
+          <td><%= link_to device.updated_at.strftime("%m/%d/%Y"), "/devices/#{device.id}" %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 </div>

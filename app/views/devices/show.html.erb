@@ -1,32 +1,36 @@
-<div id="device">
-  <h2><%= @device.name %></h2>
-  <h3>Service Tag: <%= @device.service_tag %></h3>
-  <h3>Owner: <b><%= @device.client_name %></b></h3>
-  <%= link_to "Edit", edit_device_path, :class => "edit" %>
-  <div id="parts">
-    <table id="components">
-      <tr>
-        <th class="name">Component Name</th>
-        <th>Serial Number</th>
-      </tr>
-      <% @device.components.each do |component| %>
+<table id="device_details" alt="<%= @device.id %>" class="table-style1">
+  <tr>
+    <td class="first">Device Name:</td><td><%= @device.name %></td>
+  </tr>
+  <tr>
+    <td class="first">Service Tag:</td><td><%= @device.service_tag %></td>
+  </tr>
+  <tr>
+    <td class="first">Owner:</td><td><%= link_to @device.client.fullname, "/clients/"+@device.client.id.to_s %></td>
+  </tr>
+</table>
+
+<div id="device_content">
+  <ul>
+    <li class="ui-tabs-nav-item"><a href="#description" title="description">Description</a></li>
+    <li class="ui-tabs-nav-item"><a href="#tickets" title="tickets">Tickets</a></li>
+    <li class="ui-tabs-nav-item"><a href="#files" title="files">Files</a></li>
+  </ul>
+
+  <div id="description"><%= textile_to_html(@device.description) %></div>
+  <div id="tickets">
+    <table class="hover">
+      <tr><th>Description</th><th>Owner</th><th>Technician</th><th>Status</th></tr>
+      <% @device.tickets.each do |ticket| %>
         <tr>
-          <td class="name"><%= component.name %></td>
-          <td><%= component.serial_number %></td>
-        </tr>
-      <% end %>
-    </table> 
-    <table id="programs">
-      <tr>
-        <th class="name">Program Name</th>
-        <th>Serial Number</th>
-      </tr>
-      <% @device.programs.each do |program| %>
-        <tr>
-          <td class="name"><%= program.name %></td>
-          <td><%= program.serial_number %></td>
+          <td><%= link_to ticket.description[0...60], "/tickets/#{ticket.id}" %></td>
+          <td><%= link_to ticket.owner.fullname, "/tickets/#{ticket.id}" %></td>
+          <td><%= link_to ticket.technician.name, "/tickets/#{ticket.id}" %></td>
+          <td><%= link_to ticket.status, "/tickets/#{ticket.id}" %></td>
         </tr>
       <% end %>
     </table>
   </div>
+  <div id="files"></div>
+
 </div>

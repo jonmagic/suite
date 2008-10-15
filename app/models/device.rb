@@ -1,6 +1,6 @@
 class Device < ActiveRecord::Base
   belongs_to :client
-  has_many :inventory_items
+  has_and_belongs_to_many :tickets
   
   validates_presence_of :name
   

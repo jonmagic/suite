@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :login_required, :except => [:new, :create, :activate]
+  before_filter :login_required
 
   def show
     @user = User.find(current_user.id)
@@ -20,24 +20,34 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @client = Client.find(params[:client_id])
+    @random = "mo0nk3yp1ts"
   end
  
   def create
-    logout_keeping_session!
+    # logout_keeping_session!
+    tech_role = Role.find_by_name("technician")
     @user = User.new(params[:user])
-    @user.register! if @user && @user.valid?
-    success = @user && @user.valid?
+    @user.register!
+    success = @user
     if success && @user.errors.empty?
-      redirect_back_or_default root_url
-      flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
+      @user.client_id = params[:user][:client_id]
+      @user.activate!
+            
+      @password = Password.new(:email => @user.email)
+      @password.user = @user
+      @password.save
+      PasswordMailer.deliver_create_password(@password)
+      
+      @user.roles << tech_role
+
+      redirect_to "/clients/#{@user.client_id.to_s}"
     else
-      flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
-      render :action => 'new'
+      redirect_to "/clients/#{@user.client_id.to_s}"
     end
   end
 
   def activate
-    logout_keeping_session!
     user = User.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
     case
     when !params[:activation_code].blank? && user && !user.active?
