@@ -41,4 +41,14 @@ class TicketEntriesController < ApplicationController
     end
   end
   
+  def destroy
+    @entry = TicketEntry.find(params[:id])
+    @entry.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(ticket_entries_url) }
+      format.xml  { head :ok }
+    end
+  end
+  
 end

@@ -1,3 +1,8 @@
+# Setup a couple device types
+daavlin_desktop_build = DeviceType.create(:description => "Daavlin desktop model", :identifier => "001")
+daavlin_mini_build = DeviceType.create(:description => "Daavlin mini internal model", :identifier => "002")
+sabretech_showroom_build = DeviceType.create(:description => "SabreTech standard PC model", :identifier => "050")
+
 # Setup some clients
 sabretech = Client.create(:name => "SabreTech Consulting LLC", :company => 1)
 malibutan = Client.create(:name => "Malibu Tan", :company => 1)
@@ -7,19 +12,20 @@ sam = Client.create(:firstname => "Sam", :lastname => "Sallows", :belongs_to => 
 brad = Client.create(:firstname => "Brad", :lastname => "Cochran", :belongs_to => sabretech.id)
 
 # Setup some client attributes
-jon_cell = Phone.create(:client => jon, :context => "Cell", :number => "5176101181")
-sam_cell = Phone.create(:client => sam, :context => "Cell", :number => "5176104488")
-brad_cell = Phone.create(:client => brad, :context => "Cell", :number => "5176106061")
-office_phone = Phone.create(:client => sabretech, :context => "Work", :number => "5174377150")
-jon_email = Email.create(:client => jon, :context => "Personal", :address => "jonmagic@gmail.com")
-sam_email = Email.create(:client => sam, :context => "Personal", :address => "samsallows@gmail.com")
+jon_cell = Phone.create(:client => jon, :context => "Cell", :number => "5175551212")
+sam_cell = Phone.create(:client => sam, :context => "Cell", :number => "5175551212")
+brad_cell = Phone.create(:client => brad, :context => "Cell", :number => "5175551212")
+office_phone = Phone.create(:client => sabretech, :context => "Work", :number => "5175551212")
+jon_email = Email.create(:client => jon, :context => "Personal", :address => "*******@gmail.com")
+sam_email = Email.create(:client => sam, :context => "Personal", :address => "*******@gmail.com")
 jon_address = Address.create(:client => jon, :context => "Home", :full_address => "316 west blvd south, elkhart IN 46514")
 sabretech_address = Address.create(:client => sabretech, :context => "Work", :full_address => "32 S Howell St. Hillsdale MI 49242")
 
+# date = "#{Date.today.strftime('%m%d%Y')}"
 # Setup some devices
-jons_computer = Device.create(:client => jon, :name => "gaming computer", :service_tag => "1234567890")
-sams_laptop = Device.create(:client => sam, :name => "macbook", :service_tag => "0987654321")
-malibu_workstation = Device.create(:client => malibutan, :name => "hillsdale-master", :service_tag => "")
+# jons_computer = Device.create(:client => sabretech, :service_tag => "001-#{date}-1", :name => "Desktop", :device_type => daavlin_desktop_build )
+# sams_laptop = Device.create(:client => sabretech, :service_tag => "002-#{date}-2", :name => "Mini", :device_type => daavlin_mini_build)
+# malibu_workstation = Device.create(:client => malibutan, :name => "hillsdale-master", :device_type => sabretech_showroom_build)
 
 # Setup some users and roles
 technician_role = Role.create(:name => 'technician')
@@ -48,7 +54,17 @@ ticket5 = Ticket.create(:description => "Make me a sandwich please", :client => 
 note1 = TicketEntry.create(:ticket => ticket1, :creator_id => jonmagic.id, :entry_type => "Work Done", :time => 60, :billable => true, :note => "this is a note")
 
 # Create some links between tickets and devices
-ticket1.devices << jons_computer
-ticket1.devices << sams_laptop
-ticket2.devices << jons_computer
-ticket3.devices << malibu_workstation
+# ticket1.devices << jons_computer
+# ticket1.devices << sams_laptop
+# ticket2.devices << jons_computer
+# ticket3.devices << malibu_workstation
+
+# create some checklists
+daavlin_desktop_checklist = ChecklistTemplate.create(:name => "Daavlin Desktop Build")
+daavlin_mini_checklist =    ChecklistTemplate.create(:name => "Daavlin Mini Build")
+hospital_checklist =        ChecklistTemplate.create(:name => "Hillsdale Hospital Desktop Build")
+
+# add some items to those checklists
+item1 = ChecklistTemplateQuestion.create(:checklist_template => daavlin_desktop_checklist, :answer_type => "string", :question => "SabreTech Serial Number")
+item2 = ChecklistTemplateQuestion.create(:checklist_template => daavlin_desktop_checklist, :answer_type => "string", :question => "Windows Number")
+item3 = ChecklistTemplateQuestion.create(:checklist_template => daavlin_desktop_checklist, :answer_type => "boolean", :question => "Build System")

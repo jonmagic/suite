@@ -1,1 +1,35 @@
-<h2>Device Statistics</h2>
+<div id="content_search">
+  <div id="applesearch"><form onsubmit="return false"><span class="sbox_l"></span><span class="sbox"><input type="search" id="srch_fld" placeholder="Search..." autosave="applestyle_srch" results="5" onkeyup="" /></span><span class="sbox_r" id="srch_clear"></span> <input id="srch_button" name="commit" type="submit" value="Search" onclick="" /></form></div>
+</div>
+<div id="tickets" class="hide">
+  <table class="itu">
+    <thead>
+      <tr><th class="first">Service Tag</th><th>Name</th><th>Client</th><th>Created On</th><th>Updated On</th></tr>
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(document).ready(function() {
+    // make sidebar item appear selected
+    $("#sidebar li a.search").parent().addClass("selected");
+    // setup search functionality
+    $("#content_search input[type=submit]").bind("click", function(){
+      $("div#tickets").slideDown(1500);
+      $("div#tickets table tbody").empty();
+      var query = $("#content_search input#srch_fld").val();
+      $.getJSON("/devices/?q="+query, function(data){
+        $.each(data, function(i, object){
+          object.device.created_at = Date.from_iso8601(object.device.created_at).strftime('%A, %b %d %Y');
+          object.device.updated_at = Date.from_iso8601(object.device.updated_at).strftime('%A, %b %d %Y');
+          var row = "<tr><td><a href='/devices/"+object.device.id+"'>"+object.device.service_tag+"</a></td><td><a href='/devices/"+object.device.id+"'>"+object.device.name+"</a></td><td><a href='/devices/"+object.device.id+"'>"+object.device.client_name+"</a></td><td><a href='/devices/"+object.device.id+"'>"+object.device.created_at+"</a></td><td><a href='/devices/"+object.device.id+"'>"+object.device.updated_at+"</a></td></tr>"
+          $("div#tickets table tbody").append(row);
+        });
+        buildTables();
+      });
+    });
+  });
+</script>

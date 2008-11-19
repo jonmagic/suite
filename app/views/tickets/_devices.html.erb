@@ -1,0 +1,30 @@
+<div id="devices">
+  <ul class="toolbar">
+    <li><a href="#" class="new_device">New</a></li>
+    <li><a href="#" class="add_existing_device">Add Existing</a></li>
+  </ul>
+  <div id="new_device_form" class="hide toolbox">
+    <%= render :partial => 'shared/new_device', :locals => {:client => @ticket.client, :ticket => @ticket} %>
+  </div>
+  <div id="add_existing_device" class="hide">
+    <h3>Devices available for attaching</h3>
+    <table class="itu">
+      <thead>
+        <tr><th>Service Tag</th><th>Device Name</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>        
+  </div>
+  <h3>Devices attached to this ticket</h3>
+  <table class="itu">
+    <tr><th>Service Tag</th><th>Device Name</th><th>Action</th></tr>
+    <% @ticket.devices.each do |device| %>
+      <tr>
+        <td><a href="/devices/<%= device.id %>"><%= device.service_tag %></a></td>
+        <td><a href="/devices/<%= device.id %>"><%= device.name %></a></td>
+        <td><a href="/devices/<%= device.id %>"><%= link_to "Remove", "/tickets/#{@ticket.id}/devices/#{device.id}/remove_from_ticket" %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

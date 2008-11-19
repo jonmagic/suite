@@ -1,10 +1,11 @@
+<h3>New Ticket Entry</h3>
 <% form_for @ticket_entry do |f| %>
-  <table class="new_ticket_entry_details">
+  <table class="m">
     <tr>
       <td class="first">Entry Type</td><td><%= f.select :entry_type, ["Work Done", "Research"] %></td>
     </tr>
     <tr>
-      <td class="first">Time Spent</td><td><%= f.text_field :time %></td>
+      <td class="first">Time Spent</td><td><%= f.text_field :time, :title => "minutes" %></td>
     </tr>
     <tr>
       <td class="first">Billable</td><td><%= f.check_box :billable %></td>

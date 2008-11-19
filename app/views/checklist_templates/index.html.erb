@@ -1,0 +1,17 @@
+<h2 alt="index" class="hide">Checklists</h2>
+<div id="checklists">
+  <table class="itu">
+    <thead>
+      <tr><th>Name</th><th>Created On</th><th>Updated On</th></tr>
+    </thead>
+    <tbody>
+      <% @checklists.each do |checklist| %>
+        <tr>
+          <td><a href="/checklist_templates/<%= checklist.id %>"><%= checklist.name %></a></td>
+          <td><a href="/checklist_templates/<%= checklist.id %>"><%= checklist.created_at.strftime("%m/%d/%Y") %></a></td>
+          <td><a href="/checklist_templates/<%= checklist.id %>"><%= checklist.updated_at.strftime("%m/%d/%Y") %></a></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,37 @@
+<div id="checklists">
+  <ul class="toolbar">
+    <li><a href="#" class="add_checklist">Add Checklist</a></li>
+  </ul>
+  <div id="add_checklist_form" class="hide toolbox">
+    <h3>Add A Checklist</h3>
+    <div class="ui-tabs-panel-padding">
+      <% form_for Checklist.new, :url => "" do |f| -%>
+        <%= f.select :checklist_template_id, ChecklistTemplate.find(:all).collect {|c| [c.name, c.id]} %>
+        <%= f.submit "Save" %>
+      <% end %>
+    </div>
+  </div>
+  <h3>Ticket Checklists</h3>
+  <table class="itu">
+    <tr><th>Name</th><th>Completed</th><th>Actions</th></tr>
+    <% @ticket.checklists.each do |checklist| %>
+      <tr>
+        <td><a href="#" alt="<%= checklist.id %>"><%= checklist.name %></a></td>
+        <td><a href="#" alt="<%= checklist.id %>"></a></td>
+        <td><a href="/tickets/<%= @ticket.id %>/checklists/<%= checklist.id %>/remove_from_ticket">Remove</a></td>
+      </tr>
+    <% end %>
+  </table>
+  <h3>Device Checklists</h3>
+  <table class="itu">
+    <tr><th>Name</th><th>Service Tag</th><th>Completed</th></tr>
+    <% @ticket.devices.collect{|device| device.checklists}.flatten.each do |checklist| %>
+      <tr>
+        <td><a href="#" alt="<%= checklist.id %>"><%= checklist.name %></a></td>
+        <td><a href="#" alt="<%= checklist.id %>"><%= checklist.device.service_tag %></a></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </table>
+  <div id="checklist" class="hide"></div>
+</div>

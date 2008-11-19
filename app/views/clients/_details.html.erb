@@ -1,2 +1,32 @@
-<table>
-</table>
+<div id="details">
+  <table class="m">
+    <tr>
+      <th>Phone</th><th>Number</th>
+    </tr>
+    <% @client.phones.each do |phone| %>
+      <tr>
+        <td><%= phone.context %></td><td><%= phone.number %></td>
+      </tr>
+    <% end %>
+  </table>
+  <table class="m">
+    <tr>
+      <th>Email</th><th>Address</th>
+    </tr>
+    <% @client.emails.each do |email| %>
+      <tr>
+        <td><%= email.context %></td><td><%= email.address %></td>
+      </tr>
+    <% end %>
+  </table>
+  <table class="m">
+    <tr>
+      <th>Street</th><th>Address</th>
+    </tr>
+    <% @client.addresses.each do |address| %>
+      <tr>
+        <td><%= address.context %></td><td><%= address.full_address %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

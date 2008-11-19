@@ -1,10 +1,19 @@
-<p><%= image_tag @user.avatar.url(:avatar)%> <%= @user.name %></p>
-<p>Username: <%= @user.email %></p>
-<% form_for @user, :html => { :multipart => true } do |f| %>
-  <p>Avatar: <%= f.file_field :avatar %> <%= f.submit "Upload" %></p>
-<% end %>
+<div id="preferences">
 
-<% form_for @password do |f| %>
-  <%= f.text_field :email, :value => @user.email,:class => "hide" %>
-  <p><%= f.submit "Reset My Password" %> (this will email you a reset code)</p>
-<% end %>
+  <h3><%= @user.name %></h3>
+  <p>Username: <%= @user.email %></p>
+
+  <div class="toolbox avatar">
+    <%= image_tag @user.avatar.url(:avatar)%>
+    <% form_for @user, :html => { :multipart => true } do |f| %>
+      <p>Avatar: <%= f.file_field :avatar %> <%= f.submit "Upload" %></p>
+    <% end %>
+  </div>
+
+  <div class="toolbox">
+    <% form_for @password do |f| %>
+      <%= f.text_field :email, :value => @user.email,:class => "hide" %>
+      <p><%= f.submit "Reset My Password" %> (this will email you a reset code)</p>
+    <% end %>
+  </div>
+</div>

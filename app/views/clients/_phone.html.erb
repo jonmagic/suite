@@ -2,9 +2,8 @@
 <% prefix = "client[#{new_or_existing}_phone_attributes][]" %>
 <% fields_for prefix, phone do |f| -%>
   <tr class="phone_number">
-    <td class="edit"><%= link_to_function image_tag("/images/delete.png"), "$(this).parent().parent().remove()", :class => "remove_phone_number" %></td>
+    <td class="edit"><%= link_to_function image_tag("/images/icons/delete.png"), "$(this).parent().parent().remove()", :class => "remove_phone_number" %></td>
     <td class="context"><%= f.select :context, ["Cell","Work","Home","Fax"] %></td>
     <td class="content"><%= f.text_field :number %></td>
   </tr>
 <% end -%>
-

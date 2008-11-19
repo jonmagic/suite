@@ -1,23 +1,38 @@
-#client {padding:1em 2em;}
+#client {padding:1em 1em;}
+
+/* search on the sidebar */
+#search {margin:10px 5px;}
 
 /* name and face */
-#client div.mugshot {display:block;height:60px;width:55px;}
-#client h2.fullname {position:absolute;top:5px;left:90px;margin:0;padding:0;}
+#client div.mugshot {margin-left:1em;display:block;height:60px;width:55px;}
+#client h2.fullname {position:absolute;top:10px;left:90px;margin:0;padding:0;}
 #client h3.company_name {position:absolute;top:2.5em;left:90px;margin:0;padding:0;}
 
 /* client_content */
 #client_content {margin-top:1em;}
 
 /* Details */
-div#details table tr td.context, #details table tr th.context {padding-left:.5em;width:120px;}
-div#details table tr td.add, #details table tr th.add {padding-left:.5em;width:15px;}
+div#details table th.first {padding-left:.5em;width:8em;}
+
+/* My Account - Preferences */
+div#preferences div.toolbox {min-height:3.7em;}
+div#preferences div.avatar {height:60px;}
+div#preferences div.avatar form {margin-left:50px;}
+div#preferences div.avatar img {float:left;}
 
 /* form */
 div#names {margin:0 0 1.5em 0;}
-div#details.edit table tr td.context, #details.edit table tr th.context {padding-left:0;}
+div#details table {margin:1.5em;}
+div#details.edit td.edit, div#details.edit th.add {text-align:center;width:30px;}
+div#details.edit td.add a, div#details.edit th.add a {text-align:center;}
+div#details.edit td.context, div#details.edit th.context {text-align:right;width:6em;}
 div.edit h2 {font-size:13pt;margin:0;}
 div.edit h3 {font-size:11pt;margin:0;}
 h2.person_name input {font-size:13pt;width:220px;}
 h2.company_name input {font-size:13pt;width:400px;margin-bottom:10px;}
 h3.company_select select {font-size:11pt;}
 h3.is_a_company {}
+
+/* Search box */
+#applesearch {margin:10px 7px;position:relative;}
+#applesearch .sbox input {width: 210px;float:left;}

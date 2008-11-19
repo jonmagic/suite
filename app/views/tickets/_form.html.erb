@@ -1,7 +1,7 @@
 <% form_for @ticket do |f| -%>
-  <table class="table-style1">
-    <tr><td class="first">Client:</td><td><%= f.select :client_id, @clients.collect {|c| [c.fullname, c.id]} %></td><tr>
-    <tr><td class="first">Technician:</td><td><%= f.select :user_id, @users.collect {|c| [c.name, c.id]} %></td></tr>
+  <table class="m">
+    <tr><td class="first">Client:</td><td><%= f.select :client_id, Client.find(:all).collect {|c| [c.fullname, c.id]} %></td><tr>
+    <tr><td class="first">Technician:</td><td><%= f.select :user_id, User.find(:all).collect {|c| [c.name, c.id]} %></td></tr>
     <tr><td class="first">Scheduled For:</td><td><%= f.text_field :active_on, :value => if @ticket.active_on != nil then @ticket.active_on.strftime("%m/%d/%Y") else Date.today.strftime("%m/%d/%Y") end %></td></tr>
   </table>
   <div class="line"></div>
@@ -9,3 +9,28 @@
   <p><%= f.text_area :description %></p>
   <%= f.submit "Save", :class => "hide" %>
 <% end %>
+
+<script>
+  $(document).ready(function() {
+    // setup save button
+    $("#footer div.col2").append("<a href='#' class='save_ticket'>Save</a>");
+    $("#footer a.save_ticket").bind("click", function(){
+      $("div#ticket form input[type=submit]").click();
+    });
+    // add quickselects for client and technician
+    $("#ticket_client_id").quickselect({
+  		delay:10,
+  		minChars:1,
+  		match:'quicksilver',
+  		maxItemsToShow:12
+  	});
+  	$("#ticket_user_id").quickselect({
+  		delay:10,
+  		minChars:1,
+  		match:'quicksilver',
+  		maxItemsToShow:12
+  	});
+    // create datepicker widget
+    $("#ticket_active_on").datepicker();
+	});
+</script>

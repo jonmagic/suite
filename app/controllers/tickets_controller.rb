@@ -4,6 +4,8 @@ class TicketsController < ApplicationController
   
   def index
     @tickets = Ticket.limit(params[:status], params[:scope], current_user, params[:device])
+    
+    @tickets = @tickets.sort_by{|ticket| [ticket.status, ticket.id]}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -11,11 +13,13 @@ class TicketsController < ApplicationController
       format.json  { render :json => @tickets }
     end
   end
+  
+  def search
+    @tickets = Ticket.search(params[:q], :include => [:ticket_entries, :client])
+  end
 
   def show
     @ticket = Ticket.find(params[:id])
-    @devices = Device.find(:all, :conditions => {:client_id => @ticket.client_id})
-    @ticket_entry = TicketEntry.new
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @ticket }
@@ -25,9 +29,6 @@ class TicketsController < ApplicationController
   
   def new
     @ticket = Ticket.new
-    @clients = Client.find(:all)
-    @users = User.find(:all)
-    @groups = ["Sales", "Service", "Billing"]
   end
   
   def create
@@ -35,6 +36,11 @@ class TicketsController < ApplicationController
     
     respond_to do |format|
       if @ticket.save
+        if params[:device_id] != nil
+          @device = Device.find(params[:device_id])
+          @ticket.devices << @device
+          TicketEntry.create(:entry_type => "Removed Device", :note => "Device (Service Tag: #{@device.service_tag}) was added to this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @ticket, :creator_id => @ticket.technician.id)
+        end
         flash[:notice] = 'Ticket was successfully created.'
         format.html { redirect_to(@ticket) }
         format.xml  { render :xml => @ticket, :status => :created, :location => @ticket }
@@ -47,9 +53,6 @@ class TicketsController < ApplicationController
   
   def edit
     @ticket = Ticket.find(params[:id])
-    @clients = Client.find(:all)
-    @users = User.find(:all)
-    @groups = ["Sales", "Service", "Billing"]
   end
   
   def update

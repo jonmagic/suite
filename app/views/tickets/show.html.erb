@@ -1,50 +1,24 @@
 <div id="ticket" alt="<%= @ticket.id %>" completed="<%= @ticket.completed_on %>" archived="<%= @ticket.archived_on %>" ticket_id="<%= @ticket.id %>" current_user="<%= current_user.id %>">
-  <table class="table-style1">
+  <table class="m details">
     <tr><td class="first">Ticket:</td><td><%= @ticket.id %></td></tr>
     <tr><td class="first">Client:</td><td><%= link_to @ticket.client.fullname, "/clients/"+@ticket.client.id.to_s %></td><tr>
     <tr><td class="first">Technician:</td><td><%= link_to @ticket.technician.name, "/clients/"+@ticket.technician.client_id.to_s %></td></tr>
     <tr><td class="first">Status:</td><td><%= @ticket.status %></td></tr>
   </table>
   <div class="description">
-    <b>Description:</b> <%= textile_to_html(@ticket.description) %>
+    <h3>Description:</h3>
+    <%= textile_to_html(@ticket.description) %>
   </div>
-
   <div id="ticket_content">
     <ul>
       <li class="ui-tabs-nav-item"><a href="#entries" title="entries">Entries</a></li>
       <li class="ui-tabs-nav-item"><a href="#devices" title="devices">Devices</a></li>
-      <li class="ui-tabs-nav-item"><a href="#files" title="files">Files</a></li>
+      <li class="ui-tabs-nav-item"><a href="#checklists" title="checklists">Checklists</a></li>
     </ul>
-    
     <div id="entries"></div>
-    <div id="devices">
-      <h4>On this ticket</h4>
-      <table class="hover">
-        <tr><th>Name</th><th>Service Tag</th><th>Action</th></tr>
-        <% @ticket.devices.each do |device| %>
-          <tr>
-            <td><%= device.name %></td>
-            <td><%= device.service_tag %></td>
-            <td><%= link_to "Remove", "/tickets/#{@ticket.id}/devices/#{device.id}/remove_from_ticket" %></td>
-          </tr>
-        <% end %>
-      </table>
-      <h4>Available</h4>
-      <table class="hover">
-        <tr><th>Name</th><th>Service Tag</th><th>Action</th></tr>
-        <% @devices.each do |device| %>
-          <tr>
-            <td><%= device.name %></td>
-            <td><%= device.service_tag %></td>
-            <td><%= link_to "Add", "/tickets/#{@ticket.id}/devices/#{device.id}/add_to_ticket" %></td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
-    <div id="files"></div>
-    
+    <%= render :partial => 'devices', :locals => {:ticket => @ticket} %>
+    <%= render :partial => 'checklists', :locals => {:ticket => @ticket} %>
   </div>
-  
   <div id="complete" class="hide">
     <% form_for @ticket do |f| -%>
       <%= f.text_field :completed_on, :value => Date.today.strftime("%m/%d/%Y") %>
@@ -60,3 +34,88 @@
 </div>
 <br />
 <br />
+
+<script>
+  $(document).ready(function() {
+    // setup my footer buttons
+    if(ticket_state() == "open"){
+      $("#footer div.col2").append("<a href='/tickets/"+<%= @ticket.id %>+"/edit' class='edit_ticket'>Edit</a>");
+      $("#footer div.col2").append("<a href='#' class='complete_ticket'>Complete</a>");
+      $("#footer a.complete_ticket").bind("click", function(){
+        $("#complete input[type=submit]").click();
+      });
+    };
+    if(ticket_state() == "completed"){
+      $("#footer div.col2").append("<a href='/tickets/"+<%= @ticket.id %>+"/edit' class='edit_ticket'>Edit</a>");
+      $("#footer div.col2").append("<a href='#' class='archive_ticket'>Archive</a>");
+      $("#footer a.archive_ticket").bind("click", function(){
+        $("div#archive form input[type=submit]").click();
+      });
+      $("#footer div.col2").append("<a href='#' class='open_ticket'>Open</a>");
+      $("#footer a.open_ticket").bind("click", function(){
+        $("div#complete form input#ticket_completed_on").val("");
+        $("div#complete form input[type=submit]").click();
+      });
+    };
+    if(ticket_state() == "archived"){
+      $("#footer div.col2").append("<a href='#' class='unarchive_ticket'>Un-Archive</a>");
+      $("#footer a.unarchive_ticket").bind("click", function(){
+        $("div#archive form input#ticket_archived_on").val("");
+        $("div#archive form input[type=submit]").click();
+      });
+    };
+    // Load ticket entries
+    var entriesURL = "/tickets/"+<%= @ticket.id %>+"/ticket_entries"
+    $("#entries").load(entriesURL, function(){
+      var newEntryURL = "/tickets/"+<%= @ticket.id %>+"/ticket_entries/new";
+      $("a.new_entry_link").bind("click", function(){
+        $("#new_ticket_entry").load(newEntryURL, function(){
+          $("input[@type=text]").each( function() {
+            if ($(this).val() == "") {
+              $(this).addClass("blur");      
+            }
+            $(this).hint();
+          });
+          $("#new_ticket_entry").slideDown(1000);
+        });
+      });
+    });
+    // show checklist on click
+    $("#checklists table a").bind("click", function(){
+      var checklistURL = "/checklists/"+$(this).attr("alt")+"/edit"
+      $("#checklist").slideUp(500);
+      $("#checklist").load(checklistURL, function(){
+        $("#checklist").slideDown(500);
+      });
+    });
+    // show add checklist form when link is clicked and convert select to quickselect
+    $("#checklists a.add_checklist").bind("click", function(){
+      $("#add_checklist_form").slideDown(500);
+      $("form#new_checklist").attr("action", "/tickets/"+<%= @ticket.id %>+"/checklists/");
+    })
+    $("#checklist_checklist_template_id").quickselect({
+  		delay:10,
+  		minChars:1,
+  		match:'quicksilver',
+  		maxItemsToShow:12
+  	});
+    // add sorting to tables
+    $("table").tablesorter();
+    // setup device tab buttons
+    $("a.new_device").bind("click", function(){
+      $("#new_device_form").slideDown(1000);
+    });
+    $("a.add_existing_device").bind("click", function(){
+      $.getJSON("/devices/?q=<%= @ticket.client.fullname %>", function(data){
+        $.each(data, function(i, object){
+          var row = "<tr><td><a href='#'>"+object.device.service_tag+"</a></td><td><a href='#'>"+object.device.name+"</a></td><td><a href='/tickets/<%= @ticket.id %>/devices/"+object.device.id+"/add_to_ticket'>Add</a></td></tr>"        
+          $("#add_existing_device table tbody").append(row);
+          $("#add_existing_device").slideDown(1000);
+          buildTables();
+        });
+      });
+    });
+    // Change submit url
+  	$("form#new_device").attr("action", "/tickets/"+<%= @ticket.id %>+"/devices/");
+  });
+</script>

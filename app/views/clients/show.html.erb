@@ -10,60 +10,24 @@
     <% if not_a_user(@client) %><li class="ui-tabs-nav-item"><a href="/clients/<%= @client.id %>/users/new" title="#newaccount">Invite</a></li><% end %>
     <% if my_account(@client) %><li class="ui-tabs-nav-item"><a href="/users/<%= current_user.id %>" title="#myaccount">My Account</a></li><% end %>
   </ul>
-  <div id="details">
-    <table>
-      <tr>
-        <th class="context">Phone</th><th>Number</th>
-      </tr>
-      <% @client.phones.each do |phone| %>
-        <tr>
-          <td class="context"><%= phone.context %></td><td><%= phone.number %></td>
-        </tr>
-      <% end %>
-    </table>
-    <table>
-      <tr>
-        <th class="context">Email</th><th>Address</th>
-      </tr>
-      <% @client.emails.each do |email| %>
-        <tr>
-          <td class="context"><%= email.context %></td><td><%= email.address %></td>
-        </tr>
-      <% end %>
-    </table>
-    <table>
-      <tr>
-        <th class="context">Street</th><th>Address</th>
-      </tr>
-      <% @client.addresses.each do |address| %>
-        <tr>
-          <td class="context"><%= address.context %></td><td><%= address.full_address %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-  <div id="tickets">
-    <table class="hover">
-      <tr><th>Description</th><th>Technician</th><th>Status</th></tr>
-      <% @client.open_tickets.each do |ticket| %>
-        <tr>
-          <td><%= link_to ticket.description[0...60], "/tickets/#{ticket.id}" %></td>
-          <td><%= link_to ticket.technician.name, "/tickets/#{ticket.id}" %></td>
-          <td><%= link_to ticket.status, "/tickets/#{ticket.id}" %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-  <div id="devices">
-    <table class="hover">
-      <tr><th>Name</th><th>Service Tag</th><th>Last Updated</th></tr>
-      <% @client.devices.each do |device| %>
-        <tr>
-          <td><%= link_to device.name, "/devices/#{device.id}" %></td>
-          <td><%= link_to device.service_tag, "/devices/#{device.id}" %></td>
-          <td><%= link_to device.updated_at.strftime("%m/%d/%Y"), "/devices/#{device.id}" %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
+  <%= render :partial => 'details', :locals => {:client => @client} %>
+  <%= render :partial => 'tickets', :locals => {:client => @client} %>
+  <%= render :partial => 'devices', :locals => {:client => @client} %>
 </div>
+
+<script>
+  $(document).ready(function() {
+    // add edit button to footer
+    $("#footer div.col2").append("<a href='/clients/"+<%= @client.id %>+"/edit' class='edit_client'>Edit</a>");
+    // setup new ticket
+    $("#tickets a.new_ticket").bind("click", function(){
+      $("#new_ticket").slideDown(500);
+    })
+    // setup new device
+    $("a.new_device").bind("click", function(){
+      $("#new_device_form").slideDown(500);
+    });
+    // Change submit url
+  	$("form#new_device").attr("action", "/devices/");
+  });
+</script>

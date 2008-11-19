@@ -1,0 +1,8 @@
+<% new_or_existing = question.new_record? ? 'new' : 'existing' %>
+<% prefix = "checklist[#{new_or_existing}_checklist_item_attributes][]" %>
+<% fields_for prefix, question do |f| -%>
+  <tr>
+    <td class="question"><%= question.question %></td>
+    <td class="answer"><%= checklist_question_helper(f, question) %> <%= question.completed.to_s %></td>
+  </tr>
+<% end -%>

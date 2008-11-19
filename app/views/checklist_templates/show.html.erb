@@ -1,0 +1,70 @@
+<div id="checklist" alt="<%= @checklist.id %>">
+  <h2 alt="show"><%= @checklist.name %></h2>
+  
+  <table class="m" style="margin-left:1em">
+    <% @checklist.checklist_template_questions.each do |question| %>
+      <tr>
+        <td><%= question.answer_type %></td>
+        <td><%= textile_to_html(question.question) %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <h3>Checklist Associations</h3>
+
+  <div style="padding:1.2em">
+    <table id="associations" class="itu">
+      <thead>
+        <tr>
+          <th>Identifier</th>
+          <th>Description</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @checklist.device_types.each do |device_type| %>
+          <tr>
+            <td><%= device_type.identifier %></td>
+            <td><%= device_type.description %></td>
+            <td><%= link_to "Remove", "/checklist_templates/#{@checklist.id}/device_types/#{device_type.id}/remove_association" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+
+    <ul class="toolbar">
+      <li><a href="#" class="add_device_type_association">Add Device Type Association</a></li>
+    </ul>
+
+  <div style="padding:1.2em" class="hide">
+    <table id="device_types" class="itu">
+      <thead>
+        <tr>
+          <th>Identifier</th>
+          <th>Description</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @device_types.each do |device_type| %>
+          <tr>
+            <td><%= device_type.identifier %></td>
+            <td><%= device_type.description %></td>
+            <td><%= link_to "Add", "/checklist_templates/#{@checklist.id}/device_types/#{device_type.id}/add_association" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+</div>
+
+<script>
+  $(document).ready(function() {
+    $("#footer div.col2").append("<a href='/checklist_templates/"+<%= @checklist.id %>+"/edit' class='edit_checklist col2_button1'>Edit</a>");
+    // Add checklist associations
+    $("a.add_device_type_association").bind("click", function(){
+      $("#device_types").parent().slideDown(1000);
+    });
+  });
+</script>

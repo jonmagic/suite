@@ -1,0 +1,9 @@
+<% new_or_existing = question.new_record? ? 'new' : 'existing' %>
+<% prefix = "checklist_template[#{new_or_existing}_checklist_template_question_attributes][]" %>
+<% fields_for prefix, question do |f| -%>
+  <tr>
+    <td class="edit"><%= link_to_function image_tag("/images/icons/delete.png"), "$(this).parent().parent().remove()", :class => "remove_question" %></td>
+    <td class="answer_type"><%= f.select :answer_type, ["string", "text", "boolean", "integer", "decimal", "date", "datetime"] %></td>
+    <td class="question"><%= f.text_area :question %></td>
+  </tr>
+<% end -%>

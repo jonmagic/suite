@@ -1,16 +1,45 @@
 <% form_for @device do |f| -%>
-  <table id="device_details" alt="<%= @device.id %>" class="table-style1" edit="edit">
+  <table id="device_details" class="m">
+    <tr>
+      <td class="first">Service Tag:</td><td><%= f.text_field :service_tag, :title => "Auto-Generated" %></td>
+    </tr>
     <tr>
       <td class="first">Device Name:</td><td><%= f.text_field :name %></td>
     </tr>
     <tr>
-      <td class="first">Service Tag:</td><td><%= f.text_field :service_tag %></td>
+      <td class="first">Owner:</td><td><%= f.select :client_id, Client.find(:all).collect {|c| [c.fullname, c.id]} %></td>
     </tr>
     <tr>
-      <td class="first">Owner:</td><td><%= f.select :client_id, @clients.collect {|c| [c.fullname, c.id]} %></td>
+      <td class="first">Device Type:</td><td><%= f.select :device_type_id, DeviceType.find(:all).collect {|c| [c.description, c.id]} %></td>
     </tr>
-    <tr>
+    <tr class="hide">
       <td class="first">Description:</td><td><%= f.text_area :description, :rows => 6 %></td>
     </tr>
-  <%= f.submit "Save", :class => "hide" %>
+  </table>
+  <p><%= f.submit "Save" %></p>
 <% end %>
+
+<script>
+  $(document).ready(function() {
+    // change client dropdown to quickselect box
+    $("#device_client_id").quickselect({
+  		delay:10,
+  		minChars:1,
+  		match:'quicksilver',
+  		maxItemsToShow:12
+  	});
+    // add save button to footer
+    $("#footer div.col2").append("<a href='#' class='save'>Save</a>");
+  	// bind some clicks
+    $("#footer a.save").bind("click", function(){
+      $("#device input[type=submit]").click();
+    });
+    // add hints to input boxes
+    $("#device_details input[@type=text]").each( function() {
+      if ($(this).val() == "") {
+        $(this).addClass("blur");      
+      }
+      $(this).hint();
+    });
+	});
+</script>

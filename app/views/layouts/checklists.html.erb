@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	  <title>Suite</title>
+	  <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/jquery-ui.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/jrails.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/common.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/checklists.js"></script>
+	  <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">    
+    <!--[if IE]><link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	  <link rel="stylesheet" href="/stylesheets/jquery-theme.css" type="text/css" media="screen, projection">
+	  <link rel="stylesheet" href="/stylesheets/common.css" type="text/css" media="screen, projection">
+	  <link rel="stylesheet" href="/stylesheets/checklists.css" type="text/css" media="screen, projection">
+  </head>
+  <body>
+    <div id="header">
+      <h1 class="hide">Checklist Builder</h1>
+      <ul>
+        <li><a href="/clients">Know My Clients</a></li>
+        <li><a href="/tickets">Opportunity Tickets</a></li>
+        <li><a href="/devices">Track Devices</a></li>
+        <li><a href="/checklist_templates">Checklist Builder</a></li>
+      </ul>
+    </div>
+    
+    
+    <div id="sidebar" class="sidebar-list">
+      <!-- put stuff here?? -->
+    </div>
+    <div id="center" class="container">
+      <%= yield %>
+    </div>
+    
+    <div id="footer">
+      <div class="col1">
+        <%= link_to "New", "/checklist_templates/new" %>
+      </div>
+      <div class="col2"></div>
+      <div class="col3">
+        <%= link_to "Logout?", "/logout" %>
+      </div>
+    </div>
+  </body>
+</html>

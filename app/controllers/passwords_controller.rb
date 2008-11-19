@@ -1,5 +1,7 @@
 class PasswordsController < ApplicationController
   before_filter :login_required, :except => [:reset, :create_password, :update_after_forgetting]
+  layout 'users'
+  
   def new
     @password = Password.new
   end
@@ -42,7 +44,7 @@ class PasswordsController < ApplicationController
       flash[:notice] = 'Password was successfully updated.'
       redirect_to login_path
     else
-      flash[:notice] = 'EPIC FAIL!'
+      flash[:notice] = 'Your password was too short or too long, wish I could tell you which!'
       redirect_to :action => :reset, :reset_code => params[:reset_code]
     end
   end

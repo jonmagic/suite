@@ -3,6 +3,22 @@ class Ticket < ActiveRecord::Base
   belongs_to :user
   has_many :ticket_entries
   has_and_belongs_to_many :devices
+  has_many :checklists
+  
+  after_create :add_created_note
+  before_update :add_status_change_note
+  
+  def add_created_note
+    TicketEntry.create(:entry_type => "State change", :note => "Ticket created.", :billable => false, :private => true, :detail => 6, :ticket => self, :creator_id => self.technician.id)
+  end
+  
+  def add_status_change_note
+    before_update = Ticket.find(self.id)
+    after_update = self
+    if after_update.status != before_update.status
+      TicketEntry.create(:entry_type => "State change", :note => "Status changed to #{after_update.status}", :billable => false, :private => true, :detail => 6, :ticket => self, :creator_id => self.technician.id)
+    end
+  end
   
   def status
     if self.archived_on != nil

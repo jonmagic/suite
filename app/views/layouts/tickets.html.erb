@@ -6,18 +6,22 @@
 	  <title>Suite</title>
 	  <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.js"></script>
     <script type="text/javascript" charset="utf-8" src="/javascripts/jquery-ui.js"></script>
+	  <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.metadata.js"></script>
+	  <script type="text/javascript" charset="utf-8" src="/javascripts/quicksilver.js"></script>
+	  <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.quickselect.js"></script>
     <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.scrollTo.js"></script>
     <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.jHelperTip.1.0.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/application.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.tablesorter.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/common.js"></script>
     <script type="text/javascript" charset="utf-8" src="/javascripts/tickets.js"></script>
 	  <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
     <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">    
     <!--[if IE]><link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
-	  <link rel="stylesheet" href="/stylesheets/jquery-ui-themeroller.css" type="text/css" media="screen, projection">
+	  <link rel="stylesheet" href="/stylesheets/jquery-theme.css" type="text/css" media="screen, projection">
 	  <link rel="stylesheet" href="/stylesheets/common.css" type="text/css" media="screen, projection">
 	  <link rel="stylesheet" href="/stylesheets/tickets.css" type="text/css" media="screen, projection">
   </head>
-  <body>
+  <body class="container">
 
     <div id="header">
       <h1 class="hide">Opportunity Tickets</h1>
@@ -25,12 +29,13 @@
         <li><a href="/clients">Know My Clients</a></li>
         <li><a href="/tickets">Opportunity Tickets</a></li>
         <li><a href="/devices">Track Devices</a></li>
+        <li><a href="/checklist_templates">Checklist Builder</a></li>
       </ul>
     </div>
     
-    <div id="sidebar" class="sidebar-list">
+    <div id="sidebar">
       <h2>Tickets</h2>
-      <ul>
+      <ul class="m">
         <li><a href="/tickets/?status=open&scope=user" class="open">Open</a><%= totals_helper(:open) %></li>
         <li><a href="/tickets/?status=scheduled&scope=user" class="scheduled">Scheduled</a><%= totals_helper(:scheduled) %></li>
         <li><a href="/tickets/?status=completed&scope=user" class="completed">Completed</a><%= totals_helper(:completed) %></li>
@@ -39,7 +44,7 @@
       </ul>
     </div>
     
-    <div id="center" class="container">
+    <div id="center">
       <%= yield %>
     </div>
     

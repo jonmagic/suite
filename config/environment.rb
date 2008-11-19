@@ -69,5 +69,6 @@ Rails::Initializer.run do |config|
   config.gem 'googlebase', :lib => 'google/base', :version => '0.2'
   config.gem 'json'
   config.gem 'paperclip'
+  require 'lib/search.rb'
   
 end

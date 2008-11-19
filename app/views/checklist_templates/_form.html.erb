@@ -1,0 +1,42 @@
+<% form_for @checklist, :html => { :multipart => true } do |f| -%>
+  <p>Checklist Name: <%= f.text_field :name, :title => "Checklist Name" %></p>
+  <div style="padding:0 1.5em;">
+    <table class="" id="questions">
+      <thead>
+        <tr>
+          <th class="add"><a href="#" class="add_row"><%= image_tag("/images/icons/add.png") %></a></th>
+          <th class="answer_type">Answer Type</th>
+          <th class="question">Question</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render :partial => 'question', :object => ChecklistTemplateQuestion.new %>
+        <%= render :partial => 'question', :collection => @checklist.checklist_template_questions %>
+      </tbody>
+    </table>
+    <%= f.submit "Save", :class => "hide" %>
+  </div>
+  
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    // setup my add row functionality
+    $("#checklist table tbody tr:first").addClass("hide");
+    $("#checklist table a.add_row").bind("click", function(){
+      $("#checklist table tbody tr:first").clone().removeClass("hide").appendTo("#checklist table tbody");
+    });
+    // add in save button and its functions
+    $("#footer div.col2").append("<a href='#' class='save_checklist'>Save</a>");
+    $("#footer a.save_checklist").bind("click", function(){
+      // fix form saves so that empty boxes don't get saved :-)
+      $("textarea").each(function(){
+        if ($(this).val() == '') {
+          $(this).parent().parent().remove();
+        };
+      });
+      // save form
+      $("#checklist input[type=submit]").click();
+    });
+  });
+</script>

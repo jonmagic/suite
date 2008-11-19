@@ -1,0 +1,26 @@
+<div id="device_type">
+  <h2>New Device Type</h2>
+  <% form_for @device_type do |f| -%>
+    <table id="device_details" class="m">
+      <tr>
+        <td class="first">Identifier:</td><td><%= f.text_field :identifier %></td>
+      </tr>
+      <tr>
+        <td class="first">Description:</td><td><%= f.text_field :description %></td>
+      </tr>
+    </table>
+    <%= f.submit "Save", :class => 'hide' %>
+  <% end %>
+</div>
+
+<script>
+  $(document).ready(function() {
+    // make sidebar item appear selected
+    $("#sidebar li a.device_type_configuration").parent().addClass("selected");
+    // add new device type button to footer
+    $("#footer div.col2").append("<a href='#' class='save'>Save Device Type</a>");
+    $("#footer div.col2 a.save").bind("click", function(){
+      $("#device_type input[type=submit]").click();
+    });
+  });
+</script>

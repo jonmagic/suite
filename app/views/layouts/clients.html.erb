@@ -6,14 +6,18 @@
 	  <title>Suite</title>
 	  <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.js"></script>
     <script type="text/javascript" charset="utf-8" src="/javascripts/jquery-ui.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/jrails.js"></script>
+	  <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.metadata.js"></script>
+	  <script type="text/javascript" charset="utf-8" src="/javascripts/quicksilver.js"></script>
+	  <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.quickselect.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.livesearch.js"></script>
     <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.scrollTo.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/application.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/applesearch.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/javascripts/common.js"></script>
     <script type="text/javascript" charset="utf-8" src="/javascripts/clients.js"></script>
 	  <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
     <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">    
     <!--[if IE]><link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
-	  <link rel="stylesheet" href="/stylesheets/jquery-ui-themeroller.css" type="text/css" media="screen, projection">
+	  <link rel="stylesheet" href="/stylesheets/jquery-theme.css" type="text/css" media="screen, projection">
 	  <link rel="stylesheet" href="/stylesheets/common.css" type="text/css" media="screen, projection">
 	  <link rel="stylesheet" href="/stylesheets/clients.css" type="text/css" media="screen, projection">
   </head>
@@ -25,13 +29,16 @@
         <li><a href="/clients">Know My Clients</a></li>
         <li><a href="/tickets">Opportunity Tickets</a></li>
         <li><a href="/devices">Track Devices</a></li>
+        <li><a href="/checklist_templates">Checklist Builder</a></li>
       </ul>
     </div>
     
-    <div id="sidebar" class="sidebar-list">
+    <div id="sidebar">
+      <div id="applesearch"><span class="sbox_l"></span><span class="sbox"><input type="search" id="srch_fld" placeholder="Search..." autosave="applestyle_srch" results="5" onkeyup="applesearch.onChange('srch_fld','srch_clear')" /></span><span class="sbox_r" id="srch_clear"></span></div>
       <h2>Clients</h2>
-      <div class="search">Search: <input /></div>
-      <ul id="clients"></ul>
+      <ul class="itu" id="clients">
+        
+      </ul>
     </div>
     
     <div id="center" class="container">

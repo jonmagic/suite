@@ -52,10 +52,10 @@ ol {list-style-type:decimal;}
 dl {margin:0 0 1.5em 0;}
 dl dt {font-weight:bold;}
 dd {margin-left:1.5em;}
-table {margin-bottom:1.4em;width:100%;}
+table {margin-bottom:1.4em;}
 th {font-weight:bold;background:#C3D9FF;}
 th, td {padding:4px 10px 4px 5px;}
-tr.even td {background:#E5ECF9;}
+tr.even td {}
 tfoot {font-style:italic;}
 caption {background:#eee;}
 .small {font-size:.8em;margin-bottom:1.875em;line-height:1.875em;}

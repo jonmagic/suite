@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
-  # before_filter :login_required
-  layout 'clients', :except => :list
+  before_filter :login_required
+  layout 'clients'
   
   def index
     @clients = Client.find(:all)
@@ -24,7 +24,6 @@ class ClientsController < ApplicationController
   
   def new
     @client = Client.new
-    @companies = Client.find(:all, :conditions => {:company => true})
     @client.phones.build
     @client.emails.build
     @client.addresses.build
@@ -32,7 +31,6 @@ class ClientsController < ApplicationController
   
   def edit
     @client = Client.find(params[:id])
-    @companies = Client.find(:all, :conditions => {:company => true})
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @client }

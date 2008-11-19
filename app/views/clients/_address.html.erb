@@ -2,7 +2,7 @@
 <% prefix = "client[#{new_or_existing}_address_attributes][]" %>
 <% fields_for prefix, address do |f| -%>
   <tr class="address">
-    <td class="edit"><%= link_to_function image_tag("/images/delete.png"), "$(this).parent().parent().remove()", :class => "remove_street_address" %></td>
+    <td class="edit"><%= link_to_function image_tag("/images/icons/delete.png"), "$(this).parent().parent().remove()", :class => "remove_street_address" %></td>
     <td class="context"><%= f.select :context, ["Home","Work","Other"] %></td>
     <td class="content"><%= f.text_field :full_address %></td>
   </tr>

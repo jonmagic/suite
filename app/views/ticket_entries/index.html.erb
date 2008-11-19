@@ -1,10 +1,49 @@
-<div class="toolbar"><a href="#" class="new_entry_link">New Entry</a></div>
-<div id="new_ticket_entry" class="hide"></div>
-<% @ticket_entries.reverse.each do |entry| %>
-  <div class="ticket_entry">
-    <div class="ticket_entry_mugshot"><%= image_tag entry.creator.avatar.url(:avatar) %></div>
-    <p class="ticket_entry_byline">Entry by <%= entry.creator.name %> on <%= entry.updated_at.strftime("%H:%M %m/%d/%Y") %></p>
-    <p class="ticket_entry_details">Billable? <%= billable(entry) %> - Time Spent: <%= entry.time %> minutes</p>
-    <div class="ticket_entry_note"><%= textile_to_html(entry.note) %></div>
-  </div>
-<% end %>
+<ul class="toolbar">
+  <li><a href="#" class="new_entry_link">New Entry</a></li>
+  <li><a href="#" class="toggle_detail">Toggle Detail</a></li>
+</ul>
+<div id="new_ticket_entry" class="hide toolbox"></div>
+<div id="ticket_entries" detail="1">
+  <% @ticket_entries.reverse.each do |entry| %>
+    <div class="ticket_entry" detail="<%= entry.detail %>">
+      <div class="ticket_entry_mugshot"><%= image_tag entry.creator.avatar.url(:avatar) %></div>
+      <p class="ticket_entry_byline">Entry by <%= entry.creator.name %> on <%= entry.updated_at.strftime("%H:%M %m/%d/%Y") %></p>
+      <p class="ticket_entry_details">Billable? <%= billable(entry) %> - Time Spent: <%= entry.time %> minutes</p>
+      <div class="ticket_entry_note"><%= textile_to_html(entry.note) %></div>
+      <div class="delete_button"><%= link_to_remote image_tag("/images/icons/delete.png"), :url => ticket_entry_url(entry), :method => :delete %></div>
+    </div>
+  <% end %>
+</div>
+<br />
+
+<script>
+  $(document).ready(function() {
+    // on delete slide up deleted note
+    $("div#ticket_entries a").each(function(i){
+      $(this).click(function(){
+        $(this).parent().parent().slideUp("slow");
+      });
+    });
+    // setup note detail level button
+    var detail = $("div#ticket_entries").attr("detail");
+    apply_detail(detail);
+    $("a.toggle_detail").click(function(){
+      if(detail == 1){
+        detail = 6;
+        apply_detail(detail);
+      }else{
+        detail = 1;
+        apply_detail(detail);
+      };
+    });
+  });
+  function apply_detail(detail){
+    $("div.ticket_entry").each(function(i){
+      if($(this).attr("detail") > detail){
+        $(this).addClass("hide");
+      }else{
+        $(this).removeClass("hide");
+      };
+    });
+  };
+</script>

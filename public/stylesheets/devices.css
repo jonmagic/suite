@@ -1,3 +1,8 @@
-#device {padding:1em 2em;}
-div.sidebar-list ul#devices li a {background:url("/images/famfamfam/computer.png") no-repeat 5px 5px;}
-div#device table#device_details tr td.first {width:7em;}
+#device {}
+
+/* Sidebar */
+div.sidebar-list ul#devices li a.search {background:url("/images/icons/find.png") no-repeat;}
+div.sidebar-list ul#configuration li a.device_type_configuration {background:url("/images/icons/script_edit.png") no-repeat 0px 1px;}
+
+/* Search box */
+#applesearch .sbox input {width:300px;}

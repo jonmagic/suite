@@ -1,0 +1,25 @@
+<div id="device_types">
+  <table class="itu">
+    <thead>
+      <tr><th class="first">Identifier</th><th>Description</th><th>Created On</th></tr>
+    </thead>
+    <tbody>
+      <% @device_types.each do |type|  %>
+        <tr class="ticket" title="<%= "#{type.description}" %>" alt="<%= type.id %>">
+          <td class="first"><a href="/device_types/<%= type.id %>/edit"><%= type.identifier %></a></td>
+          <td><a href="/device_types/<%= type.id %>/edit"><%= type.description %></a></td>
+          <td><a href="/device_types/<%= type.id %>/edit"><%= type.created_at.strftime('%m/%d/%y') %></a></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(document).ready(function() {
+    // make sidebar item appear selected
+    $("#sidebar li a.device_type_configuration").parent().addClass("selected");
+    // add new device type button to footer
+    $("#footer div.col2").append("<a href='/device_types/new'>New Device Type</a>");
+  });
+</script>

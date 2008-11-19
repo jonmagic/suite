@@ -4,16 +4,9 @@ Suite is software for small service based businesses. The workflow in Suite is f
 
 h3. To-Do
 
-* fix up devices window so it follows suite look
-* add device listing to ticket view
-* sort clients by name
-* sort tickets in ALL category by Open, Scheduled, Completed
-* add search to clients
-* add search to devices
-* add file upload functionality to tickets, clients, and devices
-
-* extract the ui css & js so that it can be used elsewhere
-* build a ui for clients to login and check on the status of their tickets/devices/history
+* add password locked completion to checklists
+* lock tickets as open or scheduled until any associated checklists are completed
+* be able to create a client from inside a new ticket
 
 x add ticket listing to client view
 x when editing a client, add new email/phone/address buttons don't work
@@ -22,3 +15,24 @@ x create a "My Account" page where user can upload an image, change password, et
 x when you go to clients it should give something other than just a blank white page
 x make it so you can open a client and send a user invite, to create technicians initially...
 x build out the devices section, nothing has really been done there yet
+x fix up devices window so it follows suite look
+x add device listing to ticket view
+x extract the ui css & js so that it can be used elsewhere
+x add checklist functionality, including a checklist builder
+x sort clients by name
+x sort tickets in ALL category by Open, Scheduled, Completed
+x add delete to notes on tickets
+x add search to clients
+x add device type editor to Track Devices
+x turn selects into auto-complete boxes for clients
+x add search to devices
+x fix device show page
+x cannot add existing devices to a ticket
+x add arbitrary checklists for tickets
+x firefox do not load the sidebar under clients
+x make it so you can create a ticket from client page, or device page
+x add search to tickets
+x fix calendar widget on edit/new ticket page
+x add user preferences
+x add ticket entry detail toggle
+x fix add client attributes buttons

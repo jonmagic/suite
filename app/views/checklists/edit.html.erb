@@ -1,0 +1,8 @@
+<h2><%= checklist_for_helper(@checklist) %></h2>
+
+<% form_for @checklist do |form| -%>
+  <table class="" style="margin-left:2em">
+    <%= render :partial => 'question', :collection => @checklist.checklist_items %>
+    <tr><td><%= form.submit "Save" %></td><td></td><td></td></tr>
+  </table>
+<% end %>

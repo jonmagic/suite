@@ -7,6 +7,6 @@ test:
   <<: *non_production_settings
   
 production:
-  site_url: http://suite.sabretechllc.com
+  site_url: http://suite.bounceme.net
   site_name: SabreTech Suite
   admin_email: jonmagic@gmail.com
