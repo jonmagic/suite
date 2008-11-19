@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   include Authentication::ByCookieToken
   include Authorization::AasmRoles
   
-  preference :detail, :string, :default => 6
+  # preference :detail, :string, :default => 6
 
   validates_format_of     :name, :with => RE_NAME_OK, :message => MSG_NAME_BAD, :allow_nil => true
   validates_length_of     :name, :maximum => 100
