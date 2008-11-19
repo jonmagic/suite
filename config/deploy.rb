@@ -2,8 +2,8 @@
 #	Application
 #############################################################
 
-set :application, "bort"
-set :deploy_to, "/path/to/deploy"
+set :application, "Suite"
+set :deploy_to, "/home/sabretechllc/apps/suite"
 
 #############################################################
 #	Settings
@@ -18,8 +18,8 @@ set :scm_verbose, true
 #	Servers
 #############################################################
 
-set :user, "bort"
-set :domain, "www.example.com"
+set :user, "root"
+set :domain, "suite.sabretechllc.com"
 server domain, :app, :web
 role :db, domain, :primary => true
 
