@@ -35,4 +35,4 @@ ActionMailer::Base.smtp_settings = {
   :password => '316w4ldr0n'
 }
 
-ExceptionNotifier.exception_recipients = "jonmagic@gmail.com"
+# ExceptionNotifier.exception_recipients = "jonmagic@gmail.com"
