@@ -4,6 +4,8 @@ Suite is software for small service based businesses. The workflow in Suite is f
 
 h3. To-Do
 
+* make login page better
+* On the checklist builder make a completed field collapse after you are finished
 * add password locked completion to checklists
 * lock tickets as open or scheduled until any associated checklists are completed
 * be able to create a client from inside a new ticket
