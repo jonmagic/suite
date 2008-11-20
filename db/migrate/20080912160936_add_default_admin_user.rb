@@ -2,6 +2,7 @@ class AddDefaultAdminUser < ActiveRecord::Migration
   def self.up
     # Create admin role
     admin_role = Role.create(:name => 'admin')
+    technician_role = Role.create(:name => 'technician')
     
     # Create default admin user
     user = User.create do |u|

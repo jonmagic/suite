@@ -72,4 +72,4 @@ Rails::Initializer.run do |config|
   require 'lib/search.rb'
 end
 
-# ExceptionNotifier.exception_recipients = "jonmagic@gmail.com"
+ExceptionNotifier.exception_recipients = "jonmagic@gmail.com"

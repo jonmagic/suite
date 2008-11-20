@@ -1,7 +1,6 @@
 class PasswordsController < ApplicationController
   before_filter :login_required, :except => [:reset, :create_password, :update_after_forgetting]
   layout 'users'
-  # consider_local "208.78.101.98"
 
   def new
     @password = Password.new
