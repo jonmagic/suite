@@ -71,5 +71,3 @@ Rails::Initializer.run do |config|
   config.gem 'paperclip'
   require 'lib/search.rb'
 end
-
-ExceptionNotifier.exception_recipients = "jonmagic@gmail.com"
