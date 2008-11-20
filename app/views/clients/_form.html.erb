@@ -57,6 +57,11 @@
     $("#footer a.save_client").bind("click", function(){
       // fix form saves so that empty boxes don't get saved :-)
       $("#details input").each(function(){
+        if ($(this).attr("value") == "") {
+          $(this).parent().parent().remove();
+        };
+      });
+      $("#details input").each(function(){
         if ($(this).attr("value") == null) {
           $(this).parent().parent().remove();
         };
