@@ -4,7 +4,7 @@ Suite is software for small service based businesses. The workflow in Suite is f
 
 h3. To-Do
 
-* fix checklist builder, its not saving
+* adding labor types to ticket entries
 * make login page better
 * On the checklist builder make a completed field collapse after you are finished
 * add password locked completion to checklists
@@ -41,3 +41,4 @@ h3. Completed
 * add user preferences
 * add ticket entry detail toggle
 * fix add client attributes buttons
+x fix checklist builder, its not saving
