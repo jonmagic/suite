@@ -22,9 +22,9 @@ class Device < ActiveRecord::Base
         else
           new_machine_number = service_tag_parts[-1].to_i + 1
         end
-        self.service_tag = "#{device_type.identifier}-#{Time.now.strftime("%m%d%Y")}-#{new_machine_number}"
+        self.service_tag = "#{device_type.identifier}-#{Time.now.strftime("%m%d%y")}-#{new_machine_number}"
       else
-        self.service_tag = "#{device_type.identifier}-#{Time.now.strftime("%m%d%Y")}-1"
+        self.service_tag = "#{device_type.identifier}-#{Time.now.strftime("%m%d%y")}-1"
       end
     end
   end

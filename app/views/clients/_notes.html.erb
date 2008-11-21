@@ -1,0 +1,21 @@
+<div id="notes">
+  <% form_for @client do |f| -%>
+    <table id="phones" class="hide">
+      <tbody>
+        <%= render :partial => 'phone', :collection => @client.phones %>
+      </tbody>
+    </table>
+    <table id="emails" class="hide">
+      <tbody>
+        <%= render :partial => 'email', :collection => @client.emails %>
+      </tbody>
+    </table>
+    <table id="addresses" class="hide">
+      <tbody>
+        <%= render :partial => 'address', :collection => @client.addresses %>
+      </tbody>
+    </table>
+    <p><%= f.text_area :note %></p>
+    <p><%= f.submit "Update" %></p>
+  <% end %>
+</div>

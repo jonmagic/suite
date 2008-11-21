@@ -12,7 +12,7 @@
     <tr>
       <td class="first">Device Type:</td><td><%= f.select :device_type_id, DeviceType.find(:all).collect {|c| [c.description, c.id]} %></td>
     </tr>
-    <tr class="hide">
+    <tr>
       <td class="first">Description:</td><td><%= f.text_area :description, :rows => 6 %></td>
     </tr>
   </table>

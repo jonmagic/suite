@@ -65,6 +65,7 @@ class ClientsController < ApplicationController
         format.html { redirect_to(@client) }
         format.xml  { head :ok }
       else
+        flash[:notice] = @client.errors.inspect       
         format.html { render :action => "edit" }
         format.xml  { render :xml => @client.errors, :status => :unprocessable_entity }
       end
