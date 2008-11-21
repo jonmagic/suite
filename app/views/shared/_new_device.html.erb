@@ -2,7 +2,7 @@
 <% form_for Device.new(:client => @client), :url => "" do |f| -%>
   <table id="device_details" class="m">
     <tr>
-      <td class="first">Service Tag:</td><td><%= f.text_field :service_tag, :title => "Auto-Generated" %></td>
+      <td class="first">Service Tag:</td><td><%= f.text_field :service_tag %> Auto-Generated</td>
     </tr>
     <tr>
       <td class="first">Device Name:</td><td><%= f.text_field :name %></td>
@@ -29,12 +29,5 @@
   		match:'quicksilver',
   		maxItemsToShow:12
   	});
-    // add hints to input boxes
-    $("#device_details input[@type=text]").each( function() {
-      if ($(this).val() == "") {
-        $(this).addClass("blur");      
-      }
-      $(this).hint();
-    });
 	});
 </script>
