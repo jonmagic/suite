@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20081118201842) do
     t.string   "mugshot_file_name"
     t.string   "mugshot_content_type"
     t.integer  "mugshot_file_size"
+    t.string   "qb_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

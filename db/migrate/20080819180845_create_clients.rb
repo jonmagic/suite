@@ -10,6 +10,7 @@ class CreateClients < ActiveRecord::Migration
       t.string  :mugshot_file_name
       t.string  :mugshot_content_type
       t.integer :mugshot_file_size
+      t.string  :qb_id
       t.timestamps
     end
   end
