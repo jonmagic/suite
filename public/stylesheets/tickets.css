@@ -20,8 +20,8 @@
 div#ticket_entries {margin:1em;}
 div.ticket_entry {border-top:1px solid #ddd;padding:5px;}
 .ticket_entry:hover {background-color:#d4dde6;}
-.ticket_entry_details {font-size:8pt;line-height:8pt;}
-.ticket_entry_byline {font-size:8pt;margin-left:55px;line-height:8pt;}
+.ticket_entry_details {font-size:10pt;line-height:8pt;}
+.ticket_entry_byline {font-size:10pt;margin-left:55px;line-height:8pt;color:#666;}
 .ticket_entry_mugshot {float:left;display:block;margin-right:5px;width:50px;height:50px;background-color:#eee;}
 .ticket_entry_note {margin-left:1em;padding-top:1.5em;}
 
