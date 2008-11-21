@@ -51,7 +51,7 @@ class ChecklistTemplatesController < ApplicationController
   end
   
   def create
-    @checklist = ChecklistTemplate.new(params[:checklist_form])
+    @checklist = ChecklistTemplate.new(params[:checklist_template])
 
     respond_to do |format|
       if @checklist.save
@@ -59,6 +59,7 @@ class ChecklistTemplatesController < ApplicationController
         format.html { redirect_to(@checklist) }
         format.xml  { render :xml => @checklist, :status => :created, :location => @checklist }
       else
+        flash[:notice] = @checklist.errors.inspect
         format.html { render :action => "new" }
         format.xml  { render :xml => @checklist.errors, :status => :unprocessable_entity }
       end

@@ -20,6 +20,17 @@
 <% end %>
 
 <script>
+  function remove_empty_fields(){
+    // fix form saves so that empty boxes don't get saved :-)
+    $("textarea").each(function(){
+      if ($(this).val() == null) {
+        $(this).parent().parent().remove();
+      };
+      if ($(this).val() == '') {
+        $(this).parent().parent().remove();
+      };
+    });
+  }
   $(document).ready(function() {
     // setup my add row functionality
     $("#checklist table tbody tr:first").addClass("hide");
@@ -29,19 +40,12 @@
     // add in save button and its functions
     $("#footer div.col2").append("<a href='#' class='save_checklist'>Save</a>");
     $("#footer a.save_checklist").bind("click", function(){
-      if ($(this).val() == null) {
-        $(this).parent().parent().remove();
-      };
-      if ($(this).val() == '') {
-        $(this).parent().parent().remove();
-      };
+      remove_empty_fields();
       // save form
       $("#checklist input[type=submit]").click();
     });
-    $("#checklist input[type=submit]").bind("click", function(){
-      // fix form saves so that empty boxes don't get saved :-)
-      $("textarea").each(function(){
-      });
+    $("#checklist form").bind("submit", function(){
+      remove_empty_fields();
     });
   });
 </script>

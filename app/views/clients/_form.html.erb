@@ -51,23 +51,27 @@
 <% end %>
 
 <script>
+  function remove_empty_fields(){
+    // fix form saves so that empty boxes don't get saved :-)
+    $("#details input").each(function(){
+      if ($(this).attr("value") == "") {
+        $(this).parent().parent().remove();
+      };
+      if ($(this).attr("value") == null) {
+        $(this).parent().parent().remove();
+      };
+    });
+  };
   $(document).ready(function() {
     // Add in my Edit and Save buttons
     $("#footer div.col2").append("<a href='#' class='save_client'>Save</a>");
     $("#footer a.save_client").bind("click", function(){
-      // fix form saves so that empty boxes don't get saved :-)
-      $("#details input").each(function(){
-        if ($(this).attr("value") == "") {
-          $(this).parent().parent().remove();
-        };
-      });
-      $("#details input").each(function(){
-        if ($(this).attr("value") == null) {
-          $(this).parent().parent().remove();
-        };
-      });
+      remove_empty_fields();
       // save form
       $("#client input[type=submit]").click();
+    });
+    $("#client form").bind("submit", function(){
+      remove_empty_fields();
     });
     // blur titles, go to full on text when entered
     $("#names input[@type=text]").each( function() {
