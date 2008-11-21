@@ -1,0 +1,4 @@
+= Gemified jRails.
+
+ Do not forget to copy jquery-fx.js, jquery-ui.js, jquery.js, and jrails.js 
+from javascripts/ folder to you public directory (look at install.rb)
