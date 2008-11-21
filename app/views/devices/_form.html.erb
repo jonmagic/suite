@@ -1,22 +1,22 @@
 <% form_for @device do |f| -%>
   <table id="device_details" class="m">
     <tr>
-      <td class="first">Service Tag:</td><td><%= f.text_field :service_tag, :title => "Auto-Generated" %></td>
+      <td>Service Tag:</td><td class="blur"><%= f.text_field :service_tag %> (Auto-Generated)</td>
     </tr>
-    <tr>
-      <td class="first">Device Name:</td><td><%= f.text_field :name %></td>
+    <tr> 
+      <td>Device Name:</td><td><%= f.text_field :name %></td>
     </tr>
-    <tr>
-      <td class="first">Owner:</td><td><%= f.select :client_id, Client.find(:all).collect {|c| [c.fullname, c.id]} %></td>
+    <tr> 
+      <td>Owner:</td><td><%= f.select :client_id, Client.find(:all).collect {|c| [c.fullname, c.id]} %></td>
     </tr>
-    <tr>
-      <td class="first">Device Type:</td><td><%= f.select :device_type_id, DeviceType.find(:all).collect {|c| [c.description, c.id]} %></td>
+    <tr> 
+      <td>Device Type:</td><td><%= f.select :device_type_id, DeviceType.find(:all).collect {|c| [c.description, c.id]} %></td>
     </tr>
-    <tr>
-      <td class="first">Description:</td><td><%= f.text_area :description, :rows => 6 %></td>
+    <tr> 
+      <td>Description:</td><td><%= f.text_area :description, :rows => 6 %></td>
     </tr>
   </table>
-  <p><%= f.submit "Save" %></p>
+  <p><%= f.submit "Save", :class => "hide" %></p>
 <% end %>
 
 <script>
@@ -33,13 +33,6 @@
   	// bind some clicks
     $("#footer a.save").bind("click", function(){
       $("#device input[type=submit]").click();
-    });
-    // add hints to input boxes
-    $("#device_details input[@type=text]").each( function() {
-      if ($(this).val() == "") {
-        $(this).addClass("blur");      
-      }
-      $(this).hint();
     });
 	});
 </script>

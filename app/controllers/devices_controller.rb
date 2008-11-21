@@ -62,10 +62,12 @@ class DevicesController < ApplicationController
           flash[:notice] = 'Device was successfully created.'
           format.html { redirect_to :back }
         else
+          flash[:notice] = @device.errors.inspect
           format.html { redirect_to url_for(@device) }
           format.xml  { render :xml => @device, :status => :created, :location => @device }
         end
       else
+        flash[:notice] = @device.errors.inspect
         format.html { redirect_to :back }
         format.xml  { render :xml => @device.errors, :status => :unprocessable_entity }
       end
