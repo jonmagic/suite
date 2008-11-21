@@ -1,6 +1,6 @@
 <% form_for @ticket do |f| -%>
   <table class="m">
-    <tr><td class="first">Client:</td><td><%= f.select :client_id, Client.find(:all).collect {|c| [c.fullname, c.id]} %></td><tr>
+    <tr><td class="first">Client:</td><td><%= f.select :client_id, Client.find(:all).collect {|c| [c.fullname, c.id]}, :include_blank => true %></td><tr>
     <tr><td class="first">Technician:</td><td><%= f.select :user_id, User.find(:all).collect {|c| [c.name, c.id]} %></td></tr>
     <tr><td class="first">Scheduled For:</td><td><%= f.text_field :active_on, :value => if @ticket.active_on != nil then @ticket.active_on.strftime("%m/%d/%Y") else Date.today.strftime("%m/%d/%Y") end %></td></tr>
   </table>
