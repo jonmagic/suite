@@ -4,22 +4,9 @@
   <head>
 	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	  <title>Suite</title>
-	  <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/jquery-ui.js"></script>
-	  <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.metadata.js"></script>
-	  <script type="text/javascript" charset="utf-8" src="/javascripts/quicksilver.js"></script>
-	  <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.quickselect.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.livesearch.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.scrollTo.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/applesearch.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/common.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/clients.js"></script>
-	  <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
-    <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">    
+    <%= javascript_include_tag "jquery", "jquery-ui", "jquery.metadata", "quicksilver", "jquery.quickselect", "jquery.livesearch", "jquery.scrollTo", "common", "clients", :cache => true %>
+		<%= stylesheet_link_tag "blueprint/screen", "jquery-theme", "common", "clients", :media => "screen", :cache => true %>
     <!--[if IE]><link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
-	  <link rel="stylesheet" href="/stylesheets/jquery-theme.css" type="text/css" media="screen, projection">
-	  <link rel="stylesheet" href="/stylesheets/common.css" type="text/css" media="screen, projection">
-	  <link rel="stylesheet" href="/stylesheets/clients.css" type="text/css" media="screen, projection">
   </head>
   <body>
 

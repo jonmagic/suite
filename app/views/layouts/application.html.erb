@@ -9,14 +9,9 @@
 		<meta name="robots" content="all" />	
 		<meta name="resource-type" content="document" />
 		<meta name="MSSmartTagsPreventParsing" content="true" />
-	  <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/jquery-ui.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.scrollTo.js"></script>
-	  <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
-    <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">    
-    <!--[if IE]><link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
-	  <link rel="stylesheet" href="/stylesheets/jquery-theme.css" type="text/css" media="screen, projection">
-	  <link rel="stylesheet" href="/stylesheets/common.css" type="text/css" media="screen, projection">
+		<%= javascript_include_tag "jquery", "jquery-ui", "jquery.scrollTo", :cache => true %>
+		<%= stylesheet_link_tag "blueprint/screen", "jquery-theme", "common", :media => "screen", :cache => true %>
+     <!--[if IE]><link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
 	</head>
 	<body>
 		<div id="container" class="login">
