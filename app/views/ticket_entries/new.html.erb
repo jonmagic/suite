@@ -2,7 +2,7 @@
 <% form_for @ticket_entry do |f| %>
   <table class="m">
     <tr>
-      <td class="first">Entry Type</td><td><%= f.select :entry_type, ["Work Done", "Research"] %></td>
+      <td class="first">Entry Type</td><td><%= f.select :entry_type, ["Work Done", "Research", "Note", "HowTo"] %></td>
     </tr>
     <tr>
       <td class="first">Time Spent</td><td><%= f.text_field :time, :title => "minutes" %></td>
