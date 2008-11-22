@@ -8,7 +8,7 @@
       <td class="first">Time Spent</td><td><%= f.text_field :time, :title => "minutes" %></td>
     </tr>
     <tr>
-      <td class="first">Labor Type</td><td><%= f.select :labor_type, ["Onsite", "Instore", "Remote", "System Build"] %></td>
+      <td class="first">Labor Type</td><td><%= f.select :labor_type, ["Onsite", "Instore", "Remote", "System Build"], :include_blank => true %></td>
     </tr>
     <tr>
       <td class="first">Billable</td><td><%= f.check_box :billable %></td>
