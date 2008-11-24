@@ -8,7 +8,7 @@
       <td class="first">Device Name:</td><td><%= f.text_field :name %></td>
     </tr>
     <tr>
-      <td class="first">Owner:</td><td><%= f.select :client_id, Client.find(:all).collect {|c| [c.fullname, c.id]} %></td>
+      <td class="first">Owner:</td><td><%= f.select :client_id, Client.find(:all).collect {|c| [c.fullname, c.id]}, :include_blank => true %></td>
     </tr>
     <tr>
       <td class="first">Device Type:</td><td><%= f.select :device_type_id, DeviceType.find(:all).collect {|c| [c.description, c.id]} %></td>

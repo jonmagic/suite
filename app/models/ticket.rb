@@ -9,7 +9,7 @@ class Ticket < ActiveRecord::Base
   before_update :add_status_change_note
   
   def add_created_note
-    TicketEntry.create(:entry_type => "State change", :note => "Ticket created.", :billable => false, :private => true, :detail => 6, :ticket => self, :creator_id => self.technician.id)
+    TicketEntry.create(:entry_type => "State change", :note => "Ticket created.", :billable => false, :private => true, :detail => 6, :ticket => self, :creator_id => current_user.client_id)
   end
   
   def add_status_change_note

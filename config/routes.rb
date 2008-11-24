@@ -18,7 +18,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :attachments
 
   map.client_list '/clients/list', :controller => 'clients', :action => 'list'
-  
+
+  map.search_clients '/clients/search', :controller => 'clients', :action => 'search'  
   map.resources :clients do |client|
     client.resources :tickets
     client.resources :devices

@@ -39,7 +39,7 @@ class TicketsController < ApplicationController
         if params[:device_id] != nil
           @device = Device.find(params[:device_id])
           @ticket.devices << @device
-          TicketEntry.create(:entry_type => "Removed Device", :note => "Device (Service Tag: #{@device.service_tag}) was added to this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @ticket, :creator_id => @ticket.technician.id)
+          TicketEntry.create(:entry_type => "Add Device", :note => "Device (Service Tag: #{@device.service_tag}) was added to this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @ticket, :creator_id => @ticket.technician.id)
         end
         flash[:notice] = 'Ticket was successfully created.'
         format.html { redirect_to(@ticket) }

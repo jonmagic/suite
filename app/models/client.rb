@@ -18,7 +18,7 @@ class Client < ActiveRecord::Base
   after_update :save_phones, :save_emails, :save_addresses
   
   def to_json(options={})
-    super(options.merge(:methods => :fullname))
+    super(options.merge(:methods => :lastfirst))
   end
   
   def new_phone_attributes=(phone_attributes)
@@ -98,6 +98,16 @@ class Client < ActiveRecord::Base
       return self.name
     elsif self.firstname != nil || self.lastname != nil
       return "#{self.firstname} #{self.lastname}"
+    else
+      return "#{self.firstname}"
+    end
+  end
+  
+  def lastfirst
+    if self.company == true
+      return self.name
+    elsif self.firstname != nil || self.lastname != nil
+      return "#{self.lastname}, #{self.firstname}"
     else
       return "#{self.firstname}"
     end
