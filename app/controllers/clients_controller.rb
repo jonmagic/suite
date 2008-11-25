@@ -13,7 +13,7 @@ class ClientsController < ApplicationController
   end
   
   def search
-    @clients = Client.search(params[:q], :limit => 100, :only => [:firstname, :lastname])
+    @clients = Client.search(params[:q], :limit => 100, :only => [:firstname, :lastname, :name])
     respond_to do |format|
       format.xml  { render :xml => @clients }
       format.json  { render :json => @clients }

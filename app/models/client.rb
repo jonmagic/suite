@@ -113,6 +113,14 @@ class Client < ActiveRecord::Base
     end
   end
   
+  def type
+    if self.company == true
+      return "company"
+    else
+      return "person"
+    end
+  end
+  
   def primary_phone
     if phone = Phone.find(:first, :conditions => {:client_id => self.id, :ordinal => 0}) then phone.number else "" end
   end

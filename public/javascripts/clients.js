@@ -27,17 +27,6 @@ function populateClientList(data){
 };
 
 $(document).ready(function() {
-  $.getJSON("/clients", function(data){
-    populateClientList(data);
-    var client_id = $("div#client h2").attr("alt");
-    // Setup my scrollto functionality
-    $("#sidebar li").each(function(){
-      if ($(this).attr("alt") == client_id) {
-        $(this).addClass("selected");
-        $("#sidebar").scrollTo(this);
-      };
-    });
-  });
   var search_timeout = undefined;
   $("input#srch_fld").bind('keyup', function() {
     if(search_timeout != undefined) {

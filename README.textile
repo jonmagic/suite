@@ -4,7 +4,9 @@ Suite is software for small service based businesses. The workflow in Suite is f
 
 h3. To-Do
 
-* make clients page faster
+* 
+* print tickets
+* add edit to notes
 * make login page better
 * On the checklist builder make a completed field collapse after you are finished
 * add password locked completion to checklists
@@ -44,3 +46,4 @@ h3. Completed
 x fix checklist builder, its not saving
 x adding labor types to ticket entries
 x fix Jennifer Baldwin in all quickselect boxes
+x make clients page faster
