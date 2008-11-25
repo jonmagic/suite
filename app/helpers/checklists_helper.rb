@@ -3,6 +3,8 @@ module ChecklistsHelper
   def checklist_question_helper(f, question)
     if question.answer_type == "text"
       answer = f.text_area(question.answer_type.to_sym)
+    elsif question.answer_type == "boolean"
+      answer = f.check_box(question.answer_type.to_sym)
     else
       answer = f.text_field(question.answer_type.to_sym)
     end
