@@ -6,6 +6,7 @@
   </table>
   <div class="line"></div>
   <h3>Description:</h3>
+  <%= f.hidden_field :creator_id, :value => current_user.id %>
   <p><%= f.text_area :description %></p>
   <%= f.submit "Save", :class => "hide" %>
 <% end %>
