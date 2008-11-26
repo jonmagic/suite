@@ -1,0 +1,14 @@
+div#header {display:none;}
+div#sidebar {display:none;}
+div#center {}
+div#center table.details {font-size:1.5em;}
+div#center div.description {font-size:1.5em;}
+div#ticket_content ul li.ui-tabs-nav-item {display:none;}
+div#ticket_content ul.toolbar {display:none;}
+div#ticket_content div.ticket_entry {clear:both;}
+div#ticket_content div.ticket_entry div.delete_button {display:none;}
+div#entries h3 {font-size:1.5em;}
+div#entries {font-size:1.2em;}
+div#devices {display:none;}
+div#checklists {display:none;}
+div#footer {display:none;}

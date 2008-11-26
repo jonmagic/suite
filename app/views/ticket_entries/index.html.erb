@@ -3,6 +3,7 @@
   <li><a href="#" class="toggle_detail">Toggle Detail</a></li>
 </ul>
 <div id="new_ticket_entry" class="hide toolbox"></div>
+<h3>Ticket Entries</h3>
 <div id="ticket_entries" detail="1">
   <% @ticket_entries.reverse.each do |entry| %>
     <div class="ticket_entry" detail="<%= entry.detail %>">
