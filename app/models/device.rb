@@ -1,5 +1,3 @@
-require_dependency "search"
-
 class Device < ActiveRecord::Base
   belongs_to :client
   belongs_to :device_type
@@ -13,7 +11,7 @@ class Device < ActiveRecord::Base
   
   def create_service_tag
     if self.service_tag == ""
-      recent_device = Device.find(:first, :order => 'created_at DESC')
+      recent_device = Device.find(:first, :order => 'created_at DESC', :conditions => {:created_at.gt => DateTime.now.beginning_of_day, :created_at.lt => DateTime.now.end_of_day, :device_type_id => self.device_type_id})
       device_type = DeviceType.find(self.device_type_id)
       if recent_device != nil
         service_tag_parts= recent_device.service_tag.split("-")

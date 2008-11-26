@@ -1,13 +1,17 @@
 h1. Suite
 
-Suite is software for small service based businesses. The workflow in Suite is fairly simple. There are 3 ways one can approach a problem in Suite. From the client, from a ticket, or from a device. Tickets and devices are tied to clients. Clients can belong to other clients (i.e. people inside a company). The clients section is modeled after Apple Address Book. Most of my UI is modeled after the applications that ship with OSX (Address Book, Mail, iTunes).
+Suite is software for small service based businesses. The workflow in Suite is fairly simple. There are 3 ways one can approach a problem in Suite. From the client, from a ticket, or from a device. Tickets and devices are tied to clients. Clients can belong to other clients (i.e. people inside a company). The clients section is modeled after Apple Address Book. Most of my UI is modeled after the applications that ship with OSX (Address Book, Mail, iTunes). 
+
+For questions on how to get Suite up and running from scratch, for now just email me jonmagic at gmail dot com. I'm going to be putting together a little INSTALL.textile at some point with step by step instructions. The sooner you bug me for it, the sooner it will get done :-)
 
 h3. To-Do
 
-* 
 * print tickets
 * add edit to notes
 * make login page better
+
+h3. Wishlist
+
 * On the checklist builder make a completed field collapse after you are finished
 * add password locked completion to checklists
 * lock tickets as open or scheduled until any associated checklists are completed
@@ -47,3 +51,4 @@ x fix checklist builder, its not saving
 x adding labor types to ticket entries
 x fix Jennifer Baldwin in all quickselect boxes
 x make clients page faster
+x fix numbering on devices
