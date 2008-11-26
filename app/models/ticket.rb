@@ -5,6 +5,10 @@ class Ticket < ActiveRecord::Base
   has_and_belongs_to_many :devices
   has_many :checklists
   
+  validates_presence_of :client_id
+  validates_presence_of :user_id
+  validates_presence_of :description
+  
   after_create :add_created_note
   before_update :add_status_change_note
   
