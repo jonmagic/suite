@@ -42,6 +42,19 @@
     </table>
   </div>
   <div id="checklists">
+    <ul class="toolbar">
+      <li><a href="#" class="add_checklist">Add Checklist</a></li>
+    </ul>
+    <div id="add_checklist_form" class="hide toolbox">
+      <h3>Add A Checklist</h3>
+      <div class="ui-tabs-panel-padding">
+        <% form_for Checklist.new do |f| -%>
+          <%= f.select :checklist_template_id, ChecklistTemplate.find(:all).collect {|c| [c.name, c.id]} %>
+          <%= f.hidden_field :device_id, :value => @device.id %>
+          <%= f.submit "Save" %>
+        <% end %>
+      </div>
+    </div>
     <h3>Device Checklists</h3>
     <table class="itu" id="checklists">
       <tr><th>Name</th><th>Service Tag</th><th>Completed</th></tr>
@@ -63,6 +76,10 @@
     // Load other content and create tabs
     $("#device_content > ul").tabs();
     $("#center div.ui-tabs-panel table.itu").wrap("<div></div>").parent().addClass("ui-tabs-panel-padding");
+    // add checklist to this device
+    $("a.add_checklist").bind("click", function(){
+      $("div#add_checklist_form").slideDown(500);
+    });
     // show checklist on click
     $("#checklists table a").bind("click", function(){
       var checklistURL = "/checklists/"+$(this).attr("alt")+"/edit"

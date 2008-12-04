@@ -5,6 +5,7 @@ class Device < ActiveRecord::Base
   has_many :checklists, :dependent => :destroy
   
   validates_uniqueness_of :service_tag
+  validates_presence_of :client_id, :device_type_id
   
   before_create :create_service_tag
   after_create :create_checklists

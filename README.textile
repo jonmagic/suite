@@ -6,12 +6,15 @@ For questions on how to get Suite up and running from scratch, for now just emai
 
 h3. To-Do
 
-* print tickets
+* add waiting sub status to open tickets
 * add edit to notes
+* add toggle to tickets index pages to show all/show my
 * make login page better
 
 h3. Wishlist
 
+* make it so checklists can have multiple fields on an item
+* add reports, specifically time sheet reports
 * On the checklist builder make a completed field collapse after you are finished
 * add password locked completion to checklists
 * lock tickets as open or scheduled until any associated checklists are completed
@@ -52,3 +55,5 @@ x adding labor types to ticket entries
 x fix Jennifer Baldwin in all quickselect boxes
 x make clients page faster
 x fix numbering on devices
+x print tickets
+x be able to add checklists from inside a device
