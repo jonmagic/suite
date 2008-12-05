@@ -13,12 +13,15 @@ h3. To-Do
 
 h3. Wishlist
 
+* easily change technicians on a ticket
+* setup our site to https
 * make it so checklists can have multiple fields on an item
 * add reports, specifically time sheet reports
 * On the checklist builder make a completed field collapse after you are finished
 * add password locked completion to checklists
 * lock tickets as open or scheduled until any associated checklists are completed
 * be able to create a client from inside a new ticket
+* add file attachments to clients, tickets, devices
 
 h3. Completed
 
@@ -57,3 +60,4 @@ x make clients page faster
 x fix numbering on devices
 x print tickets
 x be able to add checklists from inside a device
+x parts field on ticket entries

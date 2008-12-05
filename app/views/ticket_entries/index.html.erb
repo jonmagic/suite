@@ -9,9 +9,11 @@
     <div class="ticket_entry" detail="<%= entry.detail %>">
       <div class="ticket_entry_mugshot"><%= image_tag entry.creator.avatar.url(:avatar) %></div>
       <p class="ticket_entry_byline">Entry by <b><%= entry.creator.name %></b> on <%= entry.updated_at.strftime("%H:%M %m/%d/%Y") %></p>
-      <p class="ticket_entry_details">Billable? <%= billable(entry) %> - Time Spent: <b><%= entry.time %> minutes</b> - Labor Type: <b><%= entry.labor_type %></b></p>
+      <p class="ticket_entry_details">Time Spent: <b><%= entry.time %> minutes</b> - Labor Type: <b><%= entry.labor_type %></b> - Billable? <b><%= billable(entry) %></b> - Private? <b><%= is_this_private(entry) %></b></p>
       <div class="ticket_entry_note"><%= textile_to_html(entry.note) %></div>
+      <div class="ticket_entry_parts"><b>Parts</b><br /><%= textile_to_html(entry.parts) %></div>
       <div class="delete_button"><%= link_to_remote image_tag("/images/icons/delete.png"), :url => ticket_entry_url(entry), :method => :delete %></div>
+      <div class="ticket_entry_bottom">&nbsp;</div>
     </div>
   <% end %>
 </div>
