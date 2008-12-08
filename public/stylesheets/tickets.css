@@ -24,15 +24,16 @@ div.ticket_entry {position:relative;border-top:1px solid #ddd;padding:5px;}
 .ticket_entry_byline {font-size:10pt;margin-left:55px;line-height:8pt;color:#666;}
 .ticket_entry_mugshot {float:left;display:block;margin-right:5px;width:50px;height:50px;background-color:#eee;}
 div.ticket_entry_note {float:left;width:65%;}
-div.ticket_entry_parts {margin-left:70%;padding-top:5px;width:100%;}
+div.ticket_entry_parts {margin-left:70%;padding-top:5px;padding-bottom:5px;background-color:#fbfbfb;}
 div.ticket_entry_bottom {clear:both;}
 
 td.new_ticket_entry_note {width:70%;}
 td.new_ticket_entry_note textarea {width:100%;height:6em;}
-td.new_ticket_entry_parts {width:30%;background-color:#f3f3f3;}
+td.new_ticket_entry_parts {width:30%;}
 td.new_ticket_entry_parts textarea {width:100%;height:6em;}
 div.ticket_entry {position:relative;}
 div.delete_button {position:absolute;top:10px;right:10px;}
+div.edit_button {position:absolute;top:10px;right:30px;}
 
 /* new ticket form */
 table.m tr td.first {width:8em;}

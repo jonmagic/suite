@@ -1,4 +1,4 @@
-<h3>New Ticket Entry</h3>
+<h3>Edit Ticket Entry</h3>
 <% form_remote_for @ticket_entry do |f| %>
   <table class="m">
     <tr>
@@ -21,8 +21,6 @@
       <td class="new_ticket_entry_parts"><%= f.text_area :parts %></td>
     </tr>
   </table>
-  <%= f.hidden_field :detail, :value => 1 %>
-  <%= f.hidden_field :ticket_id, :value => params[:ticket_id] %>
-  <%= f.hidden_field :creator_id, :value => current_user.id %>
   <p><%= f.submit "Save" %></p>
 <% end %>
+

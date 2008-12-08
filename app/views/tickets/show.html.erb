@@ -67,18 +67,6 @@
     // Load ticket entries
     var entriesURL = "/tickets/"+<%= @ticket.id %>+"/ticket_entries"
     $("#entries").load(entriesURL, function(){
-      var newEntryURL = "/tickets/"+<%= @ticket.id %>+"/ticket_entries/new";
-      $("a.new_entry_link").bind("click", function(){
-        $("#new_ticket_entry").load(newEntryURL, function(){
-          $("input[@type=text]").each( function() {
-            if ($(this).val() == "") {
-              $(this).addClass("blur");      
-            }
-            $(this).hint();
-          });
-          $("#new_ticket_entry").slideDown(500);
-        });
-      });
     });
     // show checklist on click
     $("#checklists table a").bind("click", function(){

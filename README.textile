@@ -7,7 +7,6 @@ For questions on how to get Suite up and running from scratch, for now just emai
 h3. To-Do
 
 * add waiting sub status to open tickets
-* add edit to notes
 * add toggle to tickets index pages to show all/show my
 * make login page better
 
@@ -61,3 +60,5 @@ x fix numbering on devices
 x print tickets
 x be able to add checklists from inside a device
 x parts field on ticket entries
+x add edit to notes
+x make ticket entry stuff all ajaxy

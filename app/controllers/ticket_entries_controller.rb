@@ -5,6 +5,10 @@ class TicketEntriesController < ApplicationController
   def index
     @ticket_entries = TicketEntry.find_all_by_ticket_id(params[:ticket_id])
   end
+  
+  def show
+    @entry = TicketEntry.find(params[:id])
+  end
 
   def new
     @ticket_entry = TicketEntry.new(:billable => true)
@@ -26,13 +30,17 @@ class TicketEntriesController < ApplicationController
     end
   end
   
+  def edit
+    @ticket_entry = TicketEntry.find(params[:id])
+  end
+  
   def update
     @ticket_entry = TicketEntry.find(params[:id])
 
     respond_to do |format|
       if @ticket_entry.update_attributes(params[:ticket_entry])
         flash[:notice] = 'Ticket entry was successfully updated.'
-        format.html { redirect_to(@ticket_entry) }
+        format.html { redirect_to(@ticket_entry.ticket) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

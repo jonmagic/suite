@@ -6,13 +6,14 @@
 <h3>Ticket Entries</h3>
 <div id="ticket_entries" detail="1">
   <% @ticket_entries.reverse.each do |entry| %>
-    <div class="ticket_entry" detail="<%= entry.detail %>">
+    <div class="ticket_entry" detail="<%= entry.detail %>" entry_id="<%= entry.id %>">
       <div class="ticket_entry_mugshot"><%= image_tag entry.creator.avatar.url(:avatar) %></div>
       <p class="ticket_entry_byline">Entry by <b><%= entry.creator.name %></b> on <%= entry.updated_at.strftime("%H:%M %m/%d/%Y") %></p>
       <p class="ticket_entry_details">Time Spent: <b><%= entry.time %> minutes</b> - Labor Type: <b><%= entry.labor_type %></b> - Billable? <b><%= billable(entry) %></b> - Private? <b><%= is_this_private(entry) %></b></p>
       <div class="ticket_entry_note"><%= textile_to_html(entry.note) %></div>
       <div class="ticket_entry_parts"><b>Parts</b><br /><%= textile_to_html(entry.parts) %></div>
-      <div class="delete_button"><%= link_to_remote image_tag("/images/icons/delete.png"), :url => ticket_entry_url(entry), :method => :delete %></div>
+      <div class="delete_button hide"><%= link_to_remote image_tag("/images/icons/delete.png"), :url => ticket_entry_url(entry), :method => :delete %></div>
+      <div class="edit_button hide"><a href="#" onclick="return false;"><%= image_tag("/images/icons/comment_edit.png") %></a></div>
       <div class="ticket_entry_bottom">&nbsp;</div>
     </div>
   <% end %>
@@ -22,12 +23,20 @@
 <script>
   $(document).ready(function() {
     // on delete slide up deleted note
-    $("div#ticket_entries a").each(function(i){
-      $(this).click(function(){
-        $(this).parent().parent().slideUp("slow");
-      });
+    $("div#ticket_entries div.delete_button a").click(function(){
+      $(this).parent().parent().slideUp("slow");
     });
+    
     // setup note detail level button
+    function apply_detail(detail){
+      $("div.ticket_entry").each(function(i){
+        if($(this).attr("detail") > detail){
+          $(this).addClass("hide");
+        }else{
+          $(this).removeClass("hide");
+        };
+      });
+    };
     var detail = $("div#ticket_entries").attr("detail");
     apply_detail(detail);
     $("a.toggle_detail").click(function(){
@@ -39,14 +48,50 @@
         apply_detail(detail);
       };
     });
-  });
-  function apply_detail(detail){
-    $("div.ticket_entry").each(function(i){
-      if($(this).attr("detail") > detail){
-        $(this).addClass("hide");
-      }else{
-        $(this).removeClass("hide");
-      };
+    
+    // setup new entry link and form
+    $("a.new_entry_link").bind("click", function(){
+      var entriesURL = "/tickets/"+<%= @ticket_entries.first.ticket_id %>+"/ticket_entries"
+      $("#new_ticket_entry").load(entriesURL+"/new", function(){
+        $("input[@type=text]").each( function() {
+          if ($(this).val() == "") {
+            $(this).addClass("blur");
+          };
+          $(this).hint();
+        });
+        $("#new_ticket_entry").slideDown(500);
+        $("#new_ticket_entry form").submit(function(){
+          $("#new_ticket_entry").slideUp(500);
+          $("div#entries").empty();
+          $("div#entries").load(entriesURL, function(){
+          });
+        });
+      });
     });
-  };
+    
+    // Show and hide the edit and delete buttons
+    $("div.ticket_entry").bind("mouseenter", function(){
+      $(this).children("div.delete_button").removeClass("hide");
+      $(this).children("div.edit_button").removeClass("hide");
+    }).bind("mouseleave", function(){
+      $(this).children("div.delete_button").addClass("hide");
+      $(this).children("div.edit_button").addClass("hide");
+    });
+
+    // replace ticket entry with edit form                          
+    $("div#ticket_entries div.edit_button a").click(function(){
+      var div = $(this).parent().parent();
+      div.slideUp(500);
+      var entryUrl = "/ticket_entries/"+div.attr("entry_id");
+      div.load(entryUrl+"/edit", function(){
+        div.slideDown(500);
+        div.children("form").submit(function(){
+          div.slideUp(500);
+          div.load(entryUrl, function(){
+            div.slideDown(500);
+          });
+        });
+      });
+    });
+  });
 </script>
