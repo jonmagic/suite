@@ -6,7 +6,7 @@
 <h3>Ticket Entries</h3>
 <div id="ticket_entries" detail="1">
   <% @ticket_entries.reverse.each do |entry| %>
-    <div class="ticket_entry" detail="<%= entry.detail %>" entry_id="<%= entry.id %>">
+    <div id="ticket_entry_<%= entry.id %>" class="ticket_entry" detail="<%= entry.detail %>" entry_id="<%= entry.id %>">
       <div class="ticket_entry_mugshot"><%= image_tag entry.creator.avatar.url(:avatar) %></div>
       <p class="ticket_entry_byline">Entry by <b><%= entry.creator.name %></b> on <%= entry.updated_at.strftime("%H:%M %m/%d/%Y") %></p>
       <p class="ticket_entry_details">Time Spent: <b><%= entry.time %> minutes</b> - Labor Type: <b><%= entry.labor_type %></b> - Billable? <b><%= billable(entry) %></b> - Private? <b><%= is_this_private(entry) %></b></p>
@@ -60,12 +60,6 @@
           $(this).hint();
         });
         $("#new_ticket_entry").slideDown(500);
-        $("#new_ticket_entry form").submit(function(){
-          $("#new_ticket_entry").slideUp(500);
-          $("div#entries").empty();
-          $("div#entries").load(entriesURL, function(){
-          });
-        });
       });
     });
     
@@ -85,12 +79,6 @@
       var entryUrl = "/ticket_entries/"+div.attr("entry_id");
       div.load(entryUrl+"/edit", function(){
         div.slideDown(500);
-        div.children("form").submit(function(){
-          div.slideUp(500);
-          div.load(entryUrl, function(){
-            div.slideDown(500);
-          });
-        });
       });
     });
   });

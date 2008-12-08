@@ -1,5 +1,5 @@
 <h3>New Ticket Entry</h3>
-<% form_remote_for @ticket_entry do |f| %>
+<% form_for @ticket_entry do |f| %>
   <table class="m">
     <tr>
       <td class="first">Entry Type</td><td><%= f.select :entry_type, ["Work Done", "Research", "Note", "HowTo"] %></td>

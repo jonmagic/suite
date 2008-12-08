@@ -1,5 +1,8 @@
 <h3>Edit Ticket Entry</h3>
-<% form_remote_for @ticket_entry do |f| %>
+<% div = "ticket_entry_"+@ticket_entry.id.to_s %>
+<% loading = '$("div#'+div+'").wrap("<div></div>");$("div#'+div+'").parent().slideUp(500)' %>
+<% complete = 'var div = $("div#'+div+'").parent();div.load("/ticket_entries/'+@ticket_entry.id.to_s+'");div.slideDown(500);' %>
+<% form_remote_for(@ticket_entry, :loading => loading, :complete => complete) do |f| %>
   <table class="m">
     <tr>
       <td class="first">Entry Type</td><td><%= f.select :entry_type, ["Work Done", "Research", "Note", "HowTo"] %></td>
