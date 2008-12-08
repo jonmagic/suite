@@ -1,6 +1,6 @@
 <ul class="toolbar">
-  <li><a href="#" class="new_entry_link">New Entry</a></li>
-  <li><a href="#" class="toggle_detail">Toggle Detail</a></li>
+  <li><a href="javascript:void(0)" class="new_entry_link">New Entry</a></li>
+  <li><a href="javascript:void(0)" class="toggle_detail">Toggle Detail</a></li>
 </ul>
 <div id="new_ticket_entry" class="hide toolbox"></div>
 <h3>Ticket Entries</h3>
@@ -13,7 +13,7 @@
       <div class="ticket_entry_note"><%= textile_to_html(entry.note) %></div>
       <div class="ticket_entry_parts"><b>Parts</b><br /><%= textile_to_html(entry.parts) %></div>
       <div class="delete_button hide"><%= link_to_remote image_tag("/images/icons/delete.png"), :url => ticket_entry_url(entry), :method => :delete %></div>
-      <div class="edit_button hide"><a href="#" onclick="return false;"><%= image_tag("/images/icons/comment_edit.png") %></a></div>
+      <div class="edit_button hide"><a href="javascript:void(0)" onclick="return false;"><%= image_tag("/images/icons/comment_edit.png") %></a></div>
       <div class="ticket_entry_bottom">&nbsp;</div>
     </div>
   <% end %>

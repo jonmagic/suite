@@ -23,7 +23,7 @@
 
   <div id="tickets">
     <ul class="toolbar">
-      <li><a href="#" class="new_ticket">New Ticket</a></li>
+      <li><a href="javascript:void(0)" class="new_ticket">New Ticket</a></li>
     </ul>
     <div id="new_ticket" class="hide toolbox">
       <%= render :partial => 'shared/new_ticket', :locals => {:client => @client} %>
@@ -43,7 +43,7 @@
   </div>
   <div id="checklists">
     <ul class="toolbar">
-      <li><a href="#" class="add_checklist">Add Checklist</a></li>
+      <li><a href="javascript:void(0)" class="add_checklist">Add Checklist</a></li>
     </ul>
     <div id="add_checklist_form" class="hide toolbox">
       <h3>Add A Checklist</h3>
@@ -60,8 +60,8 @@
       <tr><th>Name</th><th>Service Tag</th><th>Completed</th></tr>
       <% @device.checklists.each do |checklist| %>
         <tr>
-          <td><a href="#" alt="<%= checklist.id %>"><%= checklist.name %></a></td>
-          <td><a href="#" alt="<%= checklist.id %>"><%= checklist.device.service_tag %></a></td>
+          <td><a href="javascript:void(0)" alt="<%= checklist.id %>"><%= checklist.name %></a></td>
+          <td><a href="javascript:void(0)" alt="<%= checklist.id %>"><%= checklist.device.service_tag %></a></td>
           <td></td>
         </tr>
       <% end %>
