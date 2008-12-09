@@ -1,0 +1,17 @@
+<% if @clients.length == 0 %>
+  <% form_tag "/iphone/clients", :method => "get", :class => "panel", :title => "Search", :selected => "true" do %>
+    <fieldset>
+      <div class="row">
+        <label>Name:</label>
+        <%= text_field_tag :q %>
+      </div>
+    </fieldset>
+    <input name="commit" type="submit" value="Search" />
+  <% end %>
+<% else %>
+  <ul id="searchResults" title="Results" selected="true">
+    <% @clients.each do |client| %>
+      <li><a href="/iphone/clients/<%= client.id %>"><%= client.lastfirst %></a></li>
+    <% end %>
+  </ul>
+<% end %>

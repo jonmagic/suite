@@ -1,20 +1,19 @@
-<% form_tag session_path do %>
+<% form_tag session_path, :class => "panel", :selected => "true" do %>
+  <div class="panel" style="width:300px;margin:0 auto">
 	<fieldset>
-		<legend>Your Details</legend>
-		<ol>
-			<li>
-				<%= label_tag 'email', 'Email' %>
-				<%= text_field_tag 'email', @email %>
-			</li>
-			<li>
-				<%= label_tag 'password' %>
-				<%= password_field_tag 'password', nil %>
-			</li>
-			<li>
-				<%= label_tag 'remember_me', 'Remember me' %>
-				<%= check_box_tag 'remember_me', '1', @remember_me %>
-			</li>
-		</ol>
+    <div class="row">
+      <%= label_tag 'email', 'Email' %>
+			<%= text_field_tag 'email', @email %>
+		</div>
+    <div class="row">
+			<%= label_tag 'password' %>
+			<%= password_field_tag 'password', nil %>
+		</div>
+    <div class="row">
+			<%= label_tag 'remember_me', 'Remember me' %>
+			<%= check_box_tag 'remember_me', '1', @remember_me %>
+		</div>
 	</fieldset>
-	<%= submit_tag 'Login' %>
+	<input name="commit" type="submit" value="Login" style="" />
+	</div>
 <% end -%>

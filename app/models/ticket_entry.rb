@@ -4,5 +4,5 @@ class TicketEntry < ActiveRecord::Base
   def creator
     creator = User.find(self.creator_id)
   end
-  
+
 end

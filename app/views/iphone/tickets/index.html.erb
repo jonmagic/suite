@@ -1,0 +1,14 @@
+<% if @tickets.length == 0 %>
+  <ul id="ticketHome" title="Tickets" selected="true">
+    <li><a href="/iphone/tickets/?status=open&scope=user">Open Tickets</a></li>
+    <li><a href="/iphone/tickets/?status=scheduled&scope=user">Scheduled Tickets</a></li>
+    <li><a href="/iphone/tickets/?status=completed&scope=user">Completed Tickets</a></li>
+    <li><a href="/iphone/tickets/?status=all">All Tickets</a></li>
+  </ul>
+<% else %>
+  <ul id="ticketList" title="<%= params[:status].capitalize %>" selected="true">
+    <% @tickets.each do |ticket| %>
+      <li><a href="/iphone/tickets/<%= ticket.id %>"><%= ticket.description[0..26] %>...</a></li>
+    <% end %>
+  </ul>
+<% end %>

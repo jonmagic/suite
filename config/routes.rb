@@ -55,6 +55,14 @@ ActionController::Routing::Routes.draw do |map|
   # Home Page
   map.root :controller => 'tickets', :action => 'index'
   
+  # iPhone routes
+  map.namespace :iphone do |iphone|
+    iphone.resources :clients
+    iphone.resources :tickets
+    iphone.resources :devices
+    iphone.root :controller => 'clients', :action => 'home'
+  end
+  
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 
