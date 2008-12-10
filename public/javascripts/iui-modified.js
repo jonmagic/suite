@@ -166,7 +166,7 @@ addEventListener("click", function(event)
     {
         function unselect() { link.removeAttribute("selected"); }
         
-        if (link.href && link.hash && link.hash != "#")
+		if (link.href && link.hash && link.hash != "#" && (link.hash.slice(0,2) != "#_"))
         {
             link.setAttribute("selected", "true");
             iui.showPage($(link.hash.substr(1)));
@@ -186,7 +186,8 @@ addEventListener("click", function(event)
         else if (!link.target)
         {
             link.setAttribute("selected", "progress");
-            iui.showPageByHref(link.href, null, null, null, unselect);
+            var hashStrip = link.hash.slice(2);
+			iui.showPageByHref(hashStrip, null, null, null, unselect);
         }
         else
             return;

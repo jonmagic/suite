@@ -1,4 +1,4 @@
-<div class="panel device" title="Device" selected="true">
+<div class="panel device" title="Device">
   <fieldset>
     <div class="row">
       <label>sTag:</label>
@@ -14,7 +14,7 @@
     </div>
     <div class="row">
       <label>Client:</label>
-      <span><a href="/iphone/clients/<%= @device.client.id %>"><%= @device.client.fullname[0..20] %>...</a></span>
+      <span><a href="#_/iphone/clients/<%= @device.client.id %>"><%= @device.client.fullname[0..20] %>...</a></span>
     </div>
   </fieldset>
   <% if @device.description != nil && @device.description != "" %>
@@ -22,5 +22,9 @@
     <div class="textbox">
       <%= textile_to_html(@device.description) %>
     </div>
+  <% end %>
+  
+  <% if @device.tickets.length != 0 %>
+    <a href="#_/iphone/devices/<%= @device.id %>/tickets" class="grayButton">Tickets</a>
   <% end %>
 </div>

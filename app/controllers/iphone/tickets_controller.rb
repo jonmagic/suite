@@ -8,11 +8,17 @@ class Iphone::TicketsController < ApplicationController
   end
   
   def index
-    if params[:status]
-      @tickets = Ticket.limit(params[:status], params[:scope], current_user, params[:device])
-      @tickets = @tickets.sort_by{|ticket| [ticket.status, ticket.id]}
+    if params[:client_id]
+      @tickets = Ticket.find(:all, :conditions => {:client_id => params[:client_id]})
+    elsif params[:device_id]
+      @tickets = Device.find(params[:device_id]).tickets
     else
-      @tickets = []
+      if params[:status]
+        @tickets = Ticket.limit(params[:status], params[:scope], current_user, params[:device])
+        @tickets = @tickets.sort_by{|ticket| [ticket.status, ticket.id]}
+      else
+        @tickets = []
+      end
     end
   end
   

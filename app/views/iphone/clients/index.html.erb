@@ -11,7 +11,7 @@
 <% else %>
   <ul id="searchResults" title="Results" selected="true">
     <% @clients.each do |client| %>
-      <li><a href="/iphone/clients/<%= client.id %>"><%= client.lastfirst %></a></li>
+      <li><a href="#_/iphone/clients/<%= client.id %>"><%= client.lastfirst %></a></li>
     <% end %>
   </ul>
 <% end %>

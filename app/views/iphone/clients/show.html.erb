@@ -1,39 +1,51 @@
-<div class="panel client" title="Client" selected="true">
+<div class="panel client" title="Client">
   <div id="clientHeader">
     <%= image_tag @client.mugshot.url(:avatar) %>
     <h2 id="fullname"><%= @client.fullname %></h2>
     <h3 id="company"><%= @client.company_name %></h3>
   </div>
-  <fieldset>
-  <% if @client.phones.length != 0 %>
-    <% @client.phones.each do |phone| %>
-      <div class="row">
-        <label><%= phone.context %>:</label>
-        <span><a href="tel:<%= phone.number %>"><%= phone.number %></a></span>
-      </div>
+  <% if @client.phones.length != 0 || @client.emails.length != 0 || @client.addresses.length != 0 %>
+    <fieldset>
+    <% if @client.phones.length != 0 %>
+      <% @client.phones.each do |phone| %>
+        <div class="row">
+          <label><%= phone.context %>:</label>
+          <span><a href="tel:<%= phone.number %>"><%= phone.number %></a></span>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
-  <% if @client.emails.length != 0 %>
-    <% @client.emails.each do |email| %>
-      <div class="row">
-        <label><%= email.context %>:</label>
-        <span class="overflow"><a href="mailto:<%= email.address %>"><%= email.address %></a></span>
-      </div>
+    <% if @client.emails.length != 0 %>
+      <% @client.emails.each do |email| %>
+        <div class="row">
+          <label><%= email.context %>:</label>
+          <span class="overflow"><a href="mailto:<%= email.address %>"><%= email.address %></a></span>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
-  <% if @client.addresses.length != 0 %>
-    <% @client.addresses.each do |address| %>
-      <div class="row">
-        <label><%= address.context %>:</label>
-        <span class="overflow"><a href="http://maps.google.com/maps?q=<%= address.full_address %>"><%= address.full_address %></a></span>
-      </div>
+    <% if @client.addresses.length != 0 %>
+      <% @client.addresses.each do |address| %>
+        <div class="row">
+          <label><%= address.context %>:</label>
+          <span class="overflow"><a href="http://maps.google.com/maps?q=<%= address.full_address %>"><%= address.full_address %></a></span>
+        </div>
+      <% end %>
     <% end %>
+    </fieldset>
   <% end %>
-  </fieldset>
+
   <% if @client.note != nil && @client.note != "" %>
     <h2>Notes</h2>
     <div class="textbox">
       <%= textile_to_html(@client.note) %>
     </div>
   <% end %>
+  
+  <% if @client.tickets.length != 0 %>
+    <a href="#_/iphone/clients/<%= @client.id %>/tickets" class="grayButton">Tickets</a>
+  <% end %>
+  <br />
+  <% if @client.devices.length != 0 %>
+    <a href="#_/iphone/clients/<%= @client.id %>/devices" class="grayButton">Devices</a>
+  <% end %>
+
 </div>

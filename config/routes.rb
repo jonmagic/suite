@@ -57,9 +57,16 @@ ActionController::Routing::Routes.draw do |map|
   
   # iPhone routes
   map.namespace :iphone do |iphone|
-    iphone.resources :clients
-    iphone.resources :tickets
-    iphone.resources :devices
+    iphone.resources :clients do |client|
+      client.resources :tickets
+      client.resources :devices
+    end
+    iphone.resources :tickets do |ticket|
+      ticket.resources :devices
+    end
+    iphone.resources :devices do |device|
+      device.resources :tickets
+    end
     iphone.root :controller => 'clients', :action => 'home'
   end
   

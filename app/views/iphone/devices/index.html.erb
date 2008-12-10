@@ -12,7 +12,7 @@
   <ul id="searchResults" class="devices" title="Results" selected="true">
     <% @devices.each do |device| %>
       <li>
-        <a href="/iphone/devices/<%= device.id %>">
+        <a href="#_/iphone/devices/<%= device.id %>">
           <span><%= device.service_tag %></span>
           <table>
             <tr><td>Name:</td><td><%= device.name %></td></tr>
