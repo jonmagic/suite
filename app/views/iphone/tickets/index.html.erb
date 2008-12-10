@@ -1,14 +1,23 @@
 <% if @tickets.length == 0 %>
-  <ul id="ticketHome" title="Tickets" selected="true">
-    <li><a href="/iphone/tickets/?status=open&scope=user">Open Tickets</a></li>
-    <li><a href="/iphone/tickets/?status=scheduled&scope=user">Scheduled Tickets</a></li>
-    <li><a href="/iphone/tickets/?status=completed&scope=user">Completed Tickets</a></li>
-    <li><a href="/iphone/tickets/?status=all">All Tickets</a></li>
+  <ul id="ticketHome" class="tickets" title="Tickets" selected="true">
+    <li><a href="/iphone/tickets/?status=open&scope=user">Open Tickets <%= totals_helper(:open) %></a></li>
+    <li><a href="/iphone/tickets/?status=scheduled&scope=user">Scheduled Tickets <%= totals_helper(:scheduled) %></a></li>
+    <li><a href="/iphone/tickets/?status=completed&scope=user">Completed Tickets <%= totals_helper(:completed) %></a></li>
+    <li><a href="/iphone/tickets/?status=all">All Tickets <%= totals_helper(:all) %></a></li>
   </ul>
 <% else %>
   <ul id="ticketList" title="<%= params[:status].capitalize %>" selected="true">
     <% @tickets.each do |ticket| %>
-      <li><a href="/iphone/tickets/<%= ticket.id %>"><%= ticket.description[0..26] %>...</a></li>
+      <li>
+        <a href="/iphone/tickets/<%= ticket.id %>">
+          <span><%= ticket.description %></span>
+          <table>
+            <tr><td>Client:</td><td><%= ticket.client.fullname[0..20] %></td></tr>
+            <tr><td>Tech:</td><td><%= ticket.technician.name %></td></tr>
+            <tr><td>Status:</td><td><%= ticket.status %></td></tr>
+          </table>
+        </a>
+      </li>
     <% end %>
   </ul>
 <% end %>

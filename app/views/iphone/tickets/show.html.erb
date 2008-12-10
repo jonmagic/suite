@@ -1,4 +1,4 @@
-<div class="panel" title="Ticket #<%= @ticket.id %>" selected="true">
+<div class="panel ticket" title="Ticket #<%= @ticket.id %>" selected="true">
   <h2>Description</h2>
   <div class="textbox">
     <%= textile_to_html(@ticket.description) %>
@@ -7,7 +7,7 @@
   <fieldset>
     <div class="row">
       <label>Client:</label>
-      <span><a href="/iphone/clients/<%= @ticket.client.id %>"><%= @ticket.client.fullname[0..20] %>...</a></span>
+      <span><a href="/iphone/clients/<%= @ticket.client.id %>"><%= @ticket.client.fullname[0..30] %>...</a></span>
     </div>
     <div class="row">
       <label>Tech:</label>

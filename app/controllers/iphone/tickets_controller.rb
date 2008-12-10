@@ -1,5 +1,6 @@
 class Iphone::TicketsController < ApplicationController
   before_filter :login_required
+  before_filter :load_totals, :except => [:create, :update]
   layout nil
   
   def show
@@ -14,5 +15,11 @@ class Iphone::TicketsController < ApplicationController
       @tickets = []
     end
   end
+  
+  protected
+  
+    def load_totals
+      @totals = Ticket.totals(current_user)
+    end
   
 end
