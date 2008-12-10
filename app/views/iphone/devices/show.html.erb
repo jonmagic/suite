@@ -1,0 +1,26 @@
+<div class="panel device" title="Device" selected="true">
+  <fieldset>
+    <div class="row">
+      <label>sTag:</label>
+      <span><%= @device.service_tag %></span>
+    </div>
+    <div class="row">
+      <label>Name:</label>
+      <span><%= @device.name %></span>
+    </div>
+    <div class="row">
+      <label>Type:</label>
+      <span><%= @device.device_type.description %></span>
+    </div>
+    <div class="row">
+      <label>Client:</label>
+      <span><a href="/iphone/clients/<%= @device.client.id %>"><%= @device.client.fullname[0..20] %>...</a></span>
+    </div>
+  </fieldset>
+  <% if @device.description != nil && @device.description != "" %>
+    <h2>Description</h2>
+    <div class="textbox">
+      <%= textile_to_html(@device.description) %>
+    </div>
+  <% end %>
+</div>

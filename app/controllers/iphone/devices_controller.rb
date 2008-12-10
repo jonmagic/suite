@@ -6,4 +6,12 @@ class Iphone::DevicesController < ApplicationController
     @device = Device.find(params[:id])
   end
   
+  def index
+    if params[:q]
+      @devices = Device.search(params[:q], :include => [:client])
+    else
+      @devices = []
+    end
+  end
+  
 end
