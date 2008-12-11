@@ -1,4 +1,5 @@
 class ChecklistsController < ApplicationController
+  before_filter :login_required
   layout nil
   
   def edit
@@ -21,8 +22,9 @@ class ChecklistsController < ApplicationController
         format.html { redirect_to :back }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @device.errors, :status => :unprocessable_entity }
+        flash[:notice] = @checklist.errors
+        format.html { redirect_to :back }
+        format.xml  { render :xml => @checklist.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -38,7 +40,7 @@ class ChecklistsController < ApplicationController
     respond_to do |format|
       if @checklist.save
         if params[:ticket_id] != nil
-          TicketEntry.create(:entry_type => "Added Checklist", :note => "Checklist (#{@checklist.name}) was added to this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @checklist.ticket, :creator_id => @checklist.ticket.technician.id)
+          TicketEntry.create(:entry_type => "Added Checklist", :note => "Checklist (#{@checklist.name}) was added to this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @checklist.ticket, :creator_id => current_user.id)
         end
         flash[:notice] = 'Checklist successfully created.'
         format.html { redirect_to :back }
@@ -51,7 +53,7 @@ class ChecklistsController < ApplicationController
   
   def remove_from_ticket
     @checklist = Checklist.find(params[:id])
-    TicketEntry.create(:entry_type => "Removed Checklist", :note => "Checklist (#{@checklist.name}) was removed from this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @checklist.ticket, :creator_id => @checklist.ticket.technician.id)
+    TicketEntry.create(:entry_type => "Removed Checklist", :note => "Checklist (#{@checklist.name}) was removed from this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @checklist.ticket, :creator_id => current_user.id)
     @checklist.destroy
     redirect_to :back
   end

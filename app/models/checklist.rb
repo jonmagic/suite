@@ -10,6 +10,24 @@ class Checklist < ActiveRecord::Base
 
   after_create :build_checklist_items
   after_update :save_checklist_items
+  before_update :update_completed_status
+  
+  def update_completed_status
+    if self.complete?
+      self.completed == true
+    else
+      self.completed == false
+    end
+    return true
+  end
+  
+  def complete?
+    complete = 0
+    self.checklist_items.each do |item|
+      item.completed == true ? complete += 0 : complete += 1
+    end
+    complete == 0
+  end
   
   def new_checklist_item_attributes=(checklist_item_attributes)
     checklist_item_attributes.each do |attributes|

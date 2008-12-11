@@ -7,11 +7,11 @@ class ChecklistItem < ActiveRecord::Base
   before_update :update_completed_status
   
   def update_completed_status
-    if self.send(self.answer_type) != ""
-      self.completed = 1
-    else
-      self.completed = 2
-    end
+    self.complete? ? self.completed = true : self.completed = false
+  end
+  
+  def complete?
+    !self.send(self.answer_type).blank?
   end
   
 end

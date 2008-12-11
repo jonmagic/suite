@@ -22,7 +22,11 @@
   <div id="complete" class="hide">
     <% form_for @ticket do |f| -%>
       <%= f.text_field :completed_on, :value => Date.today.strftime("%m/%d/%Y") %>
-      <%= f.submit "Save" %>
+      <% if @ticket.completed_on.blank? %>
+        <%= f.submit "Save", :confirm => "You are liable for any un-recorded PARTS or TIME if you complete this ticket." %>
+      <% else %>
+        <%= f.submit "Save" %>
+      <% end %>
     <% end %>
   </div>
   <div id="archive" class="hide">
@@ -40,10 +44,12 @@
     // setup my footer buttons
     if(ticket_state() == "open"){
       $("#footer div.col2").append("<a href='/tickets/"+<%= @ticket.id %>+"/edit' class='edit_ticket'>Edit</a>");
+      <% if @ticket.checklists_complete? %>
       $("#footer div.col2").append("<a href='#' class='complete_ticket'>Complete</a>");
       $("#footer a.complete_ticket").bind("click", function(){
         $("#complete input[type=submit]").click();
       });
+      <% end %>
     };
     if(ticket_state() == "completed"){
       $("#footer div.col2").append("<a href='/tickets/"+<%= @ticket.id %>+"/edit' class='edit_ticket'>Edit</a>");

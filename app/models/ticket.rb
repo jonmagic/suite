@@ -79,4 +79,14 @@ class Ticket < ActiveRecord::Base
     return totals
   end
   
+  def checklists_complete?
+    checklists = self.checklists
+    checklists << self.devices.collect{|device| device.checklists}.flatten
+    complete = 0
+    checklists.each do |checklist|
+      checklist.complete? ? complete += 0 : complete += 1
+    end
+    complete == 0
+  end
+  
 end

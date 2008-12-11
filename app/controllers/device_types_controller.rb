@@ -1,4 +1,5 @@
 class DeviceTypesController < ApplicationController
+  before_filter :login_required
   layout 'devices'
 
   def index

@@ -13,4 +13,8 @@ module TicketsHelper
     end
     return "["+array.to_s.chop.chop+"]"
   end
+  
+  def checklist_status(checklist)
+    checklist.complete? ? image_tag('/images/icons/accept.png', :alt => "True") : ""
+  end
 end

@@ -31,7 +31,7 @@ class DevicesController < ApplicationController
     @ticket = Ticket.find(params[:ticket_id])
     @device = Device.find(params[:id])
     @ticket.devices << @device
-    TicketEntry.create(:entry_type => "Added Existing Device", :note => "Device (Service Tag: #{@device.service_tag}) was added to this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @ticket, :creator_id => @ticket.technician.id)
+    TicketEntry.create(:entry_type => "Added Existing Device", :note => "Device (Service Tag: #{@device.service_tag}) was added to this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @ticket, :creator_id => current_user.id)
     redirect_to ticket_path(@ticket)
   end
   
@@ -39,7 +39,7 @@ class DevicesController < ApplicationController
     @ticket = Ticket.find(params[:ticket_id])
     @device = Device.find(params[:id])
     @ticket.devices.delete(@device)
-    TicketEntry.create(:entry_type => "Removed Device", :note => "Device (Service Tag: #{@device.service_tag}) was removed from this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @ticket, :creator_id => @ticket.technician.id)
+    TicketEntry.create(:entry_type => "Removed Device", :note => "Device (Service Tag: #{@device.service_tag}) was removed from this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @ticket, :creator_id => current_user.id)
     redirect_to ticket_path(@ticket)
   end
   
@@ -58,7 +58,7 @@ class DevicesController < ApplicationController
     respond_to do |format|
       if @device.save
         if params[:ticket_id] != nil
-          TicketEntry.create(:entry_type => "Added New Device", :note => "New Device (Service Tag: #{@device.service_tag}) was added to this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @ticket, :creator_id => @ticket.technician.id)
+          TicketEntry.create(:entry_type => "Added New Device", :note => "New Device (Service Tag: #{@device.service_tag}) was added to this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @ticket, :creator_id => current_user.id)
           flash[:notice] = 'Device was successfully created.'
           format.html { redirect_to :back }
         else

@@ -17,18 +17,18 @@
     <% @ticket.checklists.each do |checklist| %>
       <tr>
         <td><a href="#checklist" alt="<%= checklist.id %>"><%= checklist.name %></a></td>
-        <td><a href="#checklist" alt="<%= checklist.id %>"></a></td>
+        <td><a href="#checklist" alt="<%= checklist.id %>"><%= checklist_status(checklist) %></a></td>
         <td><a href="/tickets/<%= @ticket.id %>/checklists/<%= checklist.id %>/remove_from_ticket">Remove</a></td>
       </tr>
     <% end %>
   </table>
   <h3>Device Checklists</h3>
   <table class="itu">
-    <tr><th>Name</th><th>Service Tag</th><th>Completed</th></tr>
+    <tr><th>Service Tag</th><th>Completed</th><th>Actions</th></tr>
     <% @ticket.devices.collect{|device| device.checklists}.flatten.each do |checklist| %>
       <tr>
-        <td><a href="#checklist" alt="<%= checklist.id %>"><%= checklist.name %></a></td>
         <td><a href="#checklist" alt="<%= checklist.id %>"><%= checklist.device.service_tag %></a></td>
+        <td><a href="#checklist" alt="<%= checklist.id %>"><%= checklist_status(checklist) %></a></td>
         <td></td>
       </tr>
     <% end %>
