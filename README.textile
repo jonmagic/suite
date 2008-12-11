@@ -4,62 +4,10 @@ Suite is software for small service based businesses. The workflow in Suite is f
 
 For questions on how to get Suite up and running from scratch, for now just email me jonmagic at gmail dot com. I'm going to be putting together a little INSTALL.textile at some point with step by step instructions. The sooner you bug me for it, the sooner it will get done :-)
 
-h3. To-Do
+h2. One more thing
 
-* add waiting sub status to open tickets
-* add toggle to tickets index pages to show all/show my
-* make login page better
+We're using Lighthouse for tracking issues, features requests, and milestones. So if you are interested in this project, and moving it forward, please visit:
 
-h3. Wishlist
+"http://sabretech.lighthouseapp.com/projects/21424-suite/overview":http://sabretech.lighthouseapp.com/projects/21424-suite/overview
 
-* easily change technicians on a ticket
-* setup our site to https
-* create an iphone version
-* make it so checklists can have multiple fields on an item
-* add reports, specifically time sheet reports
-* On the checklist builder make a completed field collapse after you are finished
-* add password locked completion to checklists
-* lock tickets as open or scheduled until any associated checklists are completed
-* be able to create a client from inside a new ticket
-* add file attachments to clients, tickets, devices
-
-h3. Completed
-
-* add ticket listing to client view
-* when editing a client, add new email/phone/address buttons don't work
-* when editing a client, remove existing email/phone/address buttons don't work
-* create a "My Account" page where user can upload an image, change password, etc
-* when you go to clients it should give something other than just a blank white page
-* make it so you can open a client and send a user invite, to create technicians initially...
-* build out the devices section, nothing has really been done there yet
-* fix up devices window so it follows suite look
-* add device listing to ticket view
-* extract the ui css & js so that it can be used elsewhere
-* add checklist functionality, including a checklist builder
-* sort clients by name
-* sort tickets in ALL category by Open, Scheduled, Completed
-* add delete to notes on tickets
-* add search to clients
-* add device type editor to Track Devices
-* turn selects into auto-complete boxes for clients
-* add search to devices
-* fix device show page
-* cannot add existing devices to a ticket
-* add arbitrary checklists for tickets
-* firefox do not load the sidebar under clients
-* make it so you can create a ticket from client page, or device page
-* add search to tickets
-* fix calendar widget on edit/new ticket page
-* add user preferences
-* add ticket entry detail toggle
-* fix add client attributes buttons
-x fix checklist builder, its not saving
-x adding labor types to ticket entries
-x fix Jennifer Baldwin in all quickselect boxes
-x make clients page faster
-x fix numbering on devices
-x print tickets
-x be able to add checklists from inside a device
-x parts field on ticket entries
-x add edit to notes
-x make ticket entry stuff all ajaxy
+Currently Suite is only being used by my small company "SabreTech Consulting LLC":http://www.sabretechllc.com, but we would really love to see it get into production for other small service based companies like ours. If you are interested and need help getting it setup, please email me jonmagic at gmail dot com...
