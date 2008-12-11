@@ -9,16 +9,16 @@ class Iphone::TicketsController < ApplicationController
   
   def index
     if params[:client_id]
-      @tickets = Ticket.find(:all, :conditions => {:client_id => params[:client_id]})
-    elsif params[:device_id]
-      tickets = Device.find(params[:device_id]).tickets
-      new_array
+      tickets = Ticket.find(:all, :conditions => {:client_id => params[:client_id]})
+      new_array = []
       tickets.each do |ticket|
         if ticket.archived_on == nil
           new_array << ticket
         end
       end
       @tickets = new_array.sort_by{|ticket| [ticket.status, ticket.id]}
+    elsif params[:device_id]
+      @tickets = Device.find(params[:device_id]).tickets
     else
       if params[:status]
         @tickets = Ticket.limit(params[:status], params[:scope], current_user, params[:device])
