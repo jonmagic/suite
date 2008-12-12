@@ -8,6 +8,7 @@ class Client < ActiveRecord::Base
   
   has_many :devices, :dependent => :destroy
   has_many :tickets
+  has_many :things, :as => :attached, :dependent => :destroy
   
   has_many :phones, :dependent => :destroy
   has_many :emails, :dependent => :destroy

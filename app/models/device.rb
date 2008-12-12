@@ -3,6 +3,7 @@ class Device < ActiveRecord::Base
   belongs_to :device_type
   has_and_belongs_to_many :tickets
   has_many :checklists, :dependent => :destroy
+  has_many :things, :as => :attached, :dependent => :destroy
   
   validates_uniqueness_of :service_tag
   validates_presence_of :client_id, :device_type_id

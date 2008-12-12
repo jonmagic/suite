@@ -1,0 +1,45 @@
+<div id="files">
+  <ul class="toolbar">
+    <li><a href="javascript:void(0)" class="upload_file">Upload File</a></li>
+  </ul>
+  <div id="upload_file_form" class="hide toolbox">
+    <h3>Upload File</h3>
+    <% form_for @ticket.things.new, :html => { :multipart => true } do |f| %>
+      <table class="m">
+        <tr><td>Name:</td><td><%= f.text_field :name %></td></tr>
+        <tr><td>File:</td><td><%= f.file_field :attachment %></td></tr>
+        <tr><td>Description:</td><td><%= f.text_area :description, :style => "height:50px" %></td></tr>
+      </table>
+      <%= f.hidden_field :attached_id, :value => @ticket.id %>
+      <%= f.hidden_field :attached_type, :value => "Ticket" %>
+      <%= f.submit %>
+    <% end %>
+    <br />
+  </div>
+  <h3>Files Attached to this Ticket</h3>
+  <table class="itu">
+    <tr><th>Name</th><th>Description</th><th>Size</th><th>Action</th></tr>
+    <% @ticket.things.each do |thing| %>
+      <tr>
+        <td><%= link_to thing.name, thing.attachment.url %></td>
+        <td><%= link_to thing.description, thing.attachment.url %></td>
+        <td><%= link_to thing.attachment_file_size, thing.attachment.url %></td>
+        <td>
+          <div class="delete_file">
+            <%= link_to_remote image_tag("/images/icons/delete.png"), :url => thing_url(thing), :method => :delete %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<script>
+  // setup device tab buttons
+  $("a.upload_file").bind("click", function(){
+    $("#upload_file_form").slideDown(1000);
+  });
+  $("div.delete_file a").click(function(){
+    $(this).parent().parent().parent().slideUp("slow");
+  });
+</script>

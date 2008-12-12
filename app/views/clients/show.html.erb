@@ -8,6 +8,7 @@
     <li class="ui-tabs-nav-item"><a href="#notes" title="notes">Notes</a></li>
     <li class="ui-tabs-nav-item"><a href="#tickets" title="tickets">Tickets</a></li>
     <li class="ui-tabs-nav-item"><a href="#devices" title="devices">Devices</a></li>
+    <li class="ui-tabs-nav-item"><a href="#files" title="files">Files</a></li>
     <% if not_a_user(@client) %><li class="ui-tabs-nav-item"><a href="/clients/<%= @client.id %>/users/new" title="#newaccount">Invite</a></li><% end %>
     <% if my_account(@client) %><li class="ui-tabs-nav-item"><a href="/users/<%= current_user.id %>" title="#myaccount">My Account</a></li><% end %>
   </ul>
@@ -15,6 +16,7 @@
   <%= render :partial => 'details', :locals => {:client => @client} %>
   <%= render :partial => 'tickets', :locals => {:client => @client} %>
   <%= render :partial => 'devices', :locals => {:client => @client} %>
+  <%= render :partial => 'things', :locals => {:client => @client} %>
 </div>
 
 <script>

@@ -4,6 +4,7 @@ class Ticket < ActiveRecord::Base
   has_many :ticket_entries
   has_and_belongs_to_many :devices
   has_many :checklists
+  has_many :things, :as => :attached, :dependent => :destroy
   
   validates_presence_of :client_id
   validates_presence_of :user_id
