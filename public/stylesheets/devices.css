@@ -2,7 +2,6 @@
 
 /* Sidebar */
 div.sidebar-list ul#devices li a.search {background:url("/images/icons/find.png") no-repeat;}
-div.sidebar-list ul#configuration li a.device_type_configuration {background:url("/images/icons/script_edit.png") no-repeat 0px 1px;}
 
 /* Search box */
 #applesearch .sbox input {width:300px;}

@@ -1,6 +1,6 @@
 class ChecklistTemplatesController < ApplicationController
   before_filter :login_required
-  layout 'checklists'
+  layout 'settings'
   
   def index
     @checklists = ChecklistTemplate.find(:all)

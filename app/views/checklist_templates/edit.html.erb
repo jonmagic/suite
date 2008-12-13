@@ -3,3 +3,10 @@
 
   <%= render :partial => 'form' %>
 </div>
+
+<script>
+  $(document).ready(function() {
+    // make sidebar item appear selected
+    $("#sidebar li a.checklist_template_configuration").parent().addClass("selected");
+  });
+</script>

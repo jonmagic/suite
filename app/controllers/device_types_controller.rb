@@ -1,6 +1,6 @@
 class DeviceTypesController < ApplicationController
   before_filter :login_required
-  layout 'devices'
+  layout 'settings'
 
   def index
     @device_types = DeviceType.find(:all)

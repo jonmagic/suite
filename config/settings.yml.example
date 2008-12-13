@@ -2,6 +2,9 @@ development: &non_production_settings
   site_url: http://localhost:3000
   site_name: Suite
   admin_email: youremail@domain.com
+  # we use https://www.grc.com/passwords.htm to generate some unique strings
+  event_api_username: ln4A9DvHOs2qZXTLOg8hPx5jV5cClb9Emra129Fi0Q2cqcMvIysiL0XCSKcu5S6
+  event_api_password: MPQ1CBykdvLmcjRs9el0DKbKMEkdGJPT2OD4Dn1jtXNZMSoHy8f8ViMt6auJhu3
   
 test:
   <<: *non_production_settings
@@ -10,3 +13,6 @@ production:
   site_url: http://suite.yourdomain.com
   site_name: Suite
   admin_email: youremail@domain.com
+  # we use https://www.grc.com/passwords.htm to generate some unique strings
+  event_api_username: ln4A9DvHOs2qZXTLOg8hPx5jV5cClb9Emra129Fi0Q2cqcMvIysiL0XCSKcu5S6
+  event_api_password: MPQ1CBykdvLmcjRs9el0DKbKMEkdGJPT2OD4Dn1jtXNZMSoHy8f8ViMt6auJhu3

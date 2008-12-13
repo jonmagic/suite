@@ -15,3 +15,12 @@
     </tbody>
   </table>
 </div>
+
+<script>
+  $(document).ready(function() {
+    // make sidebar item appear selected
+    $("#sidebar li a.checklist_template_configuration").parent().addClass("selected");
+    // add new device type button to footer
+    $("#footer div.col2").append("<a href='/checklist_templates/new'>New Checklist Template</a>");
+  });
+</script>

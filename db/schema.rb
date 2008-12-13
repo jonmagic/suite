@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081211230915) do
+ActiveRecord::Schema.define(:version => 20081212174923) do
 
   create_table "addresses", :force => true do |t|
     t.string   "context",      :default => "Work", :null => false
@@ -119,6 +119,25 @@ ActiveRecord::Schema.define(:version => 20081211230915) do
     t.datetime "updated_at"
   end
 
+  create_table "events", :force => true do |t|
+    t.string   "recordable_type"
+    t.integer  "recordable_id"
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "goggles", :force => true do |t|
+    t.string "name"
+    t.string "script"
+    t.text   "note"
+  end
+
+  create_table "notification_queues", :force => true do |t|
+    t.text    "message"
+    t.integer "schedule_id"
+  end
+
   create_table "passwords", :force => true do |t|
     t.integer  "user_id"
     t.string   "reset_code"
@@ -156,6 +175,31 @@ ActiveRecord::Schema.define(:version => 20081211230915) do
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "role_id"
     t.integer "user_id"
+  end
+
+  create_table "schedules", :force => true do |t|
+    t.string  "name"
+    t.boolean "active"
+    t.integer "user_id"
+    t.string  "start_time"
+    t.string  "end_time"
+    t.integer "backup_id"
+  end
+
+  create_table "sentries", :force => true do |t|
+    t.boolean  "state"
+    t.text     "message"
+    t.integer  "device_id"
+    t.string   "goggle_parameters"
+    t.datetime "last_surveyed_at"
+    t.integer  "survey_interval"
+    t.integer  "notifications_to_send"
+    t.integer  "maximum_notify_frequency"
+    t.integer  "notifications_sent"
+    t.integer  "schedule_id"
+    t.integer  "goggle_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sessions", :force => true do |t|
