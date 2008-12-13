@@ -1,0 +1,12 @@
+<div id="goggle">
+  <h2 alt="edit">Editing <%= @goggle.name %></h2>
+
+  <%= render :partial => 'form' %>
+</div>
+
+<script>
+  $(document).ready(function() {
+    // make sidebar item appear selected
+    $("#sidebar li a.goggles_configuration").parent().addClass("selected");
+  });
+</script>

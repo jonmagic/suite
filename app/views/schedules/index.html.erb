@@ -1,0 +1,36 @@
+<div id="schedules">
+  <table class="itu">
+    <thead>
+      <tr><th class="first">Name</th><th>Technician</th><th>Start Time</th><th>End Time</th><th>Active</th><th></th></tr>
+    </thead>
+    <tbody>
+      <% @schedules.each do |schedule|  %>
+        <tr title="<%= "#{schedule.name}" %>" alt="<%= schedule.id %>">
+          <td class="first"><%= link_to schedule.name, edit_schedule_url(schedule) %></td>
+          <td><%= link_to schedule.user.name, edit_schedule_url(schedule) %></td>
+          <td><%= link_to schedule.start_time, edit_schedule_url(schedule) %></td>
+          <td><%= link_to schedule.end_time, edit_schedule_url(schedule) %></td>
+          <td><%= link_to schedule_active(schedule), edit_schedule_url(schedule) %></td>
+          <td>
+            <div class="delete_schedule">
+              <%= link_to_remote image_tag("/images/icons/delete.png"), :url => schedule_url(schedule), :method => :delete %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(document).ready(function() {
+    // make sidebar item appear selected
+    $("#sidebar li a.schedules_configuration").parent().addClass("selected");
+    // add new goggle type button to footer
+    $("#footer div.col2").append("<a href='/schedules/new'>New Schedule</a>");
+    // delete goggle
+    $("div.delete_schedule a").click(function(){
+      $(this).parent().parent().parent().slideUp("slow");
+    });
+  });
+</script>

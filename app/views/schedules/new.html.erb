@@ -1,0 +1,12 @@
+<div id="schedule">
+  <h2 alt="new">New Schedule</h2>
+
+  <%= render :partial => 'form' %>
+</div>
+
+<script>
+  $(document).ready(function() {
+    // make sidebar item appear selected
+    $("#sidebar li a.schedules_configuration").parent().addClass("selected");
+  });
+</script>

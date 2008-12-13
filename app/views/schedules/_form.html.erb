@@ -1,0 +1,36 @@
+<% form_for @schedule do |f| -%>
+  <table class="m">
+    <tr>
+      <td class="first">Name:</td><td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td>Technician:</td><td><%= f.select :user_id, User.find(:all).collect {|c| [c.name, c.id]} %></td>
+    </tr>
+    <tr> 
+      <td>Start Time:</td><td><%= f.text_field :start_time %></td>
+    </tr>
+    <tr> 
+      <td>End Time:</td><td><%= f.text_field :end_time %></td>
+    </tr>
+    <tr> 
+      <td>Active:</td><td><%= f.check_box :active %></td>
+    </tr>
+    <tr> 
+      <td>Backup:</td><td><%= f.select :backup_id, Schedule.find(:all).collect {|c| [c.name, c.id]} %></td>
+    </tr>
+  </table>
+  <%= f.submit "Save", :class => 'hide' %>
+<% end %>
+
+
+<script>
+  $(document).ready(function() {
+    // make sidebar item appear selected
+    $("#sidebar li a.schedules_configuration").parent().addClass("selected");
+    // add new device type button to footer
+    $("#footer div.col2").append("<a href='#' class='save'>Save Schedule</a>");
+    $("#footer div.col2 a.save").bind("click", function(){
+      $("#schedule input[type=submit]").click();
+    });
+  });
+</script>

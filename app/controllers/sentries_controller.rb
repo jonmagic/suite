@@ -1,0 +1,3 @@
+class SentriesController < ApplicationController
+
+end

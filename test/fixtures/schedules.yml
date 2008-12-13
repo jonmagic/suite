@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  active: false
+  user_id: 1
+  start_time: MyString
+  end_time: MyString
+  backup_id: 1
+
+two:
+  active: false
+  user_id: 1
+  start_time: MyString
+  end_time: MyString
+  backup_id: 1

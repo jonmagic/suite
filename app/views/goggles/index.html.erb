@@ -1,0 +1,34 @@
+<div id="goggles">
+  <table class="itu">
+    <thead>
+      <tr><th class="first">Name</th><th>Script</th><th>Note</th><th></th></tr>
+    </thead>
+    <tbody>
+      <% @goggles.each do |goggle|  %>
+        <tr title="<%= "#{goggle.note}" %>" alt="<%= goggle.id %>">
+          <td class="first"><%= link_to goggle.name, edit_goggle_url(goggle) %></td>
+          <td><%= link_to goggle.script, edit_goggle_url(goggle) %></td>
+          <td><%= link_to goggle.note, edit_goggle_url(goggle) %></td>
+          <td>
+            <div class="delete_goggle">
+              <%= link_to_remote image_tag("/images/icons/delete.png"), :url => goggle_url(goggle), :method => :delete %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(document).ready(function() {
+    // make sidebar item appear selected
+    $("#sidebar li a.goggles_configuration").parent().addClass("selected");
+    // add new goggle type button to footer
+    $("#footer div.col2").append("<a href='/goggles/new'>New Goggle</a>");
+    // delete goggle
+    $("div.delete_goggle a").click(function(){
+      $(this).parent().parent().parent().slideUp("slow");
+    });
+  });
+</script>

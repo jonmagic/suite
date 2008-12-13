@@ -1,0 +1,27 @@
+<% form_for @goggle do |f| -%>
+  <table class="m">
+    <tr>
+      <td class="first">Name:</td><td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td>Script:</td><td><%= f.text_field :script %></td>
+    </tr>
+    <tr> 
+      <td>Note:</td><td><%= f.text_area :note %></td>
+    </tr>
+  </table>
+  <%= f.submit "Save", :class => 'hide' %>
+<% end %>
+
+
+<script>
+  $(document).ready(function() {
+    // make sidebar item appear selected
+    $("#sidebar li a.goggles_configuration").parent().addClass("selected");
+    // add new device type button to footer
+    $("#footer div.col2").append("<a href='#' class='save'>Save Goggle</a>");
+    $("#footer div.col2 a.save").bind("click", function(){
+      $("#goggle input[type=submit]").click();
+    });
+  });
+</script>

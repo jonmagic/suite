@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  state: false
+  message: MyText
+  device_id: 1
+  goggle_parameters: MyString
+  last_surveyed_at: 2008-12-12 12:49:23
+  survey_interval: 1
+  notifications_to_send: 1
+  maximum_notify_frequency: 1
+  notifications_sent: 1
+  schedule_id: 1
+  goggle_id: 1
+
+two:
+  state: false
+  message: MyText
+  device_id: 1
+  goggle_parameters: MyString
+  last_surveyed_at: 2008-12-12 12:49:23
+  survey_interval: 1
+  notifications_to_send: 1
+  maximum_notify_frequency: 1
+  notifications_sent: 1
+  schedule_id: 1
+  goggle_id: 1
