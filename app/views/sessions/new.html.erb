@@ -3,7 +3,7 @@
 	<fieldset>
     <div class="row">
       <%= label_tag 'email', 'Email' %>
-			<%= text_field_tag 'email', @email %>
+			<%= text_field_tag 'email', @email, :autocapitalize => "off" %>
 		</div>
     <div class="row">
 			<%= label_tag 'password' %>
