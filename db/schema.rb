@@ -13,7 +13,7 @@ ActiveRecord::Schema.define(:version => 20081211230915) do
 
   create_table "addresses", :force => true do |t|
     t.string   "context",      :default => "Work", :null => false
-    t.string   "full_address", :default => "",     :null => false
+    t.string   "full_address",                     :null => false
     t.string   "thoroughfare"
     t.string   "city"
     t.string   "state"
@@ -25,20 +25,20 @@ ActiveRecord::Schema.define(:version => 20081211230915) do
   end
 
   create_table "checklist_items", :force => true do |t|
-    t.integer  "checklist_id",                                                                    :null => false
-    t.text     "question",                                                                        :null => false
-    t.string   "answer_type",                                               :default => "string", :null => false
+    t.integer  "checklist_id",                       :null => false
+    t.text     "question",                           :null => false
+    t.string   "answer_type",  :default => "string", :null => false
     t.binary   "binary"
     t.boolean  "boolean"
     t.date     "date"
     t.datetime "datetime"
-    t.integer  "decimal",      :limit => 10, :precision => 10, :scale => 0
+    t.decimal  "decimal"
     t.float    "float"
     t.integer  "integer"
     t.string   "string"
     t.text     "text"
     t.time     "time"
-    t.boolean  "completed",                                                 :default => false,    :null => false
+    t.boolean  "completed",    :default => false,    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -137,9 +137,9 @@ ActiveRecord::Schema.define(:version => 20081211230915) do
   end
 
   create_table "preferences", :force => true do |t|
-    t.string   "attribute",  :default => "", :null => false
-    t.integer  "owner_id",                   :null => false
-    t.string   "owner_type", :default => "", :null => false
+    t.string   "attribute",  :null => false
+    t.integer  "owner_id",   :null => false
+    t.string   "owner_type", :null => false
     t.integer  "group_id"
     t.string   "group_type"
     t.string   "value"
@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(:version => 20081211230915) do
     t.datetime "updated_at"
   end
 
-  add_index "preferences", ["owner_id", "owner_type", "attribute", "group_id", "group_type"], :name => "index_preferences_on_owner_and_attribute_and_preference", :unique => true
+  add_index "preferences", ["attribute", "group_id", "group_type", "owner_id", "owner_type"], :name => "index_preferences_on_owner_and_attribute_and_preference", :unique => true
 
   create_table "roles", :force => true do |t|
     t.string "name"
@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(:version => 20081211230915) do
   end
 
   create_table "sessions", :force => true do |t|
-    t.string   "session_id", :default => "", :null => false
+    t.string   "session_id", :null => false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -185,8 +185,8 @@ ActiveRecord::Schema.define(:version => 20081211230915) do
     t.string   "entry_type"
     t.text     "note"
     t.integer  "time"
-    t.boolean  "billable"
-    t.boolean  "private"
+    t.boolean  "billable",   :default => true,  :null => false
+    t.boolean  "private",    :default => false, :null => false
     t.integer  "detail"
     t.integer  "creator_id"
     t.integer  "ticket_id"
