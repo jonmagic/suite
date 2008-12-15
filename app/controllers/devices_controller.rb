@@ -3,8 +3,13 @@ class DevicesController < ApplicationController
   layout 'devices', :except => [:details]
 
   def index
-    @devices = Device.search(params[:q], :include => [:client])
-    
+    if params[:client_id]
+      @devices = Device.find(:all, :conditions => {:client_id => params[:client_id]})
+    elsif params[:q]
+      @devices = Device.search(params[:q], :include => [:client])
+    else
+      @devices = []
+    end
     respond_to do |format|
       format.html
       format.xml  { render :xml => @devices }

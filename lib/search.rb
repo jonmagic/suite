@@ -59,7 +59,7 @@ module ActiveRecord
       unless text.nil?
         text_condition = if case_insensitive
           fields.collect { |f| "UPPER(#{f}) LIKE #{sanitize('%'+text.upcase+'%')}" }.join " OR " # works with postgresql
-          # fields.collect { |f| "UCASE(#{f}) LIKE #{sanitize('%'+text.upcase+'%')}" }.join " OR " # works with mysq
+          # fields.collect { |f| "UCASE(#{f}) LIKE #{sanitize('%'+text.upcase+'%')}" }.join " OR " # works with mysql
         else
           fields.collect { |f| "#{f} LIKE #{sanitize('%'+text+'%')}" }.join " OR "
         end

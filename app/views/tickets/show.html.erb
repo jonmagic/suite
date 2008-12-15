@@ -102,12 +102,12 @@
       $("#new_device_form").slideDown(1000);
     });
     $("a.add_existing_device").bind("click", function(){
-      $.getJSON("/devices/?q=<%= @ticket.client.fullname %>", function(data){
+      $.getJSON("/clients/<%= @ticket.client.id %>/devices", function(data){
         $.each(data, function(i, object){
           var row = "<tr><td><a href='#'>"+object.device.service_tag+"</a></td><td><a href='#'>"+object.device.name+"</a></td><td><a href='/tickets/<%= @ticket.id %>/devices/"+object.device.id+"/add_to_ticket'>Add</a></td></tr>"        
           $("#add_existing_device table tbody").append(row);
           $("#add_existing_device").slideDown(1000);
-          buildTables();
+          // buildTables();
         });
       });
     });
