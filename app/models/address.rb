@@ -5,13 +5,14 @@ class Address < ActiveRecord::Base
   
   def normalize_address
     # puts "normalizing"
-    if address = getLocation(self.full_address)
-      address["full_address"] != nil ? self.full_address = address["full_address"] : self.full_address = self.full_address
-      address["thoroughfare"] != nil ? self.thoroughfare = address["thoroughfare"] : self.thoroughfare = nil
-      address["city"] != nil ? self.city = address["city"] : self.city = nil
-      address["state"] != nil ? self.state = address["state"] : self.state = nil
-      address["zip"] != nil ? self.zip = address["zip"] : self.zip = nil
-      # puts "normalized!"
+    if self.zip == nil
+      if address = getLocation(self.full_address)
+        address["thoroughfare"] != nil ? self.thoroughfare = address["thoroughfare"] : self.thoroughfare = nil
+        address["city"] != nil ? self.city = address["city"] : self.city = nil
+        address["state"] != nil ? self.state = address["state"] : self.state = nil
+        address["zip"] != nil ? self.zip = address["zip"] : self.zip = nil
+        # puts "normalized!"
+      end
     else
       # puts "unable to normalize"
       self.full_address = self.full_address
