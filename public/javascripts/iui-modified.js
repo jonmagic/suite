@@ -143,7 +143,22 @@ window.iui =
             if (child.nodeType == 1 && child.getAttribute("selected") == "true")
                 return child;
         }    
-    }    
+    },
+    isNativeUrl: function(href)
+    {
+       for(var i = 0; i < iui.nativeUrlPatterns.length; i++)
+       {
+           if(href.match(iui.nativeUrlPatterns[i])) return true;
+       }
+       return false;
+    },
+    nativeUrlPatterns: [
+       new RegExp("^http:\/\/maps.google.com\/maps\?"),
+       new RegExp("^mailto:"),
+       new RegExp("^tel:"),
+       new RegExp("^http:\/\/www.youtube.com\/watch\\?v="),
+       new RegExp("^http:\/\/www.youtube.com\/v\/")
+    ]
 };
 
 // *************************************************************************************************
@@ -166,7 +181,7 @@ addEventListener("click", function(event)
     {
         function unselect() { link.removeAttribute("selected"); }
         
-		if (link.href && link.hash && link.hash != "#" && (link.hash.slice(0,2) != "#_"))
+   if (link.href && link.hash && link.hash != "#" && (link.hash.slice(0,2) != "#_"))
         {
             link.setAttribute("selected", "true");
             iui.showPage($(link.hash.substr(1)));
@@ -183,11 +198,15 @@ addEventListener("click", function(event)
             link.setAttribute("selected", "progress");
             iui.showPageByHref(link.href, null, null, link, unselect);
         }
+        else if (iui.isNativeUrl(link.href))
+        {
+            return;
+        }
         else if (!link.target)
         {
             link.setAttribute("selected", "progress");
             var hashStrip = link.hash.slice(2);
-			iui.showPageByHref(hashStrip, null, null, null, unselect);
+     iui.showPageByHref(hashStrip, null, null, null, unselect);
         }
         else
             return;

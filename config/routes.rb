@@ -42,6 +42,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :checklist_templates
   map.resources :goggles
   map.resources :schedules
+  map.resources :radchecks
   
   # Custom Routes
   map.search_clients '/clients/search', :controller => 'clients', :action => 'search'    

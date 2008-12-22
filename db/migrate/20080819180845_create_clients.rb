@@ -4,7 +4,7 @@ class CreateClients < ActiveRecord::Migration
       t.string  :name
       t.string  :firstname
       t.string  :lastname
-      t.boolean :company, :default => nil, :null => false
+      t.boolean :company, :default => false, :null => false
       t.integer :belongs_to
       t.text    :note
       t.string  :mugshot_file_name

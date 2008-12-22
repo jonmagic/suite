@@ -54,7 +54,8 @@ class ChecklistsController < ApplicationController
   def remove_from_ticket
     @checklist = Checklist.find(params[:id])
     TicketEntry.create(:entry_type => "Removed Checklist", :note => "Checklist (#{@checklist.name}) was removed from this ticket.", :billable => false, :private => true, :detail => 6, :ticket => @checklist.ticket, :creator_id => current_user.id)
-    @checklist.destroy
+    @checklist.ticket_id = nil
+    @checklist.save
     redirect_to :back
   end
   
