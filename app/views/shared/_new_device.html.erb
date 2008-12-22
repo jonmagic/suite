@@ -1,6 +1,7 @@
 <h3>New Device</h3>
 <% form_for Device.new(), :url => "" do |f| -%>
-  <%= f.hidden_field :client_id, :value => @ticket.client.id %>
+  <% @client.blank? ? @client_id = @ticket.client.id : @client_id = @client.id %>
+  <%= f.hidden_field :client_id, :value => @client_id %>
   <table id="device_details" class="m">
     <tr>
       <td class="first">Service Tag:</td><td><%= f.text_field :service_tag %> Auto-Generated</td>

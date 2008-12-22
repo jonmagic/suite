@@ -43,6 +43,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :things
   
+  map.resources :radchecks
+  
   map.device_details '/tickets/:ticket_id/devices/:id/details', :controller => 'devices', :action => 'details'
   map.add_to_ticket '/tickets/:ticket_id/devices/:id/add_to_ticket', :controller => 'devices', :action => 'add_to_ticket'
   map.remove_device_from_ticket '/tickets/:ticket_id/devices/:id/remove_from_ticket', :controller => 'devices', :action => 'remove_from_ticket'

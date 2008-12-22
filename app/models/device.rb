@@ -12,7 +12,7 @@ class Device < ActiveRecord::Base
   after_create :create_checklists
   
   def create_service_tag
-    if self.service_tag == ""
+    if self.service_tag.blank?
       recent_device = Device.find(:first, :order => 'created_at DESC', :conditions => {:created_at.gt => DateTime.now.beginning_of_day, :created_at.lt => DateTime.now.end_of_day, :device_type_id => self.device_type_id})
       device_type = DeviceType.find(self.device_type_id)
       if recent_device != nil
