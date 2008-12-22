@@ -33,7 +33,7 @@ class Device < ActiveRecord::Base
     checklists = self.device_type.checklist_templates
     if checklists != nil
       checklists.each do |list|
-        Checklist.create(:checklist_template => list, :name => list.name, :device => self)
+        Checklist.create(:checklist_template => list, :name => list.name, :device => self, :ticket_id => nil)
       end
     end
   end

@@ -68,7 +68,7 @@ class DevicesController < ApplicationController
           format.html { redirect_to :back }
         else
           flash[:notice] = @device.errors.inspect
-          format.html { redirect_to url_for(@device) }
+          format.html { redirect_to :back }
           format.xml  { render :xml => @device, :status => :created, :location => @device }
         end
       else
