@@ -10,6 +10,7 @@ class CreateSentries < ActiveRecord::Migration
       t.integer :notifications_to_send
       t.integer :maximum_notify_frequency
       t.integer :notifications_sent
+      t.datetime :last_notified_at
       t.integer :schedule_id
       t.integer :goggle_id
 

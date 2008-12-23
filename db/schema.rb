@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(:version => 20081212174923) do
     t.string   "name"
     t.string   "firstname"
     t.string   "lastname"
-    t.boolean  "company",              :null => false
+    t.boolean  "company",              :default => false, :null => false
     t.integer  "belongs_to"
     t.text     "note"
     t.string   "mugshot_file_name"

@@ -1,0 +1,20 @@
+<h3>Edit Sentry</h3>
+<% form_for @sentry do |f| %>
+  <table class="m">
+    <tr>
+      <td class="first">Goggle:</td><td><%= f.select :goggle_id, Goggle.find(:all).collect {|c| [c.name, c.id]}, :selected => @sentry.goggle_id %></td>
+      <td class="first">Max # of Notifies:</td><td><%= f.select :notifications_to_send, [1, 2, 3, 4, 5, 10, 100], :selected => @sentry.notifications_to_send %></td>
+    </tr>
+    <tr>
+      <td class="first">Survey Interval (minutes):</td><td><%= f.select :survey_interval, [1, 5, 10, 15, 20, 30, 60, 480, 1440], :selected => @sentry.survey_interval %></td>
+      <td class="first">Notify Every (minutes):</td><td><%= f.select :maximum_notify_frequency, [1, 5, 10, 15, 30, 60, 480], :selected => @sentry.maximum_notify_frequency %></td>
+    </tr>
+    <tr>
+      <td class="first"></td><td></td>
+      <td class="first">Notification Schedule:</td><td><%= f.select :schedule_id, Schedule.find(:all).collect {|c| [c.name, c.id]}, :selected => @sentry.schedule_id %></td>
+    </tr>
+  </table>
+  <%= f.submit "Update Sentry" %>
+  <%= link_to image_tag("/images/icons/delete.png"), url_for(@sentry), :confirm => "Are you sure you want to delete this Sentry?", :method => :delete, :class => "delete_sentry_button" %>
+<% end %>
+<br />

@@ -14,11 +14,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
 
   # Main Resources
+  map.search_clients '/clients/search', :controller => 'clients', :action => 'search'
   map.resources :clients do |client|
     client.resources :tickets
     client.resources :devices
     client.resources :users
   end
+  map.search_tickets '/tickets/search', :controller => 'tickets', :action => 'search'
   map.resources :tickets do |ticket|
     ticket.resources :ticket_entries
     ticket.resources :devices
@@ -43,11 +45,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :goggles
   map.resources :schedules
   map.resources :radchecks
+  map.resources :sentries
   
   # Custom Routes
-  map.search_clients '/clients/search', :controller => 'clients', :action => 'search'    
-  map.client_list '/clients/list', :controller => 'clients', :action => 'list'
-  map.search_tickets '/tickets/search', :controller => 'tickets', :action => 'search'
   map.device_details '/tickets/:ticket_id/devices/:id/details', :controller => 'devices', :action => 'details'
   map.add_to_ticket '/tickets/:ticket_id/devices/:id/add_to_ticket', :controller => 'devices', :action => 'add_to_ticket'
   map.remove_device_from_ticket '/tickets/:ticket_id/devices/:id/remove_from_ticket', :controller => 'devices', :action => 'remove_from_ticket'

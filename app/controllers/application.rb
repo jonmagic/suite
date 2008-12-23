@@ -7,3 +7,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery :secret => 'b0a876313f3f9195e9bd01473bc5cd06'
   filter_parameter_logging :password, :password_confirmation
 end
+
+class Object
+  ##
+  #   @person ? @person.name : nil
+  # vs
+  #   @person.try(:name)
+  def try(method)
+    send method if respond_to? method
+  end
+end

@@ -1,0 +1,56 @@
+<div id="sentries">
+  <ul class="toolbar">
+    <li><a href="#" id="add_sentry">Add Sentry</a></li>
+  </ul>
+  <div id="add_sentry_form" class="toolbox hide">
+    <h3>Add Sentry</h3>
+    <% form_for @device.sentries.new do |f| %>
+      <table class="m">
+        <tr>
+          <td class="first">Goggle:</td><td><%= f.select :goggle_id, Goggle.find(:all).collect {|c| [c.name, c.id]} %></td>
+          <td class="first">Max # of Notifies:</td><td><%= f.select :notifications_to_send, ["1", "2", "3", "4", "5", "10", "100"] %></td>
+        </tr>
+        <tr>
+          <td class="first">Survey Interval (minutes):</td><td><%= f.select :survey_interval, ["1", "5", "10", "15", "20", "30", "60", "480", "1440"] %></td>
+          <td class="first">Notify Every (minutes):</td><td><%= f.select :maximum_notify_frequency, ["1", "5", "10", "15", "30", "60", "480"] %></td>
+        </tr>
+        <tr>
+          <td class="first"></td><td></td>
+          <td class="first">Notification Schedule:</td><td><%= f.select :schedule_id, Schedule.find(:all).collect {|c| [c.name, c.id]} %></td>
+        </tr>
+      </table>
+      <%= f.hidden_field :device_id, :value => @device.id %>
+      <%= f.submit "Add Sentry" %>
+    <% end %>
+    <br />
+  </div>
+  <h3>Sentries for this Device</h3>
+  <table class="itu">
+    <tr>
+      <th>ID</th><th>Last Message</th><th>State</th><th>Last Checked</th>
+    </tr>
+    <% @device.sentries.each do |sentry| %>
+      <tr alt="<%= sentry.message %>" id="sentry_<%= sentry.id %>">
+        <td><a href="#"><%= sentry.id %></a></td>
+        <td><a href="#"><%= sentry.message %></a></td>
+        <td><a href="#"><%= sentry_state(sentry) %></a></td>
+        <td><a href="#"><%= sentry.last_surveyed_at ? sentry.last_surveyed_at.strftime("%H:%M, %x") : "" %></a></td>
+      </tr>
+    <% end %>
+  </table>
+  <div id="sentry" class="toolbox hide"></div>
+</div>
+
+<script>
+  // show new sentry form on click
+  $("a#add_sentry").click(function(){
+    $("div#add_sentry_form").slideDown(500);
+  });
+  // load a sentry into the div on click
+  $("div#sentries > table a").click(function(){
+    var sentry = $(this).parent().parent().attr("id").split("sentry_")[1];
+    $("div#sentry").slideUp(500);
+    $("div#sentry").load("/sentries/"+sentry+"/edit");
+    $("div#sentry").slideDown(500);
+  })
+</script>
