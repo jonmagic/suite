@@ -4,7 +4,7 @@ class CreateSentries < ActiveRecord::Migration
       t.boolean :state
       t.text :message
       t.integer :device_id
-      t.string :goggle_parameters
+      t.string :parameters
       t.datetime :last_surveyed_at
       t.integer :survey_interval
       t.integer :notifications_to_send

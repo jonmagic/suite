@@ -13,7 +13,7 @@ class DevicesController < ApplicationController
     respond_to do |format|
       format.html
       format.xml  { render :xml => @devices }
-      format.json  { render :json => @devices }
+      format.json  { render :json => @devices.to_json() }
     end
   end
   

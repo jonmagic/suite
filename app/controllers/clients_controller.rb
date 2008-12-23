@@ -3,7 +3,7 @@ class ClientsController < ApplicationController
   layout 'clients'
   
   def index
-    @clients = Client.find(:all, :order => :updated_at, :limit => 100)
+    @clients = []
     
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,11 @@ class ClientsController < ApplicationController
   end
   
   def search
-    @clients = Client.search(params[:q], :limit => 100, :only => [:firstname, :lastname, :name])
+    if !params[:q].blank?
+      @clients = Client.search(params[:q], :limit => 100, :only => [:firstname, :lastname, :name])
+    else
+      @clients = []
+    end
     respond_to do |format|
       format.xml  { render :xml => @clients }
       format.json  { render :json => @clients }

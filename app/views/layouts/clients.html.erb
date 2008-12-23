@@ -27,9 +27,6 @@
       <div id="applesearch"><input type="search" id="srch_fld" placeholder="Search..." autosave="applestyle_srch" results="5" onkeyup="" /></div>
       <h2>Clients</h2>
       <ul class="itu" id="clients">
-        <% Client.find(:all, :limit => 100).each do |client| %>
-          <li alt="<%= client.id %>"><a href="/clients/<%= client.id %>" class="<%= client.type %>"><%= client.lastfirst %></a></li>
-        <% end %>
       </ul>
     </div>
     
