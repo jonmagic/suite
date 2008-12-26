@@ -1,0 +1,5 @@
+Died
+Traceback (most recent call last):
+  File "setup.py", line 21, in <module>
+    sys.exit()
+SystemExit

@@ -1,6 +1,7 @@
 <div id="sentries">
   <ul class="toolbar">
     <li><a href="#" id="add_sentry">Add Sentry</a></li>
+    <li><%= link_to "Download SuiteMonitorApp", "/devices/#{@device.id}/download_sma", :confirm => "This will take 15 seconds, click OK to continue."%></li>
   </ul>
   <div id="add_sentry_form" class="toolbox hide">
     <h3>Add Sentry</h3>
@@ -15,7 +16,7 @@
           <td class="first">Notify Every (minutes):</td><td><%= f.select :maximum_notify_frequency, ["1", "5", "10", "15", "30", "60", "480"] %></td>
         </tr>
         <tr>
-          <td class="first"></td><td></td>
+          <td class="first">Parameters:</td><td><%= f.text_field :parameters %></td>
           <td class="first">Notification Schedule:</td><td><%= f.select :schedule_id, Schedule.find(:all).collect {|c| [c.name, c.id]} %></td>
         </tr>
       </table>

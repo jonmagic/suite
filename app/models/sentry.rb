@@ -12,4 +12,8 @@ class Sentry < ActiveRecord::Base
     NotificationQueue.create(:message => message, :schedule_id => self.schedule_id)
   end
   
+  def to_json(options={})
+    super(options.merge(:include => :goggle))
+  end
+  
 end

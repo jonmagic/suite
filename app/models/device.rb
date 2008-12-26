@@ -52,4 +52,22 @@ class Device < ActiveRecord::Base
     super(options.merge(:methods => :client_name))
   end
   
+  def generate
+    sma_dir = RAILS_ROOT+"/lib/sma/"
+    devices_dir = sma_dir+"devices/"
+    device = self
+    if File.exist?(devices_dir+device.id.to_s+"/sma_installer.exe")
+      return true
+    else
+      FileUtils.mkdir(devices_dir+device.id.to_s)
+      device_dir = devices_dir+device.id.to_s
+      FileUtils.cp sma_dir+"windows/sma.nsi", device_dir
+      config = File.new(device_dir+"/config.yaml", "w+")
+      config.write '{"device":{"id":'+device.id.to_s+'},"auth":{"username":"'+APP_CONFIG[:event_api_username]+'","password":"'+APP_CONFIG[:event_api_password]+'"},"site":{"url":"'+APP_CONFIG[:site_url]+'"}}'
+      config.close
+      `#{APP_CONFIG[:nsis_path]}/makensis #{device_dir}/sma.nsi`
+      return true
+    end
+  end
+  
 end

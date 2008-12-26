@@ -1,0 +1,2 @@
+"c:\Program Files\Suite\sma\instsrv\instsrv.exe" SuiteMonitorApp "c:\Program Files\Suite\sma\instsrv\srvany.exe"
+rem "c:\Program Files\Suite\sma\python25\pythonw.exe" "c:\Program Files\Suite\sma\setup.py"

@@ -26,6 +26,7 @@ ActionController::Routing::Routes.draw do |map|
     ticket.resources :devices
     ticket.resources :checklists
   end
+  map.download_sma '/devices/:device_id/download_sma', :controller => 'devices', :action => 'download_sma'
   map.resources :devices do |device|
     device.resources :checklists
     device.resources :tickets

@@ -1,5 +1,6 @@
 class SentriesController < ApplicationController
   before_filter :login_required, :except => 'index'
+  skip_before_filter :verify_authenticity_token, :only => 'index'
   before_filter :http_basic_authenticate, :only => 'index'
   layout nil
   
@@ -7,7 +8,7 @@ class SentriesController < ApplicationController
     if params[:device_id]
       @sentries = Sentry.find(:all, :conditions => {:device_id => params[:device_id]})
       respond_to do |format|
-        format.json  { render :json => @sentries }
+        format.json # index.json.erb
       end
     end  
   end
@@ -17,7 +18,7 @@ class SentriesController < ApplicationController
   end
 
   def create
-    @sentry = Sentry.new(params[:sentry])
+    @sentry = Sentry.nfew(params[:sentry])
     if @sentry.save
       flash[:notice] = "Sentry created successfully."
       redirect_to :back
@@ -49,8 +50,8 @@ class SentriesController < ApplicationController
     def http_basic_authenticate
       authenticate_or_request_with_http_basic do |username, password|
         # after testing uncomment the following line and comment out the test line
-        # username == APP_CONFIG[:event_api_username] && password == APP_CONFIG[:event_api_password]
-        username == "test" && password == "test"
+        username == APP_CONFIG[:event_api_username] && password == APP_CONFIG[:event_api_password]
+        # username == "test" && password == "test"
       end
     end
 end

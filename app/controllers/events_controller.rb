@@ -21,8 +21,8 @@ class EventsController < ApplicationController
     def http_basic_authenticate
       authenticate_or_request_with_http_basic do |username, password|
         # after testing uncomment the following line and comment out the test line
-        # username == APP_CONFIG[:event_api_username] && password == APP_CONFIG[:event_api_password]
-        username == "test" && password == "test"
+        username == APP_CONFIG[:event_api_username] && password == APP_CONFIG[:event_api_password]
+        # username == "test" && password == "test"
       end
     end
 

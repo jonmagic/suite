@@ -2,6 +2,7 @@ class CreateGoggles < ActiveRecord::Migration
   def self.up
     create_table :goggles do |t|
       t.string :name
+      t.string :module
       t.string :script
       t.text :note
     end

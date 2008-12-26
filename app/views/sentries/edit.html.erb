@@ -10,7 +10,7 @@
       <td class="first">Notify Every (minutes):</td><td><%= f.select :maximum_notify_frequency, [1, 5, 10, 15, 30, 60, 480], :selected => @sentry.maximum_notify_frequency %></td>
     </tr>
     <tr>
-      <td class="first"></td><td></td>
+      <td class="first">Parameters:</td><td><%= f.text_field :parameters %></td>
       <td class="first">Notification Schedule:</td><td><%= f.select :schedule_id, Schedule.find(:all).collect {|c| [c.name, c.id]}, :selected => @sentry.schedule_id %></td>
     </tr>
   </table>
