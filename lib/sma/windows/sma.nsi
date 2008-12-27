@@ -38,7 +38,7 @@
 ; MUI end ------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "SMA_Installer.exe"
+OutFile "sma_installer.exe"
 InstallDir "$PROGRAMFILES\Suite\sma"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
