@@ -11,3 +11,7 @@ We're using Lighthouse for tracking issues, features requests, and milestones. S
 "http://sabretech.lighthouseapp.com/projects/21424-suite/overview":http://sabretech.lighthouseapp.com/projects/21424-suite/overview
 
 Currently Suite is only being used by my small company "SabreTech Consulting LLC":http://www.sabretechllc.com, but we would really love to see it get into production for other small service based companies like ours. If you are interested and need help getting it setup, please email me jonmagic at gmail dot com...
+
+h3. Oh yeah, just one more thing
+
+I've added monitoring support with custom built installers for windows pc's... its pretty slick really
