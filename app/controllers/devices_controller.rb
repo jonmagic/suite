@@ -117,6 +117,7 @@ class DevicesController < ApplicationController
   def download_sma
     @device = Device.find(params[:device_id])
     if @device.generate
+      sleep(30)
       send_file RAILS_ROOT+"/lib/sma/devices/"+@device.id.to_s+"/sma_installer.exe"
     else
       flash[:notice] = "Failed to generate SuiteMonitorApp."
