@@ -7,6 +7,12 @@ class DevicesController < ApplicationController
       @devices = Device.find(:all, :conditions => {:client_id => params[:client_id]})
     elsif params[:q]
       @devices = Device.search(params[:q], :include => [:client])
+    elsif params[:status]
+      if params[:status] == "down"
+        @devices = Device.find_all_in_trouble
+      else
+        @devices = []
+      end
     else
       @devices = []
     end

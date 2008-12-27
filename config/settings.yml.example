@@ -5,6 +5,8 @@ development: &non_production_settings
   # we use https://www.grc.com/passwords.htm to generate some unique strings
   event_api_username: ln4A9DvHOs2qZXTLOg8hPx5jV5cClb9Emra129Fi0Q2cqcMvIysiL0XCSKcu5S6
   event_api_password: MPQ1CBykdvLmcjRs9el0DKbKMEkdGJPT2OD4Dn1jtXNZMSoHy8f8ViMt6auJhu3
+  # this is used by the device sentries section, for creating a windows installer
+  nsis_path: "/opt/nsis/bin"
   
 test:
   <<: *non_production_settings
@@ -16,3 +18,5 @@ production:
   # we use https://www.grc.com/passwords.htm to generate some unique strings
   event_api_username: ln4A9DvHOs2qZXTLOg8hPx5jV5cClb9Emra129Fi0Q2cqcMvIysiL0XCSKcu5S6
   event_api_password: MPQ1CBykdvLmcjRs9el0DKbKMEkdGJPT2OD4Dn1jtXNZMSoHy8f8ViMt6auJhu3
+  # this is used by the device sentries section, for creating a windows installer
+  nsis_path: "/opt/nsis/bin"

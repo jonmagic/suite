@@ -22,20 +22,24 @@ end
 
 def watch!
   # This will naturally migrate different surveys to need run slightly apart from one another.
-  while(sleep(1))
+  while(sleep(10))
     Sentry.find(:all).each do |sentry|
       begin
-        if (sentry.last_surveyed_at.nil? || Time.now > sentry.last_surveyed_at.to_time + sentry.survey_interval)
+        if (sentry.last_surveyed_at.nil? || Time.now > sentry.last_surveyed_at.to_time + sentry.survey_interval*60)
           begin
             success = sentry.survey!
             if success
-              loggit! "SUCCESS #{sentry.device.name} / #{sentry.goggle.name}"
+              loggit! "SUCCESS #{sentry.device.service_tag} / Sentry ##{sentry.id.to_s} #{sentry.goggle.name}"
               sentry.last_notified_at = nil
+              sentry.notifications_sent = 0
+              sentry.state = true
             else !success
-              loggit! "FAILURE #{sentry.device.name} / #{sentry.goggle.name}"
-              if sentry.last_notified_at.nil? || (sentry.notifications_to_send > 1 && Time.now > sentry.last_notified_at.to_time + sentry.maximum_notify_frequency)
-                if sentry.notify!
-                  sentry.last_notified_at = Time.now 
+              loggit! "FAILURE #{sentry.device.service_tag} / Sentry ##{sentry.id.to_s} #{sentry.goggle.name}"
+              sentry.state = false
+              if sentry.last_notified_at.nil? || (sentry.notifications_sent < sentry.notifications_to_send && Time.now > sentry.last_notified_at.to_time + sentry.maximum_notify_frequency*60)
+                if sentry.notify!("#{sentry.device.service_tag} / Sentry ##{sentry.id.to_s} #{sentry.goggle.name} failed", "I'm failing miserably :-(")
+                  sentry.last_notified_at = Time.now
+                  sentry.notifications_sent += 1
                   loggit! "  ->  NOTIFIED"
                 else
                   loggit! "  ->  Could Not Notify"
@@ -43,10 +47,10 @@ def watch!
               end
             end
           rescue => e
-            STDERR << loggit!("ERROR - (#{sentry.device.name} / #{sentry.goggle.name}): #{e}")
-            if sentry.last_notified_at.nil? || (sentry.notifications_to_send > 1 && Time.now > sentry.last_notified_at.to_time + sentry.maximum_notify_frequency)
+            STDERR << loggit!("ERROR - (#{sentry.device.service_tag} / #{sentry.goggle.name}): #{e}")
+            if sentry.last_notified_at.nil? || (sentry.notifications_sent < sentry.notifications_to_send && Time.now > sentry.last_notified_at.to_time + sentry.maximum_notify_frequency*60)
               loggit! "  ->  NOTIFIED of ERROR"
-              sentry.last_notified_at = Time.now if sentry.notify!("Sentry #{sentry.device.name} / #{sentry.goggle.name} errored: #{e}")
+              sentry.last_notified_at = Time.now if sentry.notify!("#{sentry.device.service_tag} / Sentry ##{sentry.id.to_s} #{sentry.goggle.name} errored: #{e}", "I have failed...")
             end
           ensure
             sentry.last_surveyed_at = Time.now
@@ -54,8 +58,8 @@ def watch!
           end
         end
       rescue => e
-        STDERR << loggit!("ERROR - Was going to cause exit on Sentry #{sentry.device.name}! Error: #{e}")
-        sentry.notify!("Sentry #{sentry.device.name} Exit-causing error: #{e}", 'dcparker@gmail.com')
+        STDERR << loggit!("ERROR - Was going to cause exit on Sentry #{sentry.device.service_tag}! Error: #{e}")
+        sentry.notify!("#{sentry.device.service_tag} / Sentry ##{sentry.id.to_s} #{sentry.goggle.name} Exit-causing error: #{e}")
       end
     end
   end

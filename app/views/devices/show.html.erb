@@ -15,7 +15,7 @@
     <li class="ui-tabs-nav-item"><a href="#description" title="description">Description</a></li>
     <li class="ui-tabs-nav-item"><a href="#tickets" title="tickets">Tickets</a></li>
     <li class="ui-tabs-nav-item"><a href="#checklists" title="checklists">Checklists</a></li>
-    <li class="ui-tabs-nav-item"><a href="#sentries" title="sentries">Sentries</a></li>
+    <li class="ui-tabs-nav-item" id="sentries_tab"><a href="#sentries" title="sentries">Sentries</a></li>
     <li class="ui-tabs-nav-item"><a href="#files" title="files">Files</a></li>
   </ul>
   
@@ -99,5 +99,9 @@
     })
     // Change submit url
   	$("#new_ticket form").attr("action", "/devices/"+<%= @device.id %>+"/tickets/");
+    // change sentries tab color based on device health
+    <% if !@device.healthy? %>
+      $("table#device_details").css({'background-color':'#fbfbfb'});
+    <% end %>
   });
 </script>

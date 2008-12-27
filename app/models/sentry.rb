@@ -8,8 +8,8 @@ class Sentry < ActiveRecord::Base
     StatusLang.run(self.id, self.goggle.script) ? true : false
   end
   
-  def notify!(message=nil)
-    NotificationQueue.create(:message => message, :schedule_id => self.schedule_id)
+  def notify!(subject, message=nil)
+    NotificationMailer.deliver_notification(subject, message, self.schedule)
   end
   
   def to_json(options={})

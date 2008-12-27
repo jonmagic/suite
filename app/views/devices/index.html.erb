@@ -1,13 +1,21 @@
 <div id="content_search">
   <div id="applesearch"><form onsubmit="return false"><span class="sbox_l"></span><span class="sbox"><input type="search" id="srch_fld" placeholder="Search..." autosave="applestyle_srch" results="5" onkeyup="" /></span><span class="sbox_r" id="srch_clear"></span> <input id="srch_button" name="commit" type="submit" value="Search" onclick="" /></form></div>
 </div>
-<div id="tickets" class="hide">
+<div id="tickets">
   <table class="itu">
     <thead>
       <tr><th class="first">Service Tag</th><th>Name</th><th>Client</th><th>Created On</th><th>Updated On</th></tr>
     </thead>
     <tbody>
-      
+      <% @devices.each do |device| %>
+        <tr>
+          <td><a href="/devices/<%= device.id %>"><%= device.service_tag %></a></td>
+          <td><a href="/devices/<%= device.id %>"><%= device.name %></a></td>
+          <td><a href="/devices/<%= device.id %>"><%= device.client.fullname %></a></td>
+          <td><a href="/devices/<%= device.id %>"><%= device.created_at.strftime('%A, %b %d %Y') %></a></td>
+          <td><a href="/devices/<%= device.id %>"><%= device.updated_at.strftime('%A, %b %d %Y') %></a></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>
@@ -15,7 +23,11 @@
 <script>
   $(document).ready(function() {
     // make sidebar item appear selected
-    $("#sidebar li a.search").parent().addClass("selected");
+    <% if @devices.length == 0 %>
+      $("#sidebar li a.search").parent().addClass("selected");
+    <% else %>
+      $("#sidebar li a.in_trouble").parent().addClass("selected");
+    <% end %>
     // setup search functionality
     $("#content_search input[type=submit]").bind("click", function(){
       $("div#tickets").slideDown(1500);

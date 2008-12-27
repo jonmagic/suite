@@ -52,6 +52,25 @@ class Device < ActiveRecord::Base
     super(options.merge(:methods => :client_name))
   end
   
+  def healthy?
+    state = 0
+    self.sentries.each do |sentry|
+      if sentry.state == false
+        state += 1
+      end
+    end
+    state == 0 ? true : false
+  end
+  
+  def self.find_all_in_trouble
+    all_devices = Device.find(:all)
+    devices_in_trouble = []
+    all_devices.each do |device|
+      !device.healthy? ? devices_in_trouble << device : false
+    end
+    return devices_in_trouble
+  end
+  
   def generate
     sma_dir = RAILS_ROOT+"/lib/sma/"
     devices_dir = sma_dir+"devices/"

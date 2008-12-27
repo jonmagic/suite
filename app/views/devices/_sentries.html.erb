@@ -28,7 +28,7 @@
   <h3>Sentries for this Device</h3>
   <table class="itu">
     <tr>
-      <th>ID</th><th>Last Message</th><th>State</th><th>Last Checked</th>
+      <th>ID</th><th>Last Message</th><th>State</th><th>Last Checked</th><th>Last Notified</th>
     </tr>
     <% @device.sentries.each do |sentry| %>
       <tr alt="<%= sentry.message %>" id="sentry_<%= sentry.id %>">
@@ -36,6 +36,7 @@
         <td><a href="#"><%= sentry.message %></a></td>
         <td><a href="#"><%= sentry_state(sentry) %></a></td>
         <td><a href="#"><%= sentry.last_surveyed_at ? sentry.last_surveyed_at.strftime("%H:%M, %x") : "" %></a></td>
+        <td><a href="#"><%= sentry.last_notified_at ? sentry.last_notified_at.strftime("%H:%M, %x") : "" %></a></td>
       </tr>
     <% end %>
   </table>

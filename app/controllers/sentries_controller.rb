@@ -18,7 +18,7 @@ class SentriesController < ApplicationController
   end
 
   def create
-    @sentry = Sentry.nfew(params[:sentry])
+    @sentry = Sentry.new(params[:sentry])
     if @sentry.save
       flash[:notice] = "Sentry created successfully."
       redirect_to :back

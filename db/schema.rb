@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20081212174923) do
 
   create_table "goggles", :force => true do |t|
     t.string "name"
+    t.string "module"
     t.string "script"
     t.text   "note"
   end
@@ -136,6 +137,7 @@ ActiveRecord::Schema.define(:version => 20081212174923) do
   create_table "notification_queues", :force => true do |t|
     t.text    "message"
     t.integer "schedule_id"
+    t.string  "subject"
   end
 
   create_table "passwords", :force => true do |t|
@@ -190,16 +192,17 @@ ActiveRecord::Schema.define(:version => 20081212174923) do
     t.boolean  "state"
     t.text     "message"
     t.integer  "device_id"
-    t.string   "goggle_parameters"
+    t.string   "parameters"
     t.datetime "last_surveyed_at"
-    t.integer  "survey_interval"
-    t.integer  "notifications_to_send"
-    t.integer  "maximum_notify_frequency"
-    t.integer  "notifications_sent"
+    t.integer  "survey_interval",          :default => 5,  :null => false
+    t.integer  "notifications_to_send",    :default => 5,  :null => false
+    t.integer  "maximum_notify_frequency", :default => 15, :null => false
+    t.integer  "notifications_sent",       :default => 0,  :null => false
     t.integer  "schedule_id"
     t.integer  "goggle_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_notified_at"
   end
 
   create_table "sessions", :force => true do |t|

@@ -3,6 +3,7 @@ class CreateNotificationQueues < ActiveRecord::Migration
     create_table :notification_queues do |t|
       t.text :message
       t.integer :schedule_id
+      t.string :subject
     end
   end
 

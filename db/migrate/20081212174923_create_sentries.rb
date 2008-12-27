@@ -6,15 +6,14 @@ class CreateSentries < ActiveRecord::Migration
       t.integer :device_id
       t.string :parameters
       t.datetime :last_surveyed_at
-      t.integer :survey_interval
-      t.integer :notifications_to_send
-      t.integer :maximum_notify_frequency
-      t.integer :notifications_sent
-      t.datetime :last_notified_at
+      t.integer :survey_interval, :default => 5, :null => false
+      t.integer :notifications_to_send, :default => 5, :null => false
+      t.integer :maximum_notify_frequency, :default => 15, :null => false
+      t.integer :notifications_sent, :default => 0, :null => false
       t.integer :schedule_id
       t.integer :goggle_id
-
       t.timestamps
+      t.datetime :last_notified_at
     end
   end
 
