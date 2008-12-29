@@ -6,6 +6,10 @@ class Event < ActiveRecord::Base
   end
   alias :have :has
   
+  def to_time
+    self.message.to_time
+  end
+  
   def message
     self.data
   end
