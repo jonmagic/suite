@@ -7,7 +7,11 @@ class Event < ActiveRecord::Base
   alias :have :has
   
   def to_time
-    self.message.to_time
+    if !self.message.blank?
+      self.message.to_time
+    else
+      ""
+    end
   end
   
   def message
