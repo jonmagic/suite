@@ -14,7 +14,7 @@ class ClientsController < ApplicationController
   
   def search
     if !params[:q].blank?
-      params[:q] = params[:q].gsub(/517/, "")
+      params[:q].gsub!(/^517/, "")
       @clients = Client.search(params[:q], :limit => 100, :include => [:phones])
     else
       @clients = []
