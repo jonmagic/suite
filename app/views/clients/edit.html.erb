@@ -1,11 +1,12 @@
-<h2 alt="<%= @client.id %>" edit="edit"><%= @client.fullname %></h2>
+<div id="client">
+  <h2 alt="<%= @client.id %>" edit="edit"><%= @client.fullname %></h2>
 
-<div id="client_content">
-  <ul>
-    <li class="ui-tabs-nav-item"><a href="#edit" title="details">Edit</a></li>
-  </ul>
-  <div id="edit">
-    <%= render :partial => 'form' %>
+  <div id="client_content">
+    <ul>
+      <li class="ui-tabs-nav-item"><a href="#edit" title="details">Edit</a></li>
+    </ul>
+    <div id="edit">
+      <%= render :partial => 'form' %>
+    </div>
   </div>
 </div>
-

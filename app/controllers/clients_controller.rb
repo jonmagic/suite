@@ -14,11 +14,13 @@ class ClientsController < ApplicationController
   
   def search
     if !params[:q].blank?
-      @clients = Client.search(params[:q], :limit => 100, :only => [:firstname, :lastname, :name])
+      params[:q] = params[:q].gsub(/517/, "")
+      @clients = Client.search(params[:q], :limit => 100, :include => [:phones])
     else
       @clients = []
     end
     respond_to do |format|
+      format.html
       format.xml  { render :xml => @clients }
       format.json  { render :json => @clients }
     end

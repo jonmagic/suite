@@ -1,39 +1,41 @@
-<div class="mugshot"><%= image_tag @client.mugshot.url(:avatar) %></div>
-<h2 class="fullname" title="<%= @client.fullname %>" alt="<%= @client.id %>"><%= @client.fullname %></h2>
-<h3 class="company_name"><%= @client.company_name %></h3>
+<div id="client">
+  <div class="mugshot"><%= image_tag @client.mugshot.url(:avatar) %></div>
+  <h2 class="fullname" title="<%= @client.fullname %>" alt="<%= @client.id %>"><%= @client.fullname %></h2>
+  <h3 class="company_name"><%= @client.company_name %></h3>
 
-<div id="client_content">
-  <ul>
-    <li class="ui-tabs-nav-item"><a href="#details" title="details">Details</a></li>
-    <li class="ui-tabs-nav-item"><a href="#notes" title="notes">Notes</a></li>
-    <li class="ui-tabs-nav-item"><a href="#tickets" title="tickets">Tickets</a></li>
-    <li class="ui-tabs-nav-item"><a href="#devices" title="devices">Devices</a></li>
-    <li class="ui-tabs-nav-item"><a href="#files" title="files">Files</a></li>
-    <li class="ui-tabs-nav-item"><a href="#dialup" title="files">Dialup</a></li>
-    <% if not_a_user(@client) %><li class="ui-tabs-nav-item"><a href="/clients/<%= @client.id %>/users/new" title="#newaccount">Invite</a></li><% end %>
-    <% if my_account(@client) %><li class="ui-tabs-nav-item"><a href="/users/<%= current_user.id %>" title="#myaccount">My Account</a></li><% end %>
-  </ul>
-  <%= render :partial => 'notes', :locals => {:client => @client} %>  
-  <%= render :partial => 'details', :locals => {:client => @client} %>
-  <%= render :partial => 'tickets', :locals => {:client => @client} %>
-  <%= render :partial => 'devices', :locals => {:client => @client} %>
-  <%= render :partial => 'things', :locals => {:client => @client} %>
-  <%= render :partial => 'dialup', :locals => {:client => @client} %>
+  <div id="client_content">
+    <ul>
+      <li class="ui-tabs-nav-item"><a href="#details" title="details">Details</a></li>
+      <li class="ui-tabs-nav-item"><a href="#notes" title="notes">Notes</a></li>
+      <li class="ui-tabs-nav-item"><a href="#tickets" title="tickets">Tickets</a></li>
+      <li class="ui-tabs-nav-item"><a href="#devices" title="devices">Devices</a></li>
+      <li class="ui-tabs-nav-item"><a href="#files" title="files">Files</a></li>
+      <li class="ui-tabs-nav-item"><a href="#dialup" title="files">Dialup</a></li>
+      <% if not_a_user(@client) %><li class="ui-tabs-nav-item"><a href="/clients/<%= @client.id %>/users/new" title="#newaccount">Invite</a></li><% end %>
+      <% if my_account(@client) %><li class="ui-tabs-nav-item"><a href="/users/<%= current_user.id %>" title="#myaccount">My Account</a></li><% end %>
+    </ul>
+    <%= render :partial => 'notes', :locals => {:client => @client} %>  
+    <%= render :partial => 'details', :locals => {:client => @client} %>
+    <%= render :partial => 'tickets', :locals => {:client => @client} %>
+    <%= render :partial => 'devices', :locals => {:client => @client} %>
+    <%= render :partial => 'things', :locals => {:client => @client} %>
+    <%= render :partial => 'dialup', :locals => {:client => @client} %>
+  </div>
 </div>
 
-<script>
-  $(document).ready(function() {
-    // add edit button to footer
-    $("#footer div.col2").append("<a href='/clients/"+<%= @client.id %>+"/edit' class='edit_client'>Edit</a>");
-    // setup new ticket
-    $("#tickets a.new_ticket").bind("click", function(){
-      $("#new_ticket").slideDown(500);
-    })
-    // setup new device
-    $("a.new_device").bind("click", function(){
-      $("#new_device_form").slideDown(500);
+  <script>
+    $(document).ready(function() {
+      // add edit button to footer
+      $("#footer div.col2").append("<a href='/clients/"+<%= @client.id %>+"/edit' class='edit_client'>Edit</a>");
+      // setup new ticket
+      $("#tickets a.new_ticket").bind("click", function(){
+        $("#new_ticket").slideDown(500);
+      })
+      // setup new device
+      $("a.new_device").bind("click", function(){
+        $("#new_device_form").slideDown(500);
+      });
+      // Change submit url
+    	$("form#new_device").attr("action", "/devices/");
     });
-    // Change submit url
-  	$("form#new_device").attr("action", "/devices/");
-  });
-</script>
+  </script>

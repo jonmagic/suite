@@ -1,0 +1,18 @@
+<div id="clients">
+  <table class="itu">
+    <thead>
+      <tr><th class="first">Id</th><th>Name</th><th>Phone</th><th>Email</th><th>Address</th></tr>
+    </thead>
+    <tbody>
+      <% @clients.each do |client|  %>
+        <tr class="client" title="<%= "#{client.name}" %>" alt="<%= client.id %>">
+          <td class="first"><a href="/clients/<%= client.id %>"><%= client.id %></a></td>
+          <td><a href="/clients/<%= client.id %>"><%= client.fullname %></a></td>
+          <td><a href="/clients/<%= client.id %>"><%= client.primary_phone %></a></td>
+          <td><a href="/clients/<%= client.id %>"><%= client.primary_email %></a></td>
+          <td><a href="/clients/<%= client.id %>"><%= client.primary_address %></a></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
