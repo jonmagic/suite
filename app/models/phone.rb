@@ -4,6 +4,6 @@ class Phone < ActiveRecord::Base
   before_save :strip_hyphens
   
   def strip_hyphens
-    self.number.gsub!(/-/, "")
+    self.number.gsub!(/[\(\)\s-]/, "")
   end
 end
