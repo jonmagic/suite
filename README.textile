@@ -15,3 +15,8 @@ Currently Suite is only being used by my small company "SabreTech Consulting LLC
 h3. Oh yeah, just one more thing
 
 I've added monitoring support with custom built installers for windows pc's... its pretty slick really
+
+bugs:
+- parts field is a string instead of text
+- fix monitor emails so they are more descriptive
+- 

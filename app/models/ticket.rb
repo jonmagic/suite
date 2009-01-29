@@ -62,7 +62,7 @@ class Ticket < ActiveRecord::Base
     if scope == "user" || status == nil
       conditions[:user_id] = user.id
     end
-    self.find(:all, :conditions => conditions, :limit => 100)
+    self.find(:all, :conditions => conditions)
   end
   
   def self.totals(user)
