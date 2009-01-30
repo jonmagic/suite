@@ -3,18 +3,35 @@ class Report::TimeSheetController < ApplicationController
   layout 'reports'
   
   def index
-    if params[:start_date] && params[:end_date] && params[:technician]
+    if params[:start_date] && params[:end_date]
       start_date = params[:start_date] + " 00:00:00"
       end_date = params[:end_date] + " 23:59:59"
-      @total = 0.0
-      entries = TicketEntry.find(:all, :conditions => {:creator_id => params[:technician], :billable => true, :created_at.gte => start_date, :created_at.lte => end_date})
+      entries = TicketEntry.find(:all, :conditions => {:created_at.gte => start_date, :created_at.lte => end_date, :time.gt => 0})
+      technicians = Hash.new {|h,k| h[k] = {:name => User.find(k).name, :onsite => 0.0, :instore => 0.0, :remote => 0.0, :system_build => 0.0, :billable => 0.0, :non_billable => 0.0}}
       entries.each do |entry|
-        @total += entry.time
+        if entry.labor_type == "Onsite"
+          technicians[entry.creator_id][:onsite] += entry.time
+        elsif entry.labor_type == "Instore"
+          technicians[entry.creator_id][:instore] += entry.time
+        elsif entry.labor_type == "Remote"
+          technicians[entry.creator_id][:remote] += entry.time
+        elsif entry.labor_type == "System Build"
+          technicians[entry.creator_id][:system_build] += entry.time
+        end
+        if entry.billable == true
+          technicians[entry.creator_id][:billable] += entry.time
+        else
+          technicians[entry.creator_id][:non_billable] += entry.time
+        end
       end
-      @total = @total/60
+      @technicians = []
+      technicians.each do |k, v|
+        @technicians << v
+      end
     end
   end
   
   def show
   end
+  
 end
