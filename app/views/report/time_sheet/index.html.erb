@@ -2,9 +2,9 @@
   <% form_tag "/report/time_sheet", :method => "get" do %>
     <p>
       <label>Start Date:</label>
-      <%= text_field_tag :start_date %>
+      <%= text_field_tag :start_date, @start_date %>
       <label>End Date:</label>
-      <%= text_field_tag :end_date %>
+      <%= text_field_tag :end_date, @end_date %>
       <%= submit_tag "Run report" %>
     </p>
   <% end %>

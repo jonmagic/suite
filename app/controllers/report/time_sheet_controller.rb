@@ -24,10 +24,9 @@ class Report::TimeSheetController < ApplicationController
           technicians[entry.creator_id][:non_billable] += entry.time
         end
       end
-      @technicians = []
-      technicians.each do |k, v|
-        @technicians << v
-      end
+      @technicians = technicians.values
+      @start_date = params[:start_date]
+      @end_date = params[:end_date]
     end
   end
   
