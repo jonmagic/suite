@@ -40,6 +40,7 @@ ActionController::Routing::Routes.draw do |map|
     sentry.resources :events
   end
   map.resources :settings
+  map.resources :reports
   map.resources :things
   map.resources :checklists
   map.resources :checklist_templates
@@ -69,6 +70,11 @@ ActionController::Routing::Routes.draw do |map|
       device.resources :tickets
     end
     iphone.root :controller => 'clients', :action => 'home'
+  end
+  
+  # report routes
+  map.namespace :report do |report|
+    report.resources :time_sheet
   end
   
   # Home Page

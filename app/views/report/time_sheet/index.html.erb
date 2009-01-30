@@ -1,0 +1,27 @@
+<% form_tag "/report/time_sheet", :method => "get" do %>
+  <p>
+    <label>Start Date:</label>
+    <%= text_field_tag :start_date %>
+  </p>
+  <p>
+    <label>End Date:</label>
+    <%= text_field_tag :end_date %>
+  </p>
+  <p>
+    <label>Technician</label>
+    <%= select_tag :technician, options_for_select(User.find(:all).collect {|c| [c.name, c.id]}, 2) %>
+  </p>
+  <%= submit_tag "Run report" %>
+<% end %>
+
+<% if @total %>
+  <h3>Time Billed: <%= @total %></h3>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    // create datepicker widget
+    $("#start_date").datepicker();
+    $("#end_date").datepicker();
+	});
+</script>

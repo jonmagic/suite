@@ -7,12 +7,12 @@
     <%= javascript_include_tag "jquery", "jquery-ui" %>
     <%= javascript_include_tag "jquery.metadata", "quicksilver", "jquery.quickselect", "strftime" %>
     <%= javascript_include_tag "common", "devices" %>
-		<%= stylesheet_link_tag "blueprint/screen", "jquery-theme", "common", "devices", :media => "screen", :cache => "devices-css-combined" %>
+		<%= stylesheet_link_tag "blueprint/screen", "jquery-theme", "common", "settings", :media => "screen", :cache => "devices-css-combined" %>
     <!--[if IE]><link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
   </head>
   <body>
     <div id="header">
-      <h1 class="hide">Track Devices</h1>
+      <h1 class="hide">Reports</h1>
       <ul>
         <li><a href="/clients">Clients</a></li>
         <li><a href="/tickets">Tickets</a></li>
@@ -25,10 +25,9 @@
     
     
     <div id="sidebar" class="sidebar-list">
-      <h2>Devices</h2>
-      <ul id="devices" class="itu">
-        <li><a href="/devices" class="search">Search</a></li>
-        <li><a href="/devices/?status=down" class="in_trouble">Devices Down</a></li>        
+      <h2>Settings</h2>
+      <ul id="configuration" class="itu">
+        <li><a href="/report/time_sheet" class="">Time Sheet</a></li>
       </ul>
     </div>
     <div id="center" class="container">
@@ -37,7 +36,6 @@
     
     <div id="footer">
       <div class="col1">
-        <%= link_to "New", "/devices/new" %>
       </div>
       <div class="col2"></div>
       <div class="col3">
