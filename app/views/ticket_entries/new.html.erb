@@ -8,7 +8,7 @@
     </tr>
     <tr>
       <td class="first">Time Spent</td><td><%= f.text_field :time, :title => "minutes", :class => "short_field" %></td>
-      <td class="first">Labor Type</td><td><%= f.select :labor_type, ["Onsite", "Instore", "Remote", "System Build", "Programming", "Warranty"], :include_blank => true %></td>
+      <td class="first">Labor Type</td><td><%= f.select :labor_type, ["Onsite", "Instore", "Remote", "System Build", "Warranty"], :include_blank => true %></td>
       <td class="first">Drive Time</td><td><%= f.text_field :drive_time, :title => "minutes", :class => "short_field" %></td>
     </tr>
   </table>
