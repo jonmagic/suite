@@ -3,3 +3,4 @@
   <%= render :partial => 'form' %>
 </div>
 
+<p><b>>></b> <%= link_to "Delete this device, #{@device.identifier}.", url_for(@device), :confirm => "Are you sure you want to delete this Device?", :method => :delete %></p>
