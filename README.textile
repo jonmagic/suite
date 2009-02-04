@@ -18,5 +18,4 @@ I've added monitoring support with custom built installers for windows pc's... i
 
 bugs:
 - parts field is a string instead of text
-- fix monitor emails so they are more descriptive
-- 
+- add drive time field to ticket entries

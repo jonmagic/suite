@@ -4,6 +4,7 @@ a {text-decoration:none;color:#000;} /* make all my links black with no underlin
 .hide {display:none;} /* just add this class to an element to hide it */
 .remove-margins-padding {padding:0px;margin:0px;}
 .blur {color:#ccc;}
+input.short_field {width:80px;}
 
 /* flash messages */
 #header div.flash {position:fixed;top:1em;right:1em;z-index:0;text-align:right;font-size:1.2em;color:#555;}
