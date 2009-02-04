@@ -37,7 +37,7 @@ def watch!
               loggit! "FAILURE #{sentry.device.service_tag} / Sentry ##{sentry.id.to_s} #{sentry.goggle.name}"
               sentry.state = false
               if sentry.last_notified_at.nil? || (sentry.notifications_sent < sentry.notifications_to_send && Time.now > sentry.last_notified_at.to_time + sentry.maximum_notify_frequency*60)
-                if sentry.notify!("#{sentry.device.service_tag} / Sentry ##{sentry.id.to_s} #{sentry.goggle.name} failed", "I'm failing miserably :-(")
+                if sentry.notify!("#{sentry.device.identifier} / #{sentry.goggle.name} failed", "I'm failing miserably :-(")
                   sentry.last_notified_at = Time.now
                   sentry.notifications_sent += 1
                   loggit! "  ->  NOTIFIED"
@@ -50,7 +50,7 @@ def watch!
             STDERR << loggit!("ERROR - (#{sentry.device.service_tag} / #{sentry.goggle.name}): #{e}")
             if sentry.last_notified_at.nil? || (sentry.notifications_sent < sentry.notifications_to_send && Time.now > sentry.last_notified_at.to_time + sentry.maximum_notify_frequency*60)
               loggit! "  ->  NOTIFIED of ERROR"
-              sentry.last_notified_at = Time.now if sentry.notify!("#{sentry.device.service_tag} / Sentry ##{sentry.id.to_s} #{sentry.goggle.name} errored: #{e}", "I have failed...")
+              sentry.last_notified_at = Time.now if sentry.notify!("#{sentry.device.identifier} / #{sentry.goggle.name} errored: #{e}", "programming issue present...")
             end
           ensure
             sentry.last_surveyed_at = Time.now
@@ -59,7 +59,7 @@ def watch!
         end
       rescue => e
         STDERR << loggit!("ERROR - Was going to cause exit on Sentry #{sentry.device.service_tag}! Error: #{e}")
-        sentry.notify!("#{sentry.device.service_tag} / Sentry ##{sentry.id.to_s} #{sentry.goggle.name} Exit-causing error: #{e}")
+        sentry.notify!("#{sentry.device.identifier} / #{sentry.goggle.name} Exit-causing error: #{e}")
       end
     end
   end

@@ -62,6 +62,14 @@ class Device < ActiveRecord::Base
     state == 0 ? true : false
   end
   
+  def identifier
+    if !self.name.blank?
+      return self.name
+    else
+      return self.service_tag
+    end
+  end
+  
   def self.find_all_in_trouble
     all_devices = Device.find(:all)
     devices_in_trouble = []
