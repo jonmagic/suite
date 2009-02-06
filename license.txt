@@ -1,0 +1,5 @@
+Suite is released under the Mozilla Public License. Original Contributors are Jonathan Hoyt and Daniel Parker.
+
+MPL docs http://www.mozilla.org/MPL/
+Jonathan Hoyt http://jonmagic.com
+Daniel Parker http://behindlogic.com

@@ -4,7 +4,7 @@ Suite is software for small service based businesses. The workflow in Suite is f
 
 For questions on how to get Suite up and running from scratch, for now just email me jonmagic at gmail dot com. I'm going to be putting together a little INSTALL.textile at some point with step by step instructions. The sooner you bug me for it, the sooner it will get done :-)
 
-h2. One more thing
+h2. Project Tracking
 
 We're using Lighthouse for tracking issues, features requests, and milestones. So if you are interested in this project, and moving it forward, please visit:
 
@@ -15,7 +15,3 @@ Currently Suite is only being used by my small company "SabreTech Consulting LLC
 h3. Oh yeah, just one more thing
 
 I've added monitoring support with custom built installers for windows pc's... its pretty slick really
-
-bugs:
-- parts field is a string instead of text
-- add drive time field to ticket entries
