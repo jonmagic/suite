@@ -20,7 +20,7 @@ module StatusLang
 
     def posts
       if @options[:after]
-        Event.find(:all, :conditions => {:recordable_type => "Sentry", :recordable_id => @sentry_id, :created_at.gte => @options[:after] + 4.hours})
+        Event.find(:all, :conditions => {:recordable_type => "Sentry", :recordable_id => @sentry_id, :created_at.gte => @options[:after].utc})
       elsif @options[:limit]
         Event.find(:all, :conditions => {:recordable_type => "Sentry", :recordable_id => @sentry_id}, :limit => @options[:limit])
       end
