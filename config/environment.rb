@@ -66,10 +66,13 @@ Rails::Initializer.run do |config|
   config.active_record.observers = :user_observer
   
   config.gem 'googlebase', :lib => 'google/base', :version => '0.2.1'
-  config.gem 'json'
   config.gem 'paperclip'
-  require 'redcloth'
-  require 'days_and_times'
+  config.gem "thoughtbot-factory_girl",
+               :lib    => "factory_girl",
+               :source => "http://gems.github.com"
+  config.gem "jnunemaker-httparty", :lib => 'httparty'
+  config.gem "RedCloth", :lib => "redcloth"
+  config.gem "dcparker-days_and_times", :lib => 'days_and_times'
   require 'lib/search.rb'
   require 'lib/statuslang.rb'
 end
