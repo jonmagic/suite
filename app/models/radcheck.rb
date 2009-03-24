@@ -1,5 +1,5 @@
 class Radcheck < ActiveRecord::Base
-  use_db :prefix => "freeradius_"
+  establish_connection "freeradius_#{Rails.env}"
   set_table_name "radcheck"
   
   belongs_to :client

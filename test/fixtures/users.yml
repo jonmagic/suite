@@ -1,0 +1,40 @@
+quentin:
+  id:                        1
+  email:                     quentin@example.com
+  name:                      Quentin
+  salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  crypted_password:          234dc8b30f5473f155f86caa9749d4ce9404a737 # 'monkey'
+  created_at:                <%= 5.days.ago.to_s :db  %>
+  remember_token_expires_at: <%= 1.days.from_now.to_s %>
+  remember_token:            77de68daecd823babbb58edb1c8e14d7106e83bb
+  client_id:                 <% @client = Factory.create(:client) %> <%= @client.id %>
+      
+aaron:
+  id:                        2
+  email:                     aaron@example.com
+  name:                      Aaron
+  salt:                      da4b9237bacccdf19c0760cab7aec4a8359010b0 # SHA1('1')
+  crypted_password:          7434208ecc80ce75d3c8c53ad7eb328195fcd20e # 'monkey'
+  created_at:                <%= 1.days.ago.to_s :db %>
+  remember_token_expires_at: 
+  remember_token:            
+
+
+old_password_holder:
+  id:                        3
+  email:                     salty_dog@example.com
+  name:                      Salty Dog
+  salt:                      7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password:          00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at:                <%= 1.days.ago.to_s :db %>
+
+
+
+admin:
+  id: 4
+  email: admin@example.com
+  name: Big Bad Admin
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  # activation_code: adminscode # only if you're activating new signups
+  created_at: <%= 1.days.ago.to_s :db %>
