@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   
   # Relationships
   has_and_belongs_to_many :roles
-  has_one :client
+  belongs_to :client
   has_many :schedules
   
   has_attached_file :avatar, 

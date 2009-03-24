@@ -1,6 +1,6 @@
 class Client < ActiveRecord::Base
   
-  belongs_to :user
+  has_one :user
   
   has_attached_file :mugshot, 
                     :styles => { :medium => "400x300>",
@@ -19,6 +19,14 @@ class Client < ActiveRecord::Base
   validates_associated :phones, :emails, :addresses
   
   after_update :save_phones, :save_emails, :save_addresses
+  
+  validate :validates_has_a_name
+
+  def validates_has_a_name
+    if name.blank? && firstname.blank? && lastname.blank?
+      errors.add_to_base('Client needs at least a firstname, or a lastname, or a company name')
+    end
+  end
   
   def to_json(options={})
     super(options.merge(:methods => :lastfirst))
@@ -86,7 +94,7 @@ class Client < ActiveRecord::Base
       address.save(false)
     end
   end
-  
+
   def company_name
     if self.belongs_to != nil
       company = Client.find(self.belongs_to)
@@ -99,19 +107,27 @@ class Client < ActiveRecord::Base
   def fullname
     if self.company == true
       return self.name
-    elsif self.firstname != nil || self.lastname != nil
+    elsif !self.firstname.blank? && !self.lastname.blank?
       return "#{self.firstname} #{self.lastname}"
     else
-      return "#{self.firstname}"
+      return self.somename
     end
   end
   
   def lastfirst
     if self.company == true
       return self.name
-    elsif self.firstname != nil || self.lastname != nil
+    elsif !self.firstname.blank? && !self.lastname.blank?
       return "#{self.lastname}, #{self.firstname}"
     else
+      return self.somename
+    end
+  end
+  
+  def somename
+    if self.firstname.blank? && !self.lastname.blank?
+      return "#{self.lastname}"
+    elsif !self.firstname.blank? && self.lastname.blank?
       return "#{self.firstname}"
     end
   end
@@ -137,13 +153,4 @@ class Client < ActiveRecord::Base
   def open_tickets
     Ticket.find(:all, :conditions => {:archived_on => nil, :client_id => self.id})
   end
-  
-  def active_dialup_user?
-    if self.radcheck && self.radcheck.value[0..8] != "disabled_"
-      return true
-    else
-      return false
-    end
-  end
-
 end
