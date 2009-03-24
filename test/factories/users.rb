@@ -8,3 +8,8 @@ Factory.define :user do |f|
   f.remember_token "77de68daecd823babbb58edb1c8e14d7106e83bb"
   f.association :client
 end
+
+Factory.define :george, :parent => :user do |f|
+  f.email "george@example.com"
+  f.name "George Jones"
+end

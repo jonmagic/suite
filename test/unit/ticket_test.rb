@@ -53,7 +53,8 @@ class TicketTest < ActiveSupport::TestCase
   
   context "ticket#technician" do
     should "return the ticket user" do
-      ticket = Factory.create(:ticket)
+      user = Factory.create(:user)
+      ticket = Factory.create(:ticket, :user_id => user.id)
       assert_equal ticket.technician.name, ticket.user.name
     end
   end
@@ -65,25 +66,22 @@ class TicketTest < ActiveSupport::TestCase
     end
   end
 
-  context "Ticket#limit" do
-    
-  end
-
   context "Ticket#totals" do
     setup do
+      @user = Factory.create(:user)
       (1..2).each do
-        Factory.create(:ticket)
+        Factory.create(:ticket, :user_id => @user.id)
       end
       (1..3).each do
-        Factory.create(:ticket, :active_on => Date.tomorrow)
+        Factory.create(:ticket, :user_id => @user.id, :active_on => Date.tomorrow)
       end
       (1..4).each do
-        Factory.create(:ticket, :completed_on => 2.days.ago)
+        Factory.create(:ticket, :user_id => @user.id, :completed_on => 2.days.ago)
       end
       (1..5).each do
-        Factory.create(:ticket, :archived_on => 5.days.ago)
+        Factory.create(:ticket, :user_id => @user.id, :archived_on => 5.days.ago)
       end
-      @totals = Ticket.totals(User.find(1))
+      @totals = Ticket.totals(@user)
     end
     should "return proper number of open tickets" do
       assert_equal @totals[:open].to_i, 2
@@ -98,8 +96,5 @@ class TicketTest < ActiveSupport::TestCase
       assert_equal @totals[:all].to_i, 9
     end
   end
-  
-  context "ticket#checklists" do
-  end
-  
+
 end

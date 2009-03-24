@@ -7,6 +7,7 @@ class Ticket < ActiveRecord::Base
   has_many :things, :as => :attached, :dependent => :destroy
   
   validates_presence_of :client_id
+  validates_presence_of :creator_id
   validates_presence_of :user_id
   validates_presence_of :description
   
