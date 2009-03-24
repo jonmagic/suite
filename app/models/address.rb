@@ -1,12 +1,15 @@
+require 'lib/google_maps_api.rb'
+
 class Address < ActiveRecord::Base
+  include 
   belongs_to :client
   
   before_save :normalize_address
   
   def normalize_address
-    # puts "normalizing"
     if self.zip == nil
-      if address = getLocation(self.full_address)
+      # normalizing
+      if address = Address.normalize_address(self.full_address)
         address["thoroughfare"] != nil ? self.thoroughfare = address["thoroughfare"] : self.thoroughfare = nil
         address["city"] != nil ? self.city = address["city"] : self.city = nil
         address["state"] != nil ? self.state = address["state"] : self.state = nil
@@ -14,28 +17,18 @@ class Address < ActiveRecord::Base
         # puts "normalized!"
       end
     else
-      # puts "unable to normalize"
+      # unable to normalize
       self.full_address = self.full_address
     end
   end
 
   protected
   
-    def getLocation(address)
-      puts "getting location"
-      key = "ABQIAAAApuX_5BYbKnzmBE3HKXu8yBTJQa0g3IQ9GZqIMmInSLzwtGDKaBT9NkNo6YIUV4Fa6Ff5q37qmXVoMg"
-      output = "json"
-      host = "maps.google.com"
-      address = URI.encode(address)
-      path = "/maps/geo"
-      query = "q=#{address}&output=#{output}&key=#{key}"
-      puts "http://#{host}#{path}?#{query}"
-      uri = URI::HTTP.build({:host => host, :path => path, :query => query})
+    def self.normalize_address(address)
+
+      hash = GoogleMapsAPI.address_lookup(address)
       
-      
-      data = Net::HTTP.get(uri)
-      hash = JSON.parse(data)
-      puts hash.inspect
+      # puts hash.inspect
       
       return false unless hash["Status"]["code"] == 200
             
