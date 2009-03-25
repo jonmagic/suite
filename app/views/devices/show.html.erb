@@ -28,6 +28,7 @@
       <li><a href="javascript:void(0)" class="new_ticket">New Ticket</a></li>
     </ul>
     <div id="new_ticket" class="hide toolbox">
+      <% @client = @device.client %>
       <%= render :partial => 'shared/new_ticket', :locals => {:client => @client} %>
     </div>
     <h3>Tickets Associated With This Device</h3>
