@@ -52,7 +52,7 @@
       <h3>Add A Checklist</h3>
       <div class="ui-tabs-panel-padding">
         <% form_for Checklist.new do |f| -%>
-          <%= f.select :checklist_template_id, ChecklistTemplate.find(:all).collect {|c| [c.name, c.id]} %>
+          <%= f.select :checklist_template_id, ChecklistTemplate.find(:all, :order => "name").collect {|c| [c.name, c.id]} %>
           <%= f.hidden_field :device_id, :value => @device.id %>
           <%= f.submit "Save" %>
         <% end %>

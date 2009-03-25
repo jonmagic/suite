@@ -3,7 +3,7 @@ class ChecklistTemplatesController < ApplicationController
   layout 'settings'
   
   def index
-    @checklists = ChecklistTemplate.find(:all)
+    @checklists = ChecklistTemplate.find(:all, :order => "name")
     
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +14,7 @@ class ChecklistTemplatesController < ApplicationController
   
   def show
     @checklist = ChecklistTemplate.find(params[:id])
-    @device_types = DeviceType.find(:all)
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @checklist }

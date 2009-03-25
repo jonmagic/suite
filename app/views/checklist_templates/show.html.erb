@@ -47,7 +47,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @device_types.each do |device_type| %>
+        <% DeviceType.find(:all, :order => "description").each do |device_type| %>
           <tr>
             <td><%= device_type.identifier %></td>
             <td><%= device_type.description %></td>

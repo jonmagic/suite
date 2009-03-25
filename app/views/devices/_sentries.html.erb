@@ -8,7 +8,7 @@
     <% form_for @device.sentries.new do |f| %>
       <table class="m">
         <tr>
-          <td class="first">Goggle:</td><td><%= f.select :goggle_id, Goggle.find(:all).collect {|c| [c.name, c.id]} %></td>
+          <td class="first">Goggle:</td><td><%= f.select :goggle_id, Goggle.find(:all, :order => "name").collect {|c| [c.name, c.id]} %></td>
           <td class="first">Max # of Notifies:</td><td><%= f.select :notifications_to_send, ["1", "2", "3", "4", "5", "10", "100"] %></td>
         </tr>
         <tr>

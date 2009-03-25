@@ -89,12 +89,12 @@
       $("#add_checklist_form").slideDown(500);
       $("form#new_checklist").attr("action", "/tickets/"+<%= @ticket.id %>+"/checklists/");
     })
-    $("#checklist_checklist_template_id").quickselect({
-  		delay:10,
-  		minChars:1,
-  		match:'quicksilver',
-  		maxItemsToShow:12
-  	});
+    //     $("#checklist_checklist_template_id").quickselect({
+    //  delay:10,
+    //  minChars:1,
+    //  match:'quicksilver',
+    //  maxItemsToShow:12
+    // });
     // add sorting to tables
     // $("table").tablesorter();
     // setup device tab buttons

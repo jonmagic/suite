@@ -3,7 +3,7 @@ class SchedulesController < ApplicationController
   layout "settings"
 
   def index
-    @schedules = Schedule.find(:all)
+    @schedules = Schedule.find(:all, :order => "name")
   end
   
   def new

@@ -3,7 +3,7 @@ class GogglesController < ApplicationController
   layout "settings"
 
   def index
-    @goggles = Goggle.find(:all)
+    @goggles = Goggle.find(:all, :order => "name")
   end
   
   def new

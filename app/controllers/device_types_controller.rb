@@ -3,7 +3,7 @@ class DeviceTypesController < ApplicationController
   layout 'settings'
 
   def index
-    @device_types = DeviceType.find(:all)
+    @device_types = DeviceType.find(:all, :order => "description")
   end
   
   def new
