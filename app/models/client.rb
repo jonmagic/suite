@@ -153,4 +153,9 @@ class Client < ActiveRecord::Base
   def open_tickets
     Ticket.find(:all, :conditions => {:archived_on => nil, :client_id => self.id})
   end
+
+  def active_dialup_user?
+    self.radcheck && self.radcheck.value[0..8] != "disabled_"
+  end
+
 end
