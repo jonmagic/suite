@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
   before_filter :load_totals, :except => [:create, :update]
   
   def index
-    @tickets = Ticket.limit(params[:status], params[:scope], current_user, params[:device])
+    @tickets = Ticket.limit(params[:status], current_user, params[:scope])
     
     @tickets = @tickets.sort_by{|ticket| [ticket.status, ticket.id]}
 

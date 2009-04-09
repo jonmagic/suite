@@ -46,7 +46,10 @@ class Ticket < ActiveRecord::Base
     Client.find(self.client_id)
   end
   
-  def self.limit(status, scope, user, device)
+  def self.limit(status, user, scope)
+    if scope == nil
+      scope = user.id
+    end
     future = Date.today + 100.years
     past = Date.today - 100.years
     if status == nil || status == "open"
@@ -60,9 +63,7 @@ class Ticket < ActiveRecord::Base
     elsif status == "all"
       conditions = {:archived_on => nil}
     end
-    if scope == "user" || status == nil
-      conditions[:user_id] = user.id
-    end
+    if scope != "all" then conditions[:user_id] = User.find(scope) end
     self.find(:all, :conditions => conditions)
   end
   

@@ -27,15 +27,20 @@
     <div id="sidebar">
       <h2>Tickets</h2>
       <ul class="m">
-        <li><a href="/tickets/?status=open&scope=user" class="open">Open</a><%= totals_helper(:open) %></li>
-        <li><a href="/tickets/?status=scheduled&scope=user" class="scheduled">Scheduled</a><%= totals_helper(:scheduled) %></li>
-        <li><a href="/tickets/?status=completed&scope=user" class="completed">Completed</a><%= totals_helper(:completed) %></li>
+        <li><a href="/tickets/?status=open" class="open">Open</a><%= totals_helper(:open) %></li>
+        <li><a href="/tickets/?status=scheduled" class="scheduled">Scheduled</a><%= totals_helper(:scheduled) %></li>
+        <li><a href="/tickets/?status=completed" class="completed">Completed</a><%= totals_helper(:completed) %></li>
         <li><a href="/tickets/?status=all" class="all">All</a><%= totals_helper(:all) %></li>                              
         <li><a href="/tickets/?status=archived" class="archived">Archived</a></li>
       </ul>
     </div>
     
     <div id="center">
+      <div id="content_search">
+        <div id="applesearch"><form action="/tickets/search"><span class="sbox_l"></span><span class="sbox"><input type="search" id="srch_fld" name="q" placeholder="Search..." autosave="applestyle_srch" results="5" onkeyup="" /></span><span class="sbox_r" id="srch_clear"></span> <input id="srch_button" name="commit" type="submit" value="Search" onclick="" /></form></div>
+        <% @users = User.find(:all).collect {|c| [c.name, c.id]} %>
+        <div id="user_select"></div>
+      </div>
       <%= yield %>
     </div>
     
@@ -50,3 +55,9 @@
     </div>
   </body>
 </html>
+
+<script>
+  $(document).ready(function() {
+    
+  });
+</script>

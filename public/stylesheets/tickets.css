@@ -15,7 +15,7 @@
 
 /* ticket */
 #ticket {margin:0 1em;padding:1.5em 0 0 0;}
-#ticket table.details {position:absolute;right:1.5em;top:1em;}
+#ticket table.details {position:absolute;right:1.5em;top:3.8em;}
 #ticket div.description {width:50%;min-height:5em;}
 div#ticket_entries {margin:1em;}
 div.ticket_entry {position:relative;border-top:1px solid #ddd;padding:5px;}
