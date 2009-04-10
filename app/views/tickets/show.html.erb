@@ -2,7 +2,7 @@
   <table class="m details">
     <tr><td class="first">Ticket:</td><td><%= @ticket.id %></td></tr>
     <tr><td class="first">Client:</td><td><%= link_to @ticket.client.fullname, "/clients/"+@ticket.client.id.to_s %></td><tr>
-    <tr><td class="first">Technician:</td><td><%= link_to @ticket.technician.name, "/clients/"+@ticket.technician.client_id.to_s %></td></tr>
+    <tr><td class="first">Technician:</td><td><span id="technician"><%= @ticket.technician.name %></span></td></tr>
     <tr><td class="first">Status:</td><td><%= @ticket.status %></td></tr>
   </table>
   <div class="description">
@@ -43,6 +43,31 @@
 
 <script>
   $(document).ready(function() {
+    // Get list of technicians into an array
+    var technicians = new Array();
+    <% User.find(:all, :order => 'updated_at desc').each do |technician| %>
+      tech_id = "<%= technician.id %>"
+      tech_name = "<%= technician.name %>"
+      technicians[tech_id] = tech_name;
+    <% end %>
+    
+    // Setup in place editable fields up top
+    $('#technician').editable( <%= ticket_path(@ticket).to_json %>, {
+      name: 'ticket[user_id]',
+      data: technicians,
+      type: 'select',
+      submit: "Save",
+      display: 'display: inline',
+      method: 'PUT',
+      submitdata: {
+        authenticity_token: <%= form_authenticity_token.to_json %>,
+        wants: 'user_id'
+      },
+      callback: function(){
+        window.location.replace($.url.attr("source"))
+      }
+    });
+    
     // setup my footer buttons
     if(ticket_state() == "open"){
       $("#footer div.col2").append("<a href='/tickets/"+<%= @ticket.id %>+"/edit' class='edit_ticket'>Edit</a>");

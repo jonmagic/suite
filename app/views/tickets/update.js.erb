@@ -1,0 +1,7 @@
+<%=
+    case params[:wants]
+    when 'user_id' then h( @ticket.user_id )
+    when 'client_id' then h( @ticket.client_id )
+    else ''
+    end
+%>

@@ -16,3 +16,53 @@
     </tbody>
   </table>
 </div>
+
+<script>
+  $(document).ready(function() {
+    // Put select box there as long as this isn't a search results or ticket show page
+    if($.url.segment(1)){
+    }else{
+      $('div#user_select').append("<select></select>");
+    };
+    
+    // setup my select box for the technician we're viewing
+    var technicians = new Array();
+    var row = ""
+    var tech_id = ""
+    var tech_name = ""
+    <% User.find(:all, :order => 'updated_at desc').each do |technician| %>
+      tech_id = "<%= technician.id %>"
+      tech_name = "<%= technician.name %>"
+      technicians[tech_id] = tech_name;
+      row = '<option value='+tech_id+'>'+tech_name+'</option>'
+      $('div#user_select select').append(row);
+    <% end %>
+    row = '<option value="all">All</option>'
+    $('div#user_select select').append(row);
+    
+    // Get the scope, set the select box to the correct value
+    var scope = $.url.param("scope");
+    if(scope*1){
+      $("div#user_select select").val(scope);
+    }else if(scope == 'all'){
+      $("div#user_select select").val(scope);
+    }else{
+      $("div#user_select select").val(<% current_user.id %>);
+    };
+    
+    // Update page based on selection
+    var url = $.url.attr("source");
+    url = url.replace(/\/tickets(.*)$/, "/")
+    if($.url.param("status")){
+      var status = $.url.param("status");
+    }else{
+      var status = "open";
+    };
+    $('div#user_select select').change(function(){
+      scope = $(this).val()
+      url = url+"tickets/?status="+status+"&scope="+scope
+      window.location.replace(url);
+    })
+
+  });
+</script>
