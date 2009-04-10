@@ -13,8 +13,6 @@ class Client < ActiveRecord::Base
   has_many :phones, :dependent => :destroy
   has_many :emails, :dependent => :destroy
   has_many :addresses, :dependent => :destroy
-  
-  has_one :radcheck, :dependent => :destroy
 
   validates_associated :phones, :emails, :addresses
   
@@ -152,10 +150,6 @@ class Client < ActiveRecord::Base
   
   def open_tickets
     Ticket.find(:all, :conditions => {:archived_on => nil, :client_id => self.id})
-  end
-
-  def active_dialup_user?
-    self.radcheck && self.radcheck.value[0..8] != "disabled_"
   end
 
 end

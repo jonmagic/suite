@@ -15,7 +15,6 @@
     <li class="ui-tabs-nav-item"><a href="#description" title="description">Description</a></li>
     <li class="ui-tabs-nav-item"><a href="#tickets" title="tickets">Tickets</a></li>
     <li class="ui-tabs-nav-item"><a href="#checklists" title="checklists">Checklists</a></li>
-    <li class="ui-tabs-nav-item" id="sentries_tab"><a href="#sentries" title="sentries">Sentries</a></li>
     <li class="ui-tabs-nav-item"><a href="#files" title="files">Files</a></li>
   </ul>
   
@@ -71,7 +70,6 @@
     </table>
     <div id="checklist" class="hide"></div>
   </div>
-  <%= render :partial => 'sentries', :locals => {:device => @device} %>  
   <%= render :partial => 'things', :locals => {:device => @device} %>
 </div>
 

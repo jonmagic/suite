@@ -46,7 +46,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :checklist_templates
   map.resources :goggles
   map.resources :schedules
-  map.resources :radchecks
   map.resources :sentries
   
   # Custom Routes
