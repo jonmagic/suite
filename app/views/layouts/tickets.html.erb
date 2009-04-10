@@ -39,7 +39,7 @@
       <div id="content_search">
         <div id="applesearch"><form action="/tickets/search"><span class="sbox_l"></span><span class="sbox"><input type="search" id="srch_fld" name="q" placeholder="Search..." autosave="applestyle_srch" results="5" onkeyup="" /></span><span class="sbox_r" id="srch_clear"></span> <input id="srch_button" name="commit" type="submit" value="Search" onclick="" /></form></div>
         <% @users = User.find(:all).collect {|c| [c.name, c.id]} %>
-        <div id="user_select"><select></select></div>
+        <div id="user_select"></div>
       </div>
       <%= yield %>
     </div>
@@ -58,6 +58,11 @@
 
 <script>
   $(document).ready(function() {
+    // Put select box there as long as this isn't a search results or ticket show page
+    if($.url.segment(1)){
+    }else{
+      $('div#user_select').append("<select></select>");
+    };
     
     // setup my select box for the technician we're viewing
     var technicians = new Array();
@@ -87,7 +92,11 @@
     // Update page based on selection
     var url = $.url.attr("source");
     url = url.replace(/\/tickets(.*)$/, "/")
-    var status = $.url.param("status")
+    if($.url.param("status")){
+      var status = $.url.param("status");
+    }else{
+      var status = "open";
+    };
     $('div#user_select select').change(function(){
       scope = $(this).val()
       url = url+"tickets/?status="+status+"&scope="+scope

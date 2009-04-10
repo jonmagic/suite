@@ -67,6 +67,16 @@ class Ticket < ActiveRecord::Base
     self.find(:all, :conditions => conditions)
   end
   
+  def limit(scope)
+    new_array = ()
+    self.each do |ticket|
+      if ticket.user_id == scope
+
+      end
+    end
+    return self
+  end
+  
   def self.totals(user)
     future = Date.today + 100.years
     past = Date.today - 100.years
