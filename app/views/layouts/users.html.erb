@@ -6,9 +6,13 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
     <link rel="apple-touch-icon" href="/images/iui/iui-logo-touch-icon.png" />
     <meta name="apple-touch-fullscreen" content="YES" />
-    <%= stylesheet_link_tag "iui", :media => "screen" %>
+    <% if request.user_agent.include?("iPhone") %>
+      <%= stylesheet_link_tag "iui", :media => "screen" %>
+    <% else %>
+      <%= stylesheet_link_tag "common", "blueprint/screen", :media => "screen" %>
+    <% end %>
 	</head>
-	<body>
+	<body id="login">
     <div class="toolbar">
       <h1 id="pageTitle">Suite</h1>
       <a id="backButton" class="button" href="#"></a>
