@@ -1,10 +1,43 @@
-<div class="toolbar">
-  <h1 id="pageTitle"></h1>
-  <a id="backButton" class="button" href="#">Back</a>
-  <a id="blueButton" class="button" href="/iphone/" target="_self">Home</a>
+<div id="home" selected="true">
+    <div class="toolbar">
+        <h1>Suite</h1>
+    </div>
+    <ul class="edgetoedge">
+        <li><a href="#client_search">Clients</a></li>
+        <li><a href="/iphone/tickets">Tickets</a></li>
+        <li><a href="#device_search">Devices</a></li>
+        <li><a href="/iphone/sentries">Sentries</a></li>
+    </ul>
 </div>
-<ul id="home" title="Suite" selected="true">
-  <li><a href="#_/iphone/clients/">Clients</a></li>
-  <li><a href="#_/iphone/tickets/">Tickets</a></li>
-  <li><a href="#_/iphone/devices/">Devices</a></li>
-</ul>
+
+<% form_tag "/iphone/clients", :method => "get", :class => "panel", :title => "Client Search", :id => "client_search" do %>
+  <div class="toolbar">
+    <h1>Client Search</h1>
+    <a class="back button" href="#home">Home</a>
+  </div>
+  <div class="pad">
+    <fieldset>
+      <div class="row">
+        <label>Name</label>
+        <%= text_field_tag :q %>
+      </div>
+    </fieldset>
+    <input type="submit" />
+  </div>
+<% end %>
+
+<% form_tag "/iphone/devices", :method => "get", :class => "panel", :title => "Device Search", :id => "device_search" do %>
+  <div class="toolbar">
+    <h1>Device Search</h1>
+    <a class="back button" href="#home">Home</a>
+  </div>
+  <div class="pad">
+    <fieldset>
+      <div class="row">
+        <label>Query:</label>
+        <%= text_field_tag :q %>
+      </div>
+    </fieldset>
+  </div>
+  <input type="submit" />
+<% end %>

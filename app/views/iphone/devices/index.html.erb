@@ -1,18 +1,13 @@
-<% if @devices.length == 0 %>
-  <% form_tag "/iphone/devices", :method => "get", :class => "panel", :title => "Search", :selected => "true" do %>
-    <fieldset>
-      <div class="row">
-        <label>Query:</label>
-        <%= text_field_tag :q %>
-      </div>
-    </fieldset>
-    <input name="commit" type="submit" value="Search" />
-  <% end %>
-<% else %>
-  <ul id="searchResults" class="devices" title="Results" selected="true">
+<div id="devices">
+  <div class="toolbar">
+    <h1>Search Results</h1>
+    <a class="back button" href="#device_search">Back</a>
+    <a class="button" id="infoButton" href="#home">Home</a>
+  </div>
+  <ul class="edgetoedge">
     <% @devices.each do |device| %>
       <li>
-        <a href="#_/iphone/devices/<%= device.id %>">
+        <a href="/iphone/devices/<%= device.id %>">
           <span><%= device.service_tag %></span>
           <table>
             <tr><td>Name:</td><td><%= device.name %></td></tr>
@@ -22,4 +17,4 @@
       </li>
     <% end %>
   </ul>
-<% end %>
+</div>

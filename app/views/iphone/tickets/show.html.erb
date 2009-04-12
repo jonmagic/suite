@@ -1,39 +1,46 @@
-<div class="panel ticket" title="Ticket #<%= @ticket.id %>">
-  <h2>Description</h2>
-  <div class="textbox">
-    <%= textile_to_html(@ticket.description) %>
+<div id="ticket" class="panel">
+  <div class="toolbar">
+    <h1>Ticket #<%= @ticket.id %></h1>
+    <a class="back button" href="#">Back</a>
+    <a class="button" href="#">Home</a>
   </div>
-  <h2>Details</h2>
-  <fieldset>
-    <div class="row">
-      <label>Client:</label>
-      <span><a href="#_/iphone/clients/<%= @ticket.client.id %>"><%= @ticket.client.fullname[0..30] %>...</a></span>
+  <div class="pad">
+    <h2>Description</h2>
+    <div class="textbox">
+      <%= textile_to_html(@ticket.description) %>
     </div>
-    <div class="row">
-      <label>Tech:</label>
-      <span><a href="#_/iphone/clients/<%= @ticket.technician.client_id.to_s %>"><%= @ticket.technician.name %></a></span>
-    </div>
-    <div class="row">
-      <label>Status:</label>
-      <span><%= @ticket.status %></span>
-    </div>
-  </fieldset>
-  <h2>Notes</h2>
-  <div class="textbox">
-    <% TicketEntry.find(:all, :conditions => {:ticket_id => @ticket.id, :detail => 1}).each do |entry| %>
-      <div class="ticket_entry">
-        <%= image_tag entry.creator.avatar.url(:avatar) %>
-        <span class="byline"><b><%= entry.creator.name %></b> <%= entry.updated_at.strftime("%H:%M %m/%d/%Y") %></span>
-        <span class="te_details">Time: <b><%= entry.time %>min</b> Type: <b><%= entry.labor_type %></b><br />Billable? <b><%= billable(entry) %></b> Private? <b><%= is_this_private(entry) %></b></span>
-        <div class="te_note"><%= textile_to_html(entry.note) %></div>
-        <% if entry.parts != "" %>
-          <h3 class="te-parts">Parts</h3>
-          <div class="te_parts"><%= textile_to_html(entry.parts) %></div>
-        <% end %>
+    <h2>Details</h2>
+    <fieldset class="ss">
+      <div class="row">
+        <label>Client:</label>
+        <span><a href="/iphone/clients/<%= @ticket.client.id %>"><%= @ticket.client.fullname[0..25] %></a></span>
       </div>
+      <div class="row">
+        <label>Tech:</label>
+        <span><a href="/iphone/clients/<%= @ticket.technician.client_id.to_s %>"><%= @ticket.technician.name %></a></span>
+      </div>
+      <div class="row">
+        <label>Status:</label>
+        <span><%= @ticket.status %></span>
+      </div>
+    </fieldset>
+    <h2>Notes</h2>
+    <div class="textbox">
+      <% TicketEntry.find(:all, :conditions => {:ticket_id => @ticket.id, :detail => 1}).each do |entry| %>
+        <div class="ticket_entry">
+          <%= image_tag entry.creator.avatar.url(:avatar) %>
+          <span class="byline"><b><%= entry.creator.name %></b> <%= entry.updated_at.strftime("%H:%M %m/%d/%Y") %></span>
+          <span class="te_details">Time: <b><%= entry.time %>min</b> Type: <b><%= entry.labor_type %></b><br />Billable? <b><%= billable(entry) %></b> Private? <b><%= is_this_private(entry) %></b></span>
+          <div class="te_note"><%= textile_to_html(entry.note) %></div>
+          <% if entry.parts != "" %>
+            <h3 class="te-parts">Parts</h3>
+            <div class="te_parts"><%= textile_to_html(entry.parts) %></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <% if @ticket.devices.length != 0 %>
+      <a href="/iphone/tickets/<%= @ticket.id %>/devices" class="grayButton">Devices</a>
     <% end %>
   </div>
-  <% if @ticket.devices.length != 0 %>
-    <a href="#_/iphone/tickets/<%= @ticket.id %>/devices" class="grayButton">Devices</a>
-  <% end %>
 </div>

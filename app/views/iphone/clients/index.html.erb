@@ -1,17 +1,12 @@
-<% if @clients.length == 0 %>
-  <% form_tag "/iphone/clients", :method => "get", :class => "panel", :title => "Search", :selected => "true" do %>
-    <fieldset>
-      <div class="row">
-        <label>Name:</label>
-        <%= text_field_tag :q %>
-      </div>
-    </fieldset>
-    <input name="commit" type="submit" value="Search" />
-  <% end %>
-<% else %>
-  <ul id="searchResults" title="Results" selected="true">
+<div id="clients">
+  <div class="toolbar">
+    <h1>Search Results</h1>
+    <a class="back button" href="#client_search">Back</a>
+    <a class="button" id="infoButton" href="#home">Home</a>
+  </div>
+  <ul class="edgetoedge">
     <% @clients.each do |client| %>
-      <li><a href="#_/iphone/clients/<%= client.id %>"><%= client.lastfirst %></a></li>
+      <li><a href="/iphone/clients/<%= client.id %>"><%= client.lastfirst %></a></li>
     <% end %>
   </ul>
-<% end %>
+</div>

@@ -4,7 +4,6 @@ class TicketsController < ApplicationController
   
   def index
     @tickets = Ticket.limit(params[:status], current_user, params[:scope])
-    
     @tickets = @tickets.sort_by{|ticket| [ticket.status, ticket.id]}
 
     respond_to do |format|

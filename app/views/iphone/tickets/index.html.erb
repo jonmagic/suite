@@ -1,23 +1,37 @@
 <% if @tickets.length == 0 %>
-  <ul id="ticketHome" class="tickets" title="Tickets" selected="true">
-    <li><a href="#_/iphone/tickets/?status=open&scope=user">Open Tickets <%= totals_helper(:open) %></a></li>
-    <li><a href="#_/iphone/tickets/?status=scheduled&scope=user">Scheduled Tickets <%= totals_helper(:scheduled) %></a></li>
-    <li><a href="#_/iphone/tickets/?status=completed&scope=user">Completed Tickets <%= totals_helper(:completed) %></a></li>
-    <li><a href="#_/iphone/tickets/?status=all">All Tickets <%= totals_helper(:all) %></a></li>
-  </ul>
-<% else %>
-  <ul id="ticketList" title="<%= params[:status] != nil ? params[:status].capitalize : "Tickets" %>" selected="true">
-    <% @tickets.each do |ticket| %>
-      <li>
-        <a href="#_/iphone/tickets/<%= ticket.id %>">
-          <span><%= ticket.description %></span>
-          <table>
-            <tr><td>Client:</td><td><%= ticket.client.fullname[0..20] %></td></tr>
-            <tr><td>Tech:</td><td><%= ticket.technician.name %></td></tr>
-            <tr><td>Status:</td><td><%= ticket.status %></td></tr>
-          </table>
-        </a>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+  <div id="tickets_by_status">
+    <div class="toolbar">
+      <h1>Tickets</h1>
+      <a class="back button" href="#">Home</a>
+    </div>
+    <ul class="edgetoedge">
+      <li><a href="/iphone/tickets/?status=open">Open Tickets <%= totals_helper(:open) %></a></li>
+      <li><a href="/iphone/tickets/?status=scheduled">Scheduled Tickets <%= totals_helper(:scheduled) %></a></li>
+      <li><a href="/iphone/tickets/?status=completed">Completed Tickets <%= totals_helper(:completed) %></a></li>
+      <li><a href="/iphone/tickets/?status=all&scope=all">All Tickets <%= totals_helper(:all) %></a></li>
+    </ul>
+  </div>
+  <% else %>
+  <div id="tickets">
+    <div class="toolbar">
+      <h1>Tickets</h1>
+      <a class="back button" href="#">Back</a>
+      <a class="button" href="#home">Home</a>
+    </div>
+    <ul class="edgetoedge">
+      <% @tickets.each do |ticket| %>
+        <li>
+          <a href="/iphone/tickets/<%= ticket.id %>">
+            <span class="description"><%= ticket.description %></span>
+            <table>
+              <tr><td>Client:</td><td><%= ticket.client.fullname[0..20] %></td></tr>
+              <tr><td>Tech:</td><td><%= ticket.technician.name %></td></tr>
+              <tr><td>Status:</td><td><%= ticket.status %></td></tr>
+            </table>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>  
+<% end %>  
+

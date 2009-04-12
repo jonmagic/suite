@@ -1,30 +1,37 @@
-<div class="panel device" title="Device">
-  <fieldset>
-    <div class="row">
-      <label>sTag:</label>
-      <span><%= @device.service_tag %></span>
-    </div>
-    <div class="row">
-      <label>Name:</label>
-      <span><%= @device.name %></span>
-    </div>
-    <div class="row">
-      <label>Type:</label>
-      <span><%= @device.device_type.description %></span>
-    </div>
-    <div class="row">
-      <label>Client:</label>
-      <span><a href="#_/iphone/clients/<%= @device.client.id %>"><%= @device.client.fullname[0..20] %>...</a></span>
-    </div>
-  </fieldset>
-  <% if @device.description != nil && @device.description != "" %>
-    <h2>Description</h2>
-    <div class="textbox">
-      <%= textile_to_html(@device.description) %>
-    </div>
-  <% end %>
+<div id="device" class="panel">
+  <div class="toolbar">
+    <h1>Device</h1>
+    <a class="back button" href="#">Back</a>
+    <a class="button" id="infoButton" href="#home">Home</a>
+  </div>
+  <div class="pad">
+    <fieldset class="ss">
+      <div class="row">
+        <label>sTag:</label>
+        <span><%= @device.service_tag %></span>
+      </div>
+      <div class="row">
+        <label>Name:</label>
+        <span><%= @device.name %></span>
+      </div>
+      <div class="row">
+        <label>Type:</label>
+        <span><%= @device.device_type.description %></span>
+      </div>
+      <div class="row">
+        <label>Client:</label>
+        <span><a href="/iphone/clients/<%= @device.client.id %>"><%= @device.client.fullname[0..20] %>...</a></span>
+      </div>
+    </fieldset>
+    <% if @device.description != nil && @device.description != "" %>
+      <h2>Description</h2>
+      <div class="textbox">
+        <%= textile_to_html(@device.description) %>
+      </div>
+    <% end %>
   
-  <% if @device.tickets.length != 0 %>
-    <a href="#_/iphone/devices/<%= @device.id %>/tickets" class="grayButton">Tickets</a>
-  <% end %>
+    <% if @device.tickets.length != 0 %>
+      <a href="/iphone/devices/<%= @device.id %>/tickets" class="grayButton">Tickets</a>
+    <% end %>
+  </div>
 </div>
