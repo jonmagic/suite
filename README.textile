@@ -16,4 +16,4 @@ h3. Oh yeah, just one more thing
 
 I've added monitoring support with custom built installers for windows pc's... its pretty slick really
 
-"test":/suite/READEME.textile
+"test":/jonmagic/suite/READEME.textile
